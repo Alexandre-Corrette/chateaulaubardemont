@@ -1,0 +1,4 @@
+baseURL = 'https://chateaulaubardemont.com/'
+languageCode = 'fr-fr'
+title = 'Chateau Laubardemont'
+theme = 'laubardemont'
