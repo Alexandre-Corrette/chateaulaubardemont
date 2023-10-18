@@ -1,2 +1,6 @@
-<h1>{{ site.Title }}</h1>
-{{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+{{ $logo := resources.Get "images/logo-carre.png"}}
+<div class="logo-container">
+    <img src="{{ $logo.RelPermalink }}" class="nav-logo">
+</div>
+
+{{ partial "menu-construction.html" (dict "menuID" "main" "page" .) }}

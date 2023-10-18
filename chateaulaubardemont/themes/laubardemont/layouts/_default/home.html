@@ -1,7 +1,21 @@
 {{ define "main" }}
-  {{ .Content }}
-  {{ range site.RegularPages }}
-    <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
-    {{ .Summary }}
-  {{ end }}
+
+{{ $insta := .Resources.Get "instagram.png"}}
+
+<div class="homepage-container">
+  <div class="layer">
+    {{ $logo := resources.Get "images/logo-carre.png" }}
+   
+   
+    <img style="width:30%; height: auto;" src=" {{ $logo.RelPermalink }}">
+ 
+    <div class="rs">
+      <a href="https://www.instagram.com/lechateau_de_laubardemont/"><img style="width:60px; height: auto;"
+          src="{{ $insta.RelPermalink }}"></a>
+    </div>
+    {{ partial "menu-construction.html" }}
+  </div>
+</div>
+
+
 {{ end }}

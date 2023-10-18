@@ -2,3 +2,13 @@ baseURL = 'https://chateaulaubardemont.com/'
 languageCode = 'fr-fr'
 title = 'Chateau Laubardemont'
 theme = 'laubardemont'
+
+[mediaTypes]
+  [mediaTypes."application/x-php"]
+  suffixes = ["php"]
+
+[outputFormats]
+  [outputFormats.PHP]
+    mediaType = "application/x-php"
+    isPlainText = true
+    baseName = "index"

@@ -10,7 +10,7 @@
   {{ $image := .Resources.Get "marie-claire.png" }}
   <main>
     {{ if .IsHome }}
-    <div class="container" style="background-image: url({{ $image.RelPermalink }});">
+    <div class="container" style="background-image: url('{{ $image.RelPermalink }}');">
       {{ block "main" . }}
       {{ end }}
     </div>
