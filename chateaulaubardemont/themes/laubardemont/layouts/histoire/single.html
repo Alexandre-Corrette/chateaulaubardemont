@@ -1,0 +1,22 @@
+{{ define "main" }}
+
+
+    
+    <div class="layer left">
+        
+        <div class="content">
+            
+            {{ .Content }}
+            
+        </div>
+        {{ with .Params.images }} 
+        {{ range . }}
+          {{ with resources.Get . }} 
+          <img src="{{ .RelPermalink }}" alt="">
+            
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    </div>
+
+{{ end }}

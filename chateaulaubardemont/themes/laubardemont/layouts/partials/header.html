@@ -1,6 +1,10 @@
 {{ $logo := resources.Get "images/logo-carre.png"}}
-<div class="logo-container">
-    <img src="{{ $logo.RelPermalink }}" class="nav-logo">
+<div class="logo container centered">
+    <a href="/">
+
+        <img src="{{ $logo.RelPermalink }}" class="logo">
+    </a>
 </div>
 
-{{ partial "menu-construction.html" (dict "menuID" "main" "page" .) }}
+
+{{ partial "menu.html" (dict "menuID" "main" "page" .) }}

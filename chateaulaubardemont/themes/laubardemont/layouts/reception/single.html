@@ -1,0 +1,73 @@
+{{ define "main"}}
+<div class="container">
+
+    <div class="layer left">
+        <div class="content">
+            {{ .Content }}
+
+
+
+
+        </div>
+        {{ with .Params.mainImage }}
+        {{ with resources.Get . }}
+        <img src="{{ .RelPermalink }}" alt="">
+
+
+        {{ end }}
+        {{ end }}
+    </div>
+</div>
+<div class="container">
+
+    <div class="wrap-gallery">
+        {{ with .Params.images }}
+        {{ range . }}
+        {{ with resources.Get . }}
+        <img src="{{ .RelPermalink }}" alt="">
+
+        {{ end }}
+        {{ end }}
+        {{ end }}
+    </div>
+</div>
+<div class="container">
+    <h2>Nos Offres</h2>
+
+    <div class="card-wrap">
+
+        <div class="card">
+            {{ with .Resources.GetMatch "offreSilver.md" }}
+            {{ .Content }}
+            {{end}}
+            <div class="row">
+
+                <a href="/contact/index.php" class="button">Demander un devis</a>
+            </div>
+        </div>
+        <div class="card">
+            {{ with .Resources.GetMatch "offre-gold.md" }}
+            {{ .Content }}
+            {{end}}
+            <div class="row">
+
+                <a href="/contact/index.php" class="button">Demander un devis</a>
+            </div>
+        </div>
+        <div class="card">
+            {{ with .Resources.GetMatch "offre-platinium.md" }}
+            {{ .Content }}
+            {{end}}
+            <div class="row">
+
+                <a href="/contact/index.php" class="button">Demander un devis</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+{{ end }}

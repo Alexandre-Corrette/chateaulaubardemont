@@ -1,0 +1,17 @@
+{{ $logo := resources.Get "images/logo-carre.png"}}
+{{ $background := resources.Get "images/home/vue-drone-chateau.png"}}
+
+
+<div class="col home" style="background: url( {{ $background.RelPermalink }}) no-repeat ;">
+    <div class="overlay">
+
+        <a href="/">
+            
+            <img src="{{ $logo.RelPermalink }}" class="logo">
+            
+        </a>
+    </div>
+    <h1>BIENVENUE A LAUBARDEMONT</h1>
+   
+</div>
+

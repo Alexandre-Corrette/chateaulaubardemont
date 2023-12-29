@@ -7,19 +7,28 @@
 </head>
 
 <body>
-  {{ $image := .Resources.Get "marie-claire.png" }}
+ 
   <main>
+   
     {{ if .IsHome }}
-    <div class="container" style="background-image: url({{ $image.RelPermalink }});">
+    <div class="container">
+
+      <header>
+        {{ partial "home-header.html" . }}
+      </header>
+
+    </div>
+    <div class="container">
+     
       {{ block "main" . }}
       {{ end }}
     </div>
     {{ else }}
-    
+
     <header>
       {{ partial "header.html" . }}
     </header>
- 
+
     <div class="container">
       {{ block "main" . }}
       {{ end }}

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on Laubardemont</title>
+    <link>https://chateau-laubardemont.com/</link>
+    <description>Recent content in Home on Laubardemont</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Jan 2023 08:00:00 -0700</lastBuildDate><atom:link href="https://chateau-laubardemont.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Le Chateau</title>
+      <link>https://chateau-laubardemont.com/chateau/</link>
+      <pubDate>Wed, 22 Nov 2023 17:56:07 +0100</pubDate>
+      
+      <guid>https://chateau-laubardemont.com/chateau/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Réception</title>
+      <link>https://chateau-laubardemont.com/reception/</link>
+      <pubDate>Tue, 26 Dec 2023 14:58:30 +0100</pubDate>
+      
+      <guid>https://chateau-laubardemont.com/reception/</guid>
+      <description>Afin d’organiser votre réception le domaine vous laisse le choix&amp;hellip; Choisirez vous un repas dans la salle de de réception pouvant recevoir 100 personnes, un diner champêtre sous la splendide allée de tilleuls, ou bien encore sous les étoiles sur la terrasse de 200 m2. Un décor est mis à votre disposition selon votre convenance et tout au long de votre séjour. Tables, chaises, vaisselle pour votre réception ou votre brunch, salons de jardin pour un moment de détente sur la terrasse ou dans la charmante cour paysagée, terrain de pétanque et berges du château complètent le tout.</description>
+    </item>
+    
+    <item>
+      <title>Notre Histoire</title>
+      <link>https://chateau-laubardemont.com/histoire/</link>
+      <pubDate>Wed, 22 Nov 2023 17:55:00 +0100</pubDate>
+      
+      <guid>https://chateau-laubardemont.com/histoire/</guid>
+      <description>Fort d’un passé chargé en histoire et inscrit au sein du patrimoine local, la restauration du Château de Laubardemont est avant tout liée à un couple et le rêve d’une vie, faire renaître et partager leur amour de ce lieu idyllique et atypique. Datant du XVIe siècle, posé sur l’île de Laubardemont, le Château de Laubardemont retrouve peu à peu grâce et authenticité.
+La réhabilitation soignée du château, ses cours, ses dépendances et salle de réception ont transcendé le caractère noble et champêtre du domaine offrant un lieu de vie unique et authentique.</description>
+    </item>
+    
+    <item>
+      <title>contact</title>
+      <link>https://chateau-laubardemont.com/contact/index.php</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://chateau-laubardemont.com/contact/index.php</guid>
+      <description>pouet</description>
+    </item>
+    
+    <item>
+      <title>Post 3</title>
+      <link>https://chateau-laubardemont.com/posts/post-3/</link>
+      <pubDate>Wed, 15 Mar 2023 11:00:00 -0700</pubDate>
+      
+      <guid>https://chateau-laubardemont.com/posts/post-3/</guid>
+      <description>Occaecat aliqua consequat laborum ut ex aute aliqua culpa quis irure esse magna dolore quis. Proident fugiat labore eu laboris officia Lorem enim. Ipsum occaecat cillum ut tempor id sint aliqua incididunt nisi incididunt reprehenderit. Voluptate ad minim sint est aute aliquip esse occaecat tempor officia qui sunt. Aute ex ipsum id ut in est velit est laborum incididunt. Aliqua qui id do esse sunt eiusmod id deserunt eu nostrud aute sit ipsum.</description>
+    </item>
+    
+  </channel>
+</rss>

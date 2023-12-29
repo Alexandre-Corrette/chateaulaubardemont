@@ -1,0 +1,60 @@
+{{ define "main" }}
+
+<div class="container">
+
+    <div class="layer left">
+        <div class="content">
+            {{ with .Resources.GetMatch "presentation1.md" }}
+            {{ .Content }}
+            {{end}}
+        </div>
+        {{ with .Params.mainImage }}
+        {{ with resources.Get . }}
+        <img src="{{ .RelPermalink }}" alt="">
+        {{ end }}
+        {{ end }}
+    </div>
+
+
+
+    <div class="layer right">
+        <div class="content">
+            {{ with .Resources.GetMatch "presentation2.md" }}
+            {{ .Content }}
+            {{end}}
+        </div>
+
+
+        {{ with .Params.gallery1 }}
+
+        {{ with resources.Get . }}
+        <img src="{{ .RelPermalink }}" alt="">
+
+        {{ end }}
+
+        {{ end }}
+
+
+    </div>
+<div class="container">
+
+    <div class="wrap-gallery">
+        
+        {{ with .Params.gallery2 }}
+        {{ range . }}
+        {{ with resources.Get . }}
+        <img src="{{ .RelPermalink }}" alt="">
+        
+        {{ end }}
+        {{ end }}
+        {{ end }}
+        
+    </div>
+    <div class="content center ">
+        
+        <h2>PORTFOLIO</h2>
+    </div>
+</div>
+
+</div>
+{{ end }}

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=100vw, height=100vH, minimum-scale=1.0, initial-scale=1.0">
 <title>contact | Chateau Laubardemont</title>
 
-      <link rel="stylesheet" href="/css/main.min.0f863dc2566dc4363f5903b5d8d12adbd99624bb73c2b60554d493d31ff503a7.css" integrity="sha256-D4Y9wlZtxDY/WQO12NEq29mWJLtzwrYFVNST0x/1A6c=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.f9fcaf3e49d6c83a39b514455adc13e70c9f3d5249216f97eab1006795897712.css" integrity="sha256-&#43;fyvPknWyDo5tRRFWtwT5wyfPVJJIW&#43;X6rEAZ5WJdxI=" crossorigin="anonymous">
 
 
       <script src="/js/main.23cd0c7d837263b9eaeb96ee2d9ccfa2969daa3fa00fa1c1fe8701a9b87251a1.js" integrity="sha256-I80MfYNyY7nq65buLZzPopadqj&#43;gD6HB/ocBqbhyUaE=" crossorigin="anonymous"></script>
@@ -22,29 +22,48 @@
     
     <header>
       
-<div class="logo-container">
-    <img src="/images/logo-carre.png" class="nav-logo">
+<div class="logo container centered">
+    <a href="/">
+
+        <img src="/images/logo-carre.png" class="logo">
+    </a>
 </div>
 
 
-<nav>
-    <a href="/contact">Nous contacter</a>
-</nav>
 
+<div class="menu-content">
+
+  <div class="page-nav">
+    <div class="container">
+
+      <nav>
+        <ul>
+<li>
+  <a href="/chateau/">Le Chateau</a>
+</li>
+<li>
+  <a href="/histoire/">Notre Histoire</a>
+</li>
+<li>
+  <a href="/reception/">Réception</a>
+</li>
+<li>
+  <a aria-current="page" class="active" href="/contact/index.php">contact</a>
+</li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
 
     </header>
  
     <div class="container">
       
- 
+<div class="container">
 
 
-
-
-  <div class="form-container">
-
-
-    <form action="mailto:alexandrecorrette@gmail.com" method="GET">
+    <form novalidate method="post">
         <fieldset>
             <center>
                 <h2>Nous Contacter</h2>
@@ -56,14 +75,26 @@
                 <div class="form-group col-xs-6" id="First_Name__div">
 
                     <label for="First_Name">Prénom</label>
-                            <input type="text" name="First Name" id="First_Name" class="form-control">
+                    <input type="text" name="first_Name" id="First_Name" class="form-control">
 
                 </div>
             </div>
+            <div class="name">
+                <label for="name" class="form-label">Name</label>
+                <span class="required-field">*</span>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+            </div>
+
+            <div class="website">
+                <label for="website" class="form-label">Website</label>
+                <span class="required-field">*</span>
+                <input type="text" class="form-control" id="website" name="website" placeholder="Your Website URL" required>
+            </div>
+
             <div class="row">
                 <div class="form-group col-xs-6" id="Last_Name__div">
                     <label for="Last_Name">Nom</label>
-                    <input type="text" name="Last Name" id="Last_Name" class="form-control">
+                    <input type="text" name="last_name" id="Last_Name" class="form-control">
                 </div>
 
             </div>
@@ -72,26 +103,26 @@
                 <div class="form-group col-xs-6" id="Email__div">
 
                     <label title="required" for="Email">Email *</label>
-                    <input type="email" name="Email" id="Email" required="required" placeholder="example@example.com"
-                        class="form-control">
+                    <input type="email" name="email" id="Email" required="required" placeholder="example@example.com" class="form-control">
 
                 </div>
-                <div class="row">
 
-                    <div class="form-group col-xs-6" id="Phone__div">
-
-                        <label for="Phone">Téléphone</label>
-                        <input type="tel" name="Phone" id="Phone" placeholder="06 07 00 00 00" class="form-control">
-
-                    </div>
-                </div>
 
             </div>
             <div class="row">
+
                 <div class="form-group col-xs-6" id="Phone__div">
 
-                    <label for="date">Date souhaitée</label>
-                    <input type="date" name="date" id="date" placeholder="01/06/2023" class="form-control">
+                    <label for="Phone">Téléphone</label>
+                    <input type="tel" name="phone" id="Phone" placeholder="06 07 00 00 00" class="form-control">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-xs-6" id="Date__div">
+
+                    <label for="date">Date souhaitée *</label>
+                    <input type="date" name="date" id="date" placeholder="01/06/2023" class="form-control" required>
 
                 </div>
 
@@ -101,13 +132,13 @@
                 <div class="form-group col-xs-12" id="Reason__div">
 
 
-                    <label for="Reason">Type d'évènement'</label>
-                    <select name="Reason" id="Reason" required="required" class="form-control">
+                    <label for="reason">Type d'évènement</label>
+                    <select name="reason" id="reason" required="required" class="form-control">
                         <option value="">Choisissez</option>
-                        <option value="Technical Support">Mariage</option>
-                        <option value="Sales Contact">Anniversaire</option>
-                        <option value="Billing Support">Séminaire</option>
-                        <option value="Other">autre</option>
+                        <option value="Mariage">Mariage</option>
+                        <option value="Anniversaire">Anniversaire</option>
+                        <option value="Professionel">Séminaire</option>
+                        <option value="Autre">autre</option>
                     </select>
                 </div>
 
@@ -122,26 +153,22 @@
 
             </div>
             <br>
-            <div class="row">
-                <div class="col-xs-12">
-                    <input type="submit" value="Envoyer" class="btn btn-block btn-primary" data-disable-with="Submit">
-                </div>
+            <div class="row centered" style="text-align: center;">
+
+                <input type="submit" value="Envoyer" class="button">
+
             </div>
         </fieldset>
     </form>
 </div>
-  <?php
-  echo 'Your browser: <br>' . $_SERVER['HTTP_USER_AGENT'];
-  echo '<br>Author: ' . 'Frank Kunert';
-  ?>
-
-
 
     </div>
     
   </main>
   <footer>
-    <p>Copyright 2023. All rights reserved.</p>
+    
+    <p>Copyright 2023. InOktober - All rights reserved.</p>
+
 
   </footer>
 </body>

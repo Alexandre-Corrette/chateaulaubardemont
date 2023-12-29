@@ -1,4 +1,4 @@
-baseURL = 'https://chateaulaubardemont.com/'
+baseURL = 'https://chateau-laubardemont.com/'
 languageCode = 'fr-fr'
 title = 'Chateau Laubardemont'
 theme = 'laubardemont'

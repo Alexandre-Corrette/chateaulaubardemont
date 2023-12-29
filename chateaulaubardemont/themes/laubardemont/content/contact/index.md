@@ -1,15 +1,11 @@
 +++
+menu = 'main'
 title = 'contact'
-date = 2021-05-25T20:50:28+02:00
-lastupdate = ""
+type = 'contact'
 draft = false
-slug = ""
-translationKey = "phptest"
-description = "PHP Konfiguration in Hugo testen"
-author = "Frank Kunert"
+weight = 20
+author = "InOktober"
 outputs = "PHP"
 +++
 
-Deutsche Version von PHP Test.  
-
-Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
+pouet
