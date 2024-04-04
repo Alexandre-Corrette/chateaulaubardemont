@@ -22,5 +22,8 @@ title = 'Laubardemont'
     min = "0.116.0"
 
 
-
+[params.style]
+container_max_width = '768px'
+font_family_base = 'sans-serif'
+font_size_base = '18px'
 

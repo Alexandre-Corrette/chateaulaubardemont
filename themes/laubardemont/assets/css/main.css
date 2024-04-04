@@ -1,3 +1,6 @@
+
+
+div {}
 body {
   color: #222;
   background-color: #FAFAF8;
@@ -46,14 +49,7 @@ footer>p {
 .content {
   background-color: #E1DDD7;
 }
-.container {
-  display: flex;
-  flex-direction: column;
-  max-width: 100vw;
-  min-height: 100%;
-  
-  
-}
+
 main {
   width: 100%;
   min-height: 100vh;

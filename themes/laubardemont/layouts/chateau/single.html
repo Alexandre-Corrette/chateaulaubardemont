@@ -1,16 +1,16 @@
 {{ define "main" }}
 
-<div class="container">
+<div class="lg:container">
 
-    <div class="layer left">
-        <div class="content">
+    <div class="flex flex-row ">
+        <div class="container w-1/2">
             {{ with .Resources.GetMatch "presentation1.md" }}
             {{ .Content }}
             {{end}}
         </div>
         {{ with .Params.mainImage }}
         {{ with resources.Get . }}
-        <img src="{{ .RelPermalink }}" alt="">
+        <img class="w-1/2" src="{{ .RelPermalink }}" alt="">
         {{ end }}
         {{ end }}
     </div>
@@ -36,9 +36,9 @@
 
 
     </div>
-<div class="container">
+<div class="md:container">
 
-    <div class="wrap-gallery">
+    <div class="grid grid-cols-4 gap-4">
         
         {{ with .Params.gallery2 }}
         {{ range . }}
@@ -52,7 +52,7 @@
     </div>
     <div class="content center ">
         
-        <h2>PORTFOLIO</h2>
+        <h1>PORTFOLIO</h1>
     </div>
 </div>
 
