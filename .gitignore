@@ -11,3 +11,4 @@ node_modules
 public
 resources
 themes/laubardemont/public
+themes/laubardemont/.hugo_build.lock
