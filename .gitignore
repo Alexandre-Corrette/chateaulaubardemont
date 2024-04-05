@@ -7,3 +7,7 @@ themes/laubardemont/resources/
 .DS_Store/
 public
 resources
+node_modules
+public
+resources
+themes/laubardemont/public
