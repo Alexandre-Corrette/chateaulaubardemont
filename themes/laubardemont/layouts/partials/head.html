@@ -2,21 +2,14 @@
 <meta name="viewport" content="width=100vw, height=100vH, minimum-scale=1.0, initial-scale=1.0">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 
-
-{{ $time := now }}
-{{ $styles := resources.Get "css/main.scss"
-    | toCSS
-    | postCSS (dict "config" "./assets/css/postcss.config.js")
-    | resources.ExecuteAsTemplate (printf "main.%s.css" $time) $time
-}}
+{{ $css := resources.Get "../assets/css/style.css" }}
 
 {{ if .Site.IsServer }}
-    <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
-  
+    <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 {{ else }}
-    {{ $styles := $styles | minify | fingerprint | resources.PostCSS }}
+    {{ $styles := $css | resources.Minify }}
     <link rel="stylesheet" href="{{ $styles.RelPermalink }}">
-    pouet
 {{ end }}
+
 
 

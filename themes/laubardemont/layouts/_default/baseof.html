@@ -12,14 +12,14 @@
   <main>
    
     {{ if .IsHome }}
-    <div class="container">
+    <div class="xl:container mx-auto">
 
       <header>
         {{ partial "home-header.html" . }}
       </header>
 
     </div>
-    <div class="container">
+    <div class="lg:container mx-auto">
      
       {{ block "main" . }}
       {{ end }}
@@ -30,7 +30,7 @@
       {{ partial "header.html" . }}
     </header>
 
-    <div class="container">
+    <div class="lg:container mx-auto">
       {{ block "main" . }}
       {{ end }}
     </div>

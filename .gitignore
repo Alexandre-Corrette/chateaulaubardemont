@@ -1,4 +1,9 @@
 public/
 node_modules/
 dist/
+themes/laubardemont/public/
+themes/laubardemont/resources/
+
 .DS_Store/
+public
+resources
