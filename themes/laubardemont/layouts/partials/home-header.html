@@ -1,21 +1,18 @@
 {{ $logo := resources.Get "images/logo-carre.png"}}
 {{ $background := resources.Get "images/home/vue-drone-chateau.png"}}
 
+<div class="lg:container relative flex flex-col">
+    <div class="lg:container min-h-screen w-screen bg-cover after:block after:absolute after:w-full after:min-h-full after:bg-slate-50/30 justify-center items-center "
+        style="background-image: url( {{ $background.RelPermalink }});">
 
-<div class="lg:container flex min-h-screen w-screen bg-cover bg-gradient-to-t from-white justify-center " style="background-image: url( {{ $background.RelPermalink }});">
-    <div class=" grid grid-cols-1 gap-4 place-content-center">
 
-        
 
-            <a  class="h-14" href="/">
-                
-                <img src="{{ $logo.RelPermalink }}" class="size-20">
-                BIENVENUE A LAUBARDEMONT
-            </a>
-           
-        
+
+
+
+
+
     </div>
-    
-   
+    <a class="w-full absolute top-1/3 left-0 flex flex-row justify-center" href="/"><img src="{{ $logo.RelPermalink }}" class="w-72"></a>
+    <div class="text-5xl absolute top-2/3 text-center w-full mt-10">BIENVENUE A LAUBARDEMONT</div>
 </div>
-
