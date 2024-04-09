@@ -2,16 +2,20 @@
 {{ $background := resources.Get "images/home/vue-drone-chateau.png"}}
 
 
-<div class="col home" style="background: url( {{ $background.RelPermalink }}) no-repeat ;">
-    <div class="overlay">
+<div class="lg:container flex min-h-screen w-screen bg-cover bg-gradient-to-t from-white justify-center " style="background-image: url( {{ $background.RelPermalink }});">
+    <div class=" grid grid-cols-1 gap-4 place-content-center">
 
-        <a href="/">
-            
-            <img src="{{ $logo.RelPermalink }}" class="logo">
-            
-        </a>
+        
+
+            <a  class="h-14" href="/">
+                
+                <img src="{{ $logo.RelPermalink }}" class="size-20">
+                BIENVENUE A LAUBARDEMONT
+            </a>
+           
+        
     </div>
-    <h1>BIENVENUE A LAUBARDEMONT</h1>
+    
    
 </div>
 
