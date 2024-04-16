@@ -4,37 +4,24 @@
 
 <head>
   {{ partial "head.html" . }}
-  
+
 </head>
 
 <body>
- 
-  <main>
-   
-    {{ if .IsHome }}
-    <div class="xl:container mx-auto ">
-
-      <header>
+  <main class="m-1">
+    <div class="lg:container  w-full mx-auto lg:min-h-screen ">
+      <header class="lg:container flex flex-col w-full  relative">
+        {{ if .IsHome }}
         {{ partial "home-header.html" . }}
+        {{ else }}
+        {{ partial "header.html" . }}
+        {{ end }}
       </header>
-
+      <div class="lg:container mx-auto">
+        {{ block "main" . }}
+        {{ end }}
+      </div>
     </div>
-    <div class="lg:container mx-auto">
-     
-      {{ block "main" . }}
-      {{ end }}
-    </div>
-    {{ else }}
-
-    <header>
-      {{ partial "header.html" . }}
-    </header>
-
-    <div class="lg:container mx-auto">
-      {{ block "main" . }}
-      {{ end }}
-    </div>
-    {{ end }}
   </main>
   <footer>
     {{ partial "footer.html" . }}
