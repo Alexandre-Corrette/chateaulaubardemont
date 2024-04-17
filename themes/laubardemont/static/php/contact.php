@@ -44,7 +44,9 @@ if (!empty($_POST)) {
         if (!empty($_POST['reason'])) {
             $reason = $_POST['reason'];
         }
-
+        if(!empty($_POST['message'])) {
+            $text = $_POST['message'];
+        }
         if (!empty($_POST['date'])) {
             $date =  new DateTime($_POST['date']);
         } else {
@@ -122,7 +124,6 @@ if (!empty($_POST)) {
                         "<p> Votre Message: " . $text . "</p>";
                     $answerTo = $email;
                     $answerToContact = mail($answerTo, $subjectAnswer, $answerMessage, $header);
-                    var_dump('answer',$answerToContact,$email);
                     echo $msg;
                 }
         }
