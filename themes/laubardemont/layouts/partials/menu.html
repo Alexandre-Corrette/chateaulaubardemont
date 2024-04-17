@@ -11,10 +11,10 @@ Renders a menu for the given menu ID.
 {{- $menuID := .menuID }}
 
 {{- with index site.Menus $menuID }}
-<div class="menu-content">
+<div class="menu-content static">
 
   <div class="page-nav">
-    <div class="container">
+    <div class="md:container flex flex-col mx-auto">
 
       <nav>
         <ul>

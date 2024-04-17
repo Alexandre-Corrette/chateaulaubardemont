@@ -20,7 +20,7 @@
       {{ partial "header.html" . }}
     </header>
  
-    <div class="container">
+    <div class="lg:container mx-auto">
       {{ block "main" . }}
       {{ end }}
     </div>
