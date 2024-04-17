@@ -1,5 +1,6 @@
-## Offre Platinium
-
++++
+title = 'Offre Platinium'
++++
 Domaine dans son intégralité  
 Château (30 couchages)  
 Salle de réception  

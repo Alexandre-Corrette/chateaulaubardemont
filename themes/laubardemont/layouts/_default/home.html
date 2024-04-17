@@ -2,14 +2,14 @@
 
 {{ $insta := .Resources.Get "instagram.png"}}
 
-<div class="col">
+<div class="lg:container flex flex-col">
 
-  <div class="row">
+  <div class="flex flex-row">
     {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
   </div>
   
   
-  <div class="md:container">
+  <div class="lg:container mx-auto">
     <div class="flex row">
       
       <div class="bg-stone-300 p-8">

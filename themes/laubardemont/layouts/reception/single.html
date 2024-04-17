@@ -1,66 +1,80 @@
 {{ define "main"}}
-<div class="container">
+<div class="lg:container">
 
-    <div class="layer left">
-        <div class="content">
+    <div class="flex lg:flex-row flex-col-reverse mt-4 items-center mt-4 mb-4">
+        <div class="flex flex-col w-full lg:w-1/2 lg:h-1/3 bg-stone-300 p-4">
             {{ .Content }}
-
-
-
-
         </div>
         {{ with .Params.mainImage }}
         {{ with resources.Get . }}
-        <img src="{{ .RelPermalink }}" alt="">
-
-
+        <img class="w-full lg:w-1/2" src="{{ .RelPermalink }}" alt="">
         {{ end }}
         {{ end }}
     </div>
 </div>
-<div class="container">
-
-    <div class="wrap-gallery">
+<div class="lg:container">
+    <div class="lg:container grid lg:grid-cols-4 sm:grid-cols-1 gap-4">
         {{ with .Params.images }}
         {{ range . }}
         {{ with resources.Get . }}
-        <img src="{{ .RelPermalink }}" alt="">
+        <img class="w-full" src="{{ .RelPermalink }}" alt="">
 
         {{ end }}
         {{ end }}
         {{ end }}
     </div>
 </div>
-<div class="container">
-    <h2>Nos Offres</h2>
+<div class="lg:container mx-2">
+    <h2 class="text-3xl">Nos Offres</h2>
 
-    <div class="card-wrap">
+    <div class="lg:container grid sm:grid-cols-1 md:grid-cols-3 gap-2 lg:gap-4  my-6 lg:px-24">
 
-        <div class="card">
-            {{ with .Resources.GetMatch "offreSilver.md" }}
-            {{ .Content }}
-            {{end}}
-            <div class="row">
+        <div class="lg:container shadow flex flex-col p-6 xl:w-2/3 mx-3  rounded">
+            <div class="lg:container flex flex-col items-center justify-between min-h-full ">
 
-                <a href="/contact/index.php" class="button">Demander un devis</a>
+                {{ with .Resources.GetMatch "offreSilver.md" }}
+                <h2 class="text-2xl font-semibold">{{ .Title }}</h2> 
+                <div class="flex flex-col my-4">
+                    
+                    {{ .Content }}
+                </div>
+                {{end}}
+                <div class="flex flex-row justify-center">
+                    
+                    <a href="/contact/index.php" class="btn rounded bg-stone-300 p-4">Demander un devis</a>
+                </div>
             </div>
         </div>
-        <div class="card">
-            {{ with .Resources.GetMatch "offre-gold.md" }}
-            {{ .Content }}
-            {{end}}
-            <div class="row">
+        <div class="lg:container shadow flex flex-col p-6 xl:w-2/3 mx-3 rounded">
+            <div class="lg:container flex flex-col items-center justify-between min-h-full  ">
 
-                <a href="/contact/index.php" class="button">Demander un devis</a>
+                {{ with .Resources.GetMatch "offre-gold.md" }}
+                <h2 class="text-2xl font-semibold">{{ .Title }}</h2> 
+                <div class="flex flex-col my-4">
+                    
+                    {{ .Content }}
+                </div>
+                {{end}}
+                <div class="row">
+                    
+                    <a href="/contact/index.php" class="btn rounded bg-stone-300 p-4">Demander un devis</a>
+                </div>
             </div>
         </div>
-        <div class="card">
-            {{ with .Resources.GetMatch "offre-platinium.md" }}
-            {{ .Content }}
-            {{end}}
-            <div class="row">
+        <div class="lg:container shadow flex flex-col p-6 mx-3 xl:w-2/3 rounded">
+            <div class="lg:container flex flex-col items-center justify-between min-h-full ">
 
-                <a href="/contact/index.php" class="button">Demander un devis</a>
+                {{ with .Resources.GetMatch "offre-platinium.md" }}
+                <h2 class="text-2xl font-semibold">{{ .Title }}</h2> 
+                <div class="flex flex-col my-4">
+                    
+                    {{ .Content }}
+                </div>
+                {{end}}
+                <div class="row">
+                    
+                    <a href="/contact/index.php" class="btn rounded bg-stone-300 p-4">Demander un devis</a>
+                </div>
             </div>
         </div>
     </div>
