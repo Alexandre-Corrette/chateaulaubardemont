@@ -1,7 +1,7 @@
 <div class="lg:container mx-auto">
 
 
-    <form novalidate method="post">
+    <form novalidate method="post" action="/php/contact.php">
         <fieldset class="grid grid-cols-2 gap-4">
 
             <center>
@@ -20,11 +20,15 @@
 
                 </div>
 
-                <div class="flex flex-row items-center">
-                    <label for="name" class="form-label">Nom *</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Votre nom" required>
+                <div class="flex flex-row items-center" id="Last_Name__div">
+                    <label for="Last_Name" class="form-label">Nom *</label>
+                    <input type="text" class="form-control" id="Last_Name" name="Last_Name" placeholder="Votre nom" required>
                 </div>
-
+                <div class="name">
+                    <label for="name" class="form-label">Name</label>
+                    <span class="required-field">*</span>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                </div>
                 <div class="website">
                     <label for="website" class="form-label">Website</label>
                     <span class="required-field">*</span>
@@ -70,8 +74,8 @@
                 </div>
 
                 <div class="flex flex-row items-center" id="Message__div">
-                    <label title="required" for="Message">Message </label>
-                    <textarea name="message" id="Message" class="form-control"></textarea>
+                    <label title="required" for="message">Message </label>
+                    <textarea name="message" id="message" class="form-control"></textarea>
 
                 </div>
 
@@ -79,7 +83,7 @@
             <br>
             <div class="flex flex-row">
 
-                <button type="button" value="Envoyer" class="bg-stone-300 text-white w-full rounded p-6"> Envoyer
+                <button type="submit" value="Envoyer" class="bg-stone-300 text-white w-full rounded p-6"> Envoyer
 
             </div>
         </fieldset>
