@@ -1,6 +1,6 @@
 +++
 title = 'Offre Gold'
 +++
-Château (30 couchages)  
+Château (40 couchages)  
 Salle de réception  
 Terrasse, Jardins, Piscine
