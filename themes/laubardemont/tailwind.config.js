@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./public/**/*.html', './content/**/*.md'],
+  content: ['.themes/laubardemont/layouts/**/*.html', "./layouts/**/*.html"],
   presets: [],
   darkMode: 'media', // or 'class'
   theme: {
@@ -309,6 +309,7 @@ module.exports = {
         '"Segoe UI Emoji"',
         '"Segoe UI Symbol"',
         '"Noto Color Emoji"',
+        'Roboto',
       ],
       serif: ['ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
       mono: [
