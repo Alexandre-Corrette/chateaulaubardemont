@@ -6,6 +6,6 @@ slug = 'contact'
 draft = false
 weight = 20
 author = "InOktober"
-outputs = "PHP"
+
 +++
 

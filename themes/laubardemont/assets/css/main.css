@@ -113,6 +113,7 @@ Reset links to optimize for opt-in styling instead of opt-out.
 a {
   color: inherit;
   text-decoration: inherit;
+  cursor: pointer;
 }
 
 /*
@@ -991,12 +992,12 @@ nav>ul>li>a {
 
 .active {
   color: lightgray;
-  text-transform: uppercase;
+  
 }
 
 .menu {
   color: white;
-  text-transform: uppercase;
+  
 }
 
 .menu:hover {
@@ -1079,7 +1080,7 @@ label {
 
 a {
   text-decoration: none;
-  font-family: Helvetica;
+ 
 }
 
 .home {
@@ -1184,6 +1185,21 @@ a {
 }
 
 @media (min-width: 1080px) {
+
+  #header {
+  background-image: url('../../images/home/vue-drone-chateau-1.jpg');
+  }
+
+  #chateau {
+  background-image: url('../../images/chateau/vue-drone.jpg');
+  }
+
+ 
+
+  #histoire {
+    background-image: url('../../images/chateau/vue-drone.jpg');
+  }
+
   h2 {
     font-size: 1 rem;
   }
@@ -1240,17 +1256,22 @@ a {
     cursor: pointer;
   }
 
-  @media (min-width: 1481px) {
-    .layer>img {
-      width: 50%;
-    }
+  nav>ul>li>a {
+    text-transform: uppercase;
+  }
 
-    .layer>.content {
-      max-width: 50%;
-      height: 100%;
-      align-self: center;
-      padding-left: 1rem;
-    }
+  
+}
+@media (min-width: 1481px) {
+  .layer>img {
+    width: 50%;
+  }
+
+  .layer>.content {
+    max-width: 50%;
+    height: 100%;
+    align-self: center;
+    padding-left: 1rem;
   }
 }
 

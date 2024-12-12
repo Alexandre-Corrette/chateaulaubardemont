@@ -1,9 +1,35 @@
 {{ $logo := resources.Get "images/logo-carre.png"}}
-<div class="md:container flex flex-row justify-center mx-auto">
-    <a href="/">
+{{ $backgroundImage := resources.Get "images/home/vue-drone-chateau-1.jpg" }}
 
-        <img src="{{ $logo.RelPermalink }}" class="logo">
-    </a>
+{{ $title := .Title}}
+
+
+{{ if eq $title "Le Chateau"}}
+{{ $backgroundImage = resources.Get "images/chateau/vue-drone.jpg" }}
+{{ else if eq $title "Notre Histoire"}}
+{{ end }}
+
+<div class="flex flex-col  ">
+    <div class="sm:hidden relative w-full min-h-96  lg:flex flex-col pt-24 pb-20
+    before:block before:absolute before:top-0 before:left-0 before:w-full before:z-20 bg-cover after:block 
+    after:absolute after:content-[''] after:top-0 after:left-0 after:min-w-full after:h-full after:bg-slate-50/30
+    items-center " style="background-image: url( {{ $backgroundImage.RelPermalink }});">
+        <a class="block xs:w-1/2 w-full max-w-52 relative z-20 justify-center mx-auto mb-24" href="/">
+            <img src="{{ $logo.RelPermalink }}" class="">
+        </a>
+
+        {{if .IsHome}}
+        <div class="text-2xl md:text-5xl h-1/2
+     text-center z-20
+     w-full xs:mt-10">BIENVENUE A LAUBARDEMONT
+        </div>
+        {{end}}
+    </div>
+
+
+
+    
+
 </div>
 
 
