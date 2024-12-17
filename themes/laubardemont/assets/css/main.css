@@ -881,7 +881,7 @@ footer>p {
 }
 
 .name,
-.website {
+.honey {
   display: none;
 }
 
@@ -975,8 +975,6 @@ nav>ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.4rem;
-  margin-bottom: 0.4;
   padding: 0;
   list-style: none;
 }
@@ -988,11 +986,18 @@ nav>ul>li {
 nav>ul>li>a {
   text-decoration: none;
   font-size: 1rem;
+  color: #FFF;
 }
 
 .active {
   color: lightgray;
+  order: 0;
   
+}
+
+.active::after {
+  background-color: goldenrod;
+  opacity: 1;
 }
 
 .menu {
@@ -1000,9 +1005,7 @@ nav>ul>li>a {
   
 }
 
-.menu:hover {
-  color: goldenrod;
-}
+
 
 .row {
   display: flex;

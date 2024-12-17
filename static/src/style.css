@@ -749,7 +749,9 @@ nav>ul>li>a {
   text-decoration: none;
   font-size: 1rem;
 }
-
+nav>ul>li>a:hover{
+  color: goldenrod;
+}
 .active {
   color: grey;
 }
