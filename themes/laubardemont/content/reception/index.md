@@ -5,12 +5,13 @@ type = 'reception'
 date = 2023-12-26T14:58:30+01:00
 draft = false
 weight = 2
+headerImage = "images/histoire/mariage-julia-1.jpg"
 mainImage = "images/reception/reception.jpg"
 images = [
     "images/reception/chateau-salon.jpg", 
     "images/reception/terrasse.jpg",
     "images/reception/berges.jpg",
-    "images/reception/prestation-traiteur.jpg"
+    "images/reception/table-mariés.jpg"
     ]
 +++
 Afin d’organiser votre **réception** le **domaine** vous laisse le choix... 

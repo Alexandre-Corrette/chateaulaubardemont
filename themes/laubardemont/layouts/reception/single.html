@@ -10,60 +10,27 @@
     <img class="w-full lg:mt-24" src="{{ .RelPermalink }}" alt="">
     {{ end }}
     {{ end }}
-    <div class=" grid lg:grid-cols-2 sm:grid-cols-1 gap-2 mt-2 lg:mt-8 mb-24">
-        {{ with .Params.images }}
-        {{ range . }}
-        {{ with resources.Get . }}
-        <img class="w-full min-h-full" src="{{ .RelPermalink }}" alt="">
+    {{ with .Params.images }}
+    {{partial "gallery.html" .}}
+    {{ end }}
 
-        {{ end }}
-        {{ end }}
-        {{ end }}
-    </div>
-    <h2 class="text-3xl mb-8 mx-auto">Nos Offres</h2>
+    <div class="bg-black flex flex-col items-center">
 
-    <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-4  my-6 lg:px-24">
-
-        <div class="shadow flex flex-col p-6  rounded bg-white">
-
-
-            {{ with .Resources.GetMatch "offreSilver.md" }}
-            <div class="lg:container flex flex-col items-center justify-between min-h-full ">
-                {{partial "offer.html" .}}
-            </div>
+        <h2 class="text-3xl text-white text-center mt-8 mb-8 ">Nos Offres</h2>
+        
+        <div class="grid sm:grid-cols-1 md:grid-cols-3 gap-4 mx-auto px-4 my-6 ">
+            {{range .Resources.Match "offres/*.*"}}
+            
+            {{partial "offer.html" .}}
+            
+            
             {{end}}
-
         </div>
-        <div class="shadow flex flex-col p-6  rounded">
-
-
-            {{ with .Resources.GetMatch "offre-Gold.md" }}
-            <div class="lg:container flex flex-col items-center justify-between min-h-full ">
-                {{partial "offer.html" .}}
-            </div>
-            {{end}}
-
-        </div>
-        <div class="shadow flex flex-col p-6 rounded">
-
-            {{ with .Resources.GetMatch "offre-platinium.md" }}
-            <div class="lg:container flex flex-col items-center justify-between min-h-full ">
-                {{partial "offer.html" .}}
-            </div>
-            {{end}}
-
-        </div>
-
+        
     </div>
 
-
 </div>
-<div class="lg:container">
 
-</div>
-<div class="p-4">
-
-</div>
 
 
 

@@ -10,11 +10,19 @@
   <div class="lg:container mx-auto">
     <div class="flex row min-h-16">
       
-      <div class="bg-stone-300 p-8">
+      <div class=" lg:w-2/3 p-8 mx-auto">
         {{ .Content }}
       </div>
     </div>
   </div>
+  {{ range resources.ByType "video" }}
+  <div class="flex justify-center mx-4 ">
+    <video controls class="lg:w-2/3">
+      <source src="{{.RelPermalink}}" >
+  </video>
+  </div>
+ 
+  {{end}}
 </div>
 
 {{ end }}

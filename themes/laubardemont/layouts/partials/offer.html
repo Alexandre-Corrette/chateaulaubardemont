@@ -1,10 +1,44 @@
-<h2 class="text-2xl font-semibold">{{ .Title }}</h2>
-<div class="text-justify my-4 bg-white">
+<div class="shadow flex flex-col p-6  rounded bg-white">
 
-    {{ .Content }}
-</div>
 
-<div class="flex flex-row justify-center">
+    {{ .Params.display_related }}
+    <div class="container flex flex-col items-center justify-between min-h-full ">
+        <h2 class="text-2xl font-semibold">{{ .Params.Name }}</h2>
+        <div class="text-justify mt-8 bg-white mb-8 min-h-32 px-4">
+            {{ if .Params.Services.Reception }}
+            <p>Réception: {{ .Params.Services.Reception}}</p>
+            {{end}}
+            {{ if .Params.Services.Couchage }}
+            <p>Couchages: {{ .Params.Services.Couchage}}</p>
+            {{ end}}
+            {{ if .Params.Services.Loisirs}}
+            <p>Extérieurs: {{ .Params.Services.Loisirs}}</p>
+            {{end}}
+        </div>
+        <div class="flex flex-row w-full justify-around mb-8 min-h-16 mt-4">
 
-    <a href="/contact" class="btn border rounded border-stone-300 p-4 hover:bg-black hover:text-gold">Demander un devis</a>
+            <div class="flex flex-col justify-center items-center">
+                {{ if .Params.Bed}}
+                <i class="fa-solid fa-bed "></i>{{.Params.Bed}}
+                {{end}}
+            </div>
+            <div class="flex flex-col justify-center items-center">
+                <i class="fa-solid fa-utensils "></i>{{.Params.Dinner}}
+            </div>
+            <div class="flex flex-col justify-center items-center">
+                <i class="fa-solid fa-person-swimming"></i>{{.Params.Pool}}
+            </div>
+
+
+        </div>
+
+        <div class="flex flex-row justify-center">
+
+            <a href="/contact" class="btn border rounded border-stone-300 p-4 hover:bg-black hover:text-gold">Demander
+                un devis</a>
+        </div>
+
+    </div>
+
+
 </div>

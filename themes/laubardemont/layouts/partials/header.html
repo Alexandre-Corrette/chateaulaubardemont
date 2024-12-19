@@ -1,33 +1,31 @@
 {{ $logo := resources.Get "images/logo-carre.png"}}
-{{ $backgroundImage := resources.Get "images/home/vue-drone-chateau-1.jpg" }}
 
 {{ $title := .Title}}
+{{if .IsHome}}
+        {{$title = .Params.welcome}}
+{{end}}
 
 
-{{ if eq $title "Le Chateau"}}
-{{ $backgroundImage = resources.Get "images/chateau/vue-drone.jpg" }}
-{{ else if eq $title "Notre Histoire"}}
-{{ $backgroundImage = resources.Get "images/histoire/mariage-julia-1.jpg" }}
-{{ else if eq $title "Réception"}}
-{{ $backgroundImage = resources.Get "images/histoire/mariage-julia-1.jpg" }}
-{{ end }}
+
 
 <div class="flex flex-col  ">
+    {{with .Params.headerImage}}
+    {{with resources.Get .}}
     <div class="hidden md:flex relative w-full h-5/6  flex-col pt-24 pb-20
     before:block before:absolute before:top-0 before:left-0 before:w-full before:h-5/6 before:z-20 bg-cover after:block 
     after:absolute after:content-[''] after:top-0 after:left-0 after:min-w-full after:min-h-full after:bg-slate-50/30
-    items-center " style="background-image: url( {{ $backgroundImage.RelPermalink }});">
+    items-center " style="background-image: url( {{ .RelPermalink }});">
+    {{end}}
+    {{end}}
         <a class="block xs:w-1/2 w-full max-w-52 relative z-20 justify-center mx-auto mb-24" href="/">
             <img src="{{ $logo.RelPermalink }}" class="">
         </a>
 
-        {{if .IsHome}}
-        {{$title = "BIENVENUE A LAUBARDEMONT"}}
-        {{end}}
-        <div class="text-2xl md:text-5xl h-1/2
+        
+        <h1 class="text-2xl md:text-5xl h-1/2
      text-center z-20
      w-full xs:mt-10">{{$title}}
-        </div>
+    </h1>
     </div>
     <div class="sm:flex md:hidden md:container flex-row justify-center mx-auto">
         <a href="/">

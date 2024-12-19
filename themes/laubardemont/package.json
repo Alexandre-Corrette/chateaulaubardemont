@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:css": "npx tailwindcss -i assets/css/main.css -o assets/css/style.css -w",
-    "start:hugo": "hugo server",
+    "start:hugo": "hugo server --disableFastRender",
     "start": "run-p start:*",
     "build:css": "npx tailwindcss -i ./themes/laubardemont/static/src/main.css -o ./public/assets/css/style.css -m",
     "build:hugo": "hugo --minify",
