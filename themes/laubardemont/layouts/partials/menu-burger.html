@@ -1,0 +1,75 @@
+{{- $page := .page }}
+{{- $menuID := .menuID }}
+
+
+
+
+{{- with index site.Menus $menuID }}
+<div class=" top-0 w-full  bg-transparent ">
+
+  
+    
+
+      <nav class="nav">
+        
+<a  href="#">  {{ with resources.Get site.Params.logo }}
+            <img class="logo" src="{{ .RelPermalink }}" class="">
+            {{end}}</a>
+
+        <ul class="nav-list list-none">
+          {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
+         
+         
+        </ul>
+       
+      </nav>
+      <!-- BURGER (mobile) -->
+  <div class="burger" aria-label="Menu mobile">
+    <input id="burger-toggle" class="burger-toggle" type="checkbox" />
+    <label class="burger-btn" for="burger-toggle" aria-label="Ouvrir le menu">
+      <span class="burger-line"></span>
+    </label>
+
+    <label class="burger-overlay" for="burger-toggle" aria-hidden="true"></label>
+
+    <nav class="burger-panel" aria-label="Navigation mobile">
+        <ul>
+{{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
+        </ul>
+        
+    </nav>
+   
+
+ 
+</div>
+{{- end }}
+
+{{- define "partials/inline/menu/walk.html" }}
+{{- $page := .page }}
+{{- range .menuEntries }}
+{{- $attrs := dict "href" .URL }}
+{{- $class := dict "class" ""}}
+{{- if $page.IsMenuCurrent .Menu . }}
+{{- $attrs = merge $attrs (dict "class" "active text-xl menu hover:text-gold" "aria-current" "page") }}
+{{- else if $page.HasMenuCurrent .Menu .}}
+{{- $attrs = merge $attrs (dict "class" "ancestor" "aria-current" "true") }}
+{{- end }}
+{{- $hasChildren := gt (len .Children) 0 }}
+
+
+  <!-- NAV (desktop) -->
+  
+   <li class="{{ if $hasChildren }} has-sub {{ end }}">
+  <a {{- range $k, $v :=$attrs }} {{- with $v }} {{- printf " %s=%q" $k $v | safeHTMLAttr }} {{- end }} {{- end -}}>
+    {{ or (T .Identifier) .Name | safeHTML }}
+  </a>
+
+  {{- with .Children }}
+  <ul class="sub-menu">
+    {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
+  </ul>
+  {{- end }}
+</li>
+  
+ {{- end }}
+  {{- end }}

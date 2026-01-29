@@ -1,10 +1,11 @@
 <div class=" grid lg:grid-cols-2 sm:grid-cols-1 gap-2 mt-2 lg:mt-8 mb-24">
        
-    {{ range . }}
-    {{ with resources.Get . }}
-    <img class="w-full min-h-full" src="{{ .RelPermalink }}" alt="">
+{{ with resources.Get "images/chateau/*.jpeg" }}
+    
+  <img class="w-full min-h-full" src="{{ .RelPermalink }}" width="{{ .Width }}" height="{{ .Height }}" alt="">
 
-    {{ end }}
-    {{ end }}
+    
+    {{end}}
+    
     
 </div>
