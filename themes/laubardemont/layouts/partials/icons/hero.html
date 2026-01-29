@@ -1,0 +1,42 @@
+{{/* layouts/partials/hero.html */}}
+
+{{ with .Params.hero }}
+<section class="bg-stone-100 px-4 pb-16 pt-8 md:px-8">
+  <div class="mx-auto max-w-4xl">
+    
+    {{/* Image principale */}}
+    <div class="overflow-hidden rounded shadow-md">
+      {{ $image := resources.Get .image }}
+      {{ if $image }}
+      <img 
+        src="{{ $image.RelPermalink }}" 
+        alt="{{ .alt | default "Vue du château" }}"
+        class="h-auto w-full object-cover"
+        width="{{ $image.Width }}"
+        height="{{ $image.Height }}"
+        loading="eager"
+      >
+      {{ end }}
+    </div>
+
+    {{/* Tagline + CTA */}}
+    <div class="mt-10 text-center">
+      {{ with .tagline }}
+      <p class="font-serif text-xl leading-relaxed text-stone-700 md:text-2xl">
+        {{ . }}
+      </p>
+      {{ end }}
+
+      {{ with .cta }}
+      <a 
+        href="{{ .url | relURL }}" 
+        class="mt-8 inline-block rounded-full bg-amber-400 px-10 py-4 text-sm font-medium uppercase tracking-widest text-stone-800 transition hover:bg-amber-500"
+      >
+        {{ .label }}
+      </a>
+      {{ end }}
+    </div>
+
+  </div>
+</section>
+{{ end }}

@@ -1,0 +1,54 @@
+<div class="shadow flex flex-col p-6 rounded bg-white">
+    <div class="container flex flex-col bg-red-50 justify-between min-h-full">
+      {{ .Params.display_related }}
+      
+      <h2 class="text-2xl font-semibold">{{ .Params.Name }}</h2>
+      
+      <div class="text-justify mt-8 mb-8 min-h-32 px-4">
+        {{ if .Params.Services.Reception }}
+          <p class="text-gray-800">Réception: {{ .Params.Services.Reception}}</p>
+        {{end}}
+        {{ if .Params.Services.Couchage }}
+          <p>Couchages: {{ .Params.Services.Couchage}}</p>
+        {{ end}}
+        {{ if .Params.Services.Garden}}
+          <p>Jardin: {{ .Params.Services.Garden}}</p>
+        {{end}}
+        {{ if .Params.Services.Loisir}}
+          <p>Loisirs: {{ .Params.Services.Loisir}}</p>
+        {{end}}
+        {{ if .Params.Services.Terrace}}
+          <p>Terrasse: {{ .Params.Services.Terrace}}</p>
+        {{end}}
+      </div>
+      
+      <div class="flex flex-row w-full justify-around items-center mb-8 min-h-16 mt-4">
+        <div class="flex flex-col justify-center items-center">
+          {{ if .Params.Bed}}
+            <i class="fa-solid fa-bed"></i>
+            <span>{{.Params.Bed}}</span>
+          {{end}}
+        </div>
+        <div class="flex flex-col justify-center items-center">
+          {{if .Params.Dinner}}
+            <i class="fa-solid fa-utensils"></i>
+            <span>{{.Params.Dinner}}</span>
+          {{end}}
+        </div>
+        <div class="flex flex-col justify-center items-center">
+          {{if .Params.Pool}}
+            <i class="fa-solid fa-person-swimming"></i>
+            <p class="text-center">
+              accès<br>piscine
+            </p>
+          {{end}}
+        </div>
+      </div>
+      
+      <div class="flex flex-row justify-center">
+        <a href="/contact" class="btn border rounded border-stone-300 p-4 hover:bg-black hover:text-gold">
+          Demander un devis
+        </a>
+      </div>
+    </div>
+  </div>

@@ -1,31 +1,22 @@
 <!DOCTYPE html>
-<html lang="{{ or site.Language.LanguageCode site.Language.Lang }}"
-  dir="{{ or site.Language.LanguageDirection `ltr` }}">
-
+<html lang="{{ or site.Language.LanguageCode site.Language.Lang }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
 <head>
   {{ partial "head.html" . }}
-
 </head>
+<body class="bg-stone-100">
 
-<body>
-  <main >
-    <div class="lg:container  w-full mx-auto lg:min-h-screen ">
-      <header class="lg:container flex flex-col w-full  relative">
-        {{ if .IsHome }}
-        {{ partial "home-header.html" . }}
-        {{ else }}
-        {{ partial "header.html" . }}
-        {{ end }}
-      </header>
-      <div class="lg:container mx-auto">
-        {{ block "main" . }}
-        {{ end }}
-      </div>
-    </div>
+  <header>
+    {{ partial "header.html" . }}
+  </header>
+
+  <main class="w-full mx-auto">
+    {{ block "main" . }}
+    {{ end }}
   </main>
+
   <footer>
     {{ partial "footer.html" . }}
   </footer>
-</body>
 
+</body>
 </html>

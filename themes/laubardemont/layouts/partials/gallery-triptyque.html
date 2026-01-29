@@ -1,0 +1,16 @@
+{{ with .Params.images }}
+<section class="my-12 p-5">
+  <div class="flex flex-col lg:flex-row lg:items-stretch gap-4">
+    {{ range $index, $img := . }}
+      <div class="{{ if eq $index 1 }}basis-2/4{{ else }}basis-1/4{{ end }}">
+        <img src="{{ $img | relURL }}" alt="Image {{ add $index 1 }}" class="w-full h-full object-cover rounded shadow" />
+      </div>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+
+
+
+

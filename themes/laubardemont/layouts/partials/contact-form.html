@@ -1,0 +1,291 @@
+{{/* layouts/partials/contact-form.html */}}
+
+<section class="px-4 py-16 md:px-8">
+  <div class="mx-auto max-w-2xl">
+    
+    {{/* Titre */}}
+    <div class="mb-12 text-center">
+      <h2 class="font-serif text-3xl font-medium text-stone-800 md:text-4xl">
+        Nous contacter
+      </h2>
+      <p class="mt-4 text-stone-600">
+        Parlez-nous de votre projet, nous vous répondrons sous 48h.
+      </p>
+    </div>
+
+    {{/* Messages d'état (gérés en JS) */}}
+    <div id="status-message" class="mb-8 hidden rounded-lg border p-4 text-center"></div>
+
+
+    {{/* Formulaire */}}
+   
+      <form novalidate method="POST" action="/php/contact-submit.php" class="space-y-6">
+
+      
+      {{/* Nom & Prénom */}}
+      <div class="grid gap-6 md:grid-cols-2">
+        <div>
+          <label for="First_Name" class="mb-2 block text-sm font-medium text-stone-700">
+            Prénom
+          </label>
+          <input
+            type="text"
+            name="first_name"
+            id="First_Name"
+            placeholder="Votre prénom"
+            autocomplete="given-name"
+            class="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-800 placeholder-stone-400 transition focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/20"
+          >
+        </div>
+
+        <div>
+          <label for="Last_Name" class="mb-2 block text-sm font-medium text-stone-700">
+            Nom <span class="text-amber-500">*</span>
+          </label>
+          <input
+            type="text"
+            name="last_name"
+            id="Last_Name"
+            placeholder="Votre nom"
+            required
+            autocomplete="family-name"
+            class="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-800 placeholder-stone-400 transition focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/20"
+          >
+        </div>
+      </div>
+
+      {{/* Email & Téléphone */}}
+      <div class="grid gap-6 md:grid-cols-2">
+        <div>
+          <label for="Email" class="mb-2 block text-sm font-medium text-stone-700">
+            Email <span class="text-amber-500">*</span>
+          </label>
+          <input
+            type="email"
+            name="email"
+            id="Email"
+            required
+            placeholder="exemple@exemple.com"
+            autocomplete="email"
+            class="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-800 placeholder-stone-400 transition focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/20"
+          >
+        </div>
+
+        <div>
+          <label for="Phone" class="mb-2 block text-sm font-medium text-stone-700">
+            Téléphone
+          </label>
+          <input
+            type="tel"
+            name="phone"
+            id="Phone"
+            placeholder="06 07 00 00 00"
+            autocomplete="tel"
+            class="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-800 placeholder-stone-400 transition focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/20"
+          >
+        </div>
+      </div>
+
+      {{/* Date & Type */}}
+      <div class="grid gap-6 md:grid-cols-2">
+        <div>
+          <label for="date" class="mb-2 block text-sm font-medium text-stone-700">
+            Date souhaitée <span class="text-amber-500">*</span>
+          </label>
+          <input
+            type="date"
+            name="date"
+            id="date"
+            required
+            class="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-800 transition focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/20"
+          >
+        </div>
+
+        <div>
+          <label for="reason" class="mb-2 block text-sm font-medium text-stone-700">
+            Type d'évènement
+          </label>
+          <select 
+            name="reason" 
+            id="reason" 
+            class="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-800 transition focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/20"
+          >
+            <option value="">Choisissez</option>
+            <option value="Mariage">Mariage</option>
+            <option value="Anniversaire">Anniversaire</option>
+            <option value="Professionnel">Séminaire</option>
+            <option value="Autre">Autre</option>
+          </select>
+        </div>
+      </div>
+
+      {{/* Message */}}
+      <div>
+        <label for="message" class="mb-2 block text-sm font-medium text-stone-700">
+          Votre message <span class="text-amber-500">*</span>
+        </label>
+        <textarea
+          name="message"
+          id="message"
+          required
+          rows="5"
+          placeholder="Décrivez-nous votre projet..."
+          class="w-full resize-none rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-800 placeholder-stone-400 transition focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/20"
+        ></textarea>
+      </div>
+
+      {{/* Honeypot anti-bot */}}
+      <div class="honey" aria-hidden="true">
+        <input type="text" name="name" tabindex="-1" autocomplete="off">
+        <input type="text" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      {{/* Alerte JS */}}
+      <div id="form-alert" class="hidden rounded-lg border p-4 text-sm"></div>
+
+      {{/* Bouton */}}
+      <div class="pt-4">
+        <button 
+          type="submit" 
+          class="w-full rounded-full bg-amber-400 px-8 py-4 text-sm font-medium uppercase tracking-widest text-stone-800 transition hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2"
+        >
+          Envoyer ma demande
+        </button>
+      </div>
+
+      <p class="text-center text-xs text-stone-500">
+        <span class="text-amber-500">*</span> Champs obligatoires
+      </p>
+
+    </form>
+  </div>
+</section>
+
+<style>
+  .honey {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+  }
+  .field-error {
+    border-color: #dc2626 !important;
+    background-color: #fef2f2 !important;
+  }
+  .alert-error {
+    border-color: #fecaca;
+    color: #991b1b;
+    background: #fef2f2;
+  }
+  .alert-ok {
+    border-color: #bbf7d0;
+    color: #166534;
+    background: #f0fdf4;
+  }
+</style>
+
+<script>
+(function () {
+  // 1. Configuration et Sélection des éléments
+  const form = document.querySelector('form[method="post"]');
+  const alertBox = document.getElementById('form-alert');
+  const statusBox = document.getElementById('status-message');
+  
+  if (!form) return;
+
+  const requiredFields = [
+    { id: 'Last_Name', label: 'Nom' },
+    { id: 'Email', label: 'Email', type: 'email' },
+    { id: 'date', label: 'Date souhaitée' },
+    { id: 'message', label: 'Message' },
+  ];
+
+  // 2. Gestion des messages de succès/erreur via l'URL (PHP/Backend)
+  const params = new URLSearchParams(window.location.search);
+  if (statusBox) {
+    if (params.get('success') === '1') {
+      statusBox.classList.remove('hidden');
+      statusBox.classList.add('border-green-200', 'bg-green-50', 'text-green-800');
+      statusBox.innerHTML = '<p class="font-medium">Message envoyé avec succès !</p>';
+    } else if (params.get('error')) {
+      statusBox.classList.remove('hidden');
+      statusBox.classList.add('border-red-200', 'bg-red-50', 'text-red-800');
+      const msg = params.get('error') === 'email' ? 'Email invalide.' : 'Erreur dans les champs.';
+      statusBox.innerHTML = `<p class="font-medium">${msg}</p>`;
+    }
+  }
+
+  // 3. Fonctions utilitaires
+  function showError(html) {
+    if (!alertBox) return;
+    alertBox.classList.remove('hidden', 'alert-ok');
+    alertBox.classList.add('alert-error');
+    alertBox.innerHTML = html;
+  }
+
+  function clearError() {
+    if (!alertBox) return;
+    alertBox.classList.add('hidden');
+    alertBox.innerHTML = '';
+  }
+
+  function mark(el, error) {
+    if (el) el.classList.toggle('field-error', error);
+  }
+
+  function isValidEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  // 4. Validation globale
+  function validateForm() {
+    const errors = [];
+    requiredFields.forEach(({ id, label, type }) => {
+      const el = document.getElementById(id);
+      const value = (el?.value || '').trim();
+      let hasError = !value || (type === 'email' && !isValidEmail(value));
+      
+      if (hasError) {
+        errors.push(type === 'email' && value ? `${label} (format invalide)` : label);
+      }
+      mark(el, hasError);
+    });
+
+    if (errors.length) {
+      showError(`<strong>Champs à corriger :</strong> ${errors.join(', ')}`);
+      return false;
+    }
+    return true;
+  }
+
+  // 5. Événements
+  form.addEventListener('submit', function (e) {
+    if (!validateForm()) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  });
+
+  // Validation "en direct" sans masquer l'alerte globale prématurément
+  requiredFields.forEach(({ id, type }) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    el.addEventListener('input', () => {
+      const value = el.value.trim();
+      const hasError = !value || (type === 'email' && !isValidEmail(value));
+      mark(el, hasError);
+      
+      // On ne cache l'alerte que si TOUT est devenu valide
+      const currentErrors = requiredFields.filter(({ id, type }) => {
+        const field = document.getElementById(id);
+        const val = field?.value.trim();
+        return !val || (type === 'email' && !isValidEmail(val));
+      });
+      
+      if (currentErrors.length === 0) clearError();
+    });
+  });
+})();
+</script>

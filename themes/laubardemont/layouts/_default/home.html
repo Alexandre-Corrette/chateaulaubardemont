@@ -1,22 +1,122 @@
 {{ define "main" }}
 
-{{ $insta := .Resources.Get "instagram.png"}}
+{{/* Hero */}}
+<section class="px-4 py-8 md:px-8">
+  <div class="mx-auto max-w-4xl">
+    
+    {{ $hero := resources.Get .Params.hero.image | default "images/vue-piscine.jpg" }}
+    {{ with $hero }}
+    <div class="overflow-hidden rounded shadow-md">
+      <img 
+        class="h-auto w-full object-cover" 
+        src="{{ .RelPermalink }}" 
+        alt="{{ $.Params.hero.alt | default "Château de Laubardemont" }}"
+        loading="eager"
+      >
+    </div>
+    {{ end }}
+   
 
-<div class="lg:container flex flex-col">
-
-  <div class="flex flex-row">
-    {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
-  </div>
-  
-  
-  <div class="lg:container mx-auto">
-    <div class="flex row">
+    <div class="mt-10 text-center">
+      <p class="font-serif text-xl leading-relaxed text-stone-700 md:text-2xl">
+        {{ .Params.hero.tagline }}
+      </p>
       
-      <div class="bg-stone-300 p-8">
-        {{ .Content }}
-      </div>
+      {{ with .Params.hero.cta }}
+      <a 
+        href="{{ .url | relURL }}" 
+        class="mt-8 inline-block rounded-full bg-amber-400 px-10 py-4 text-sm font-medium uppercase tracking-widest text-stone-800 transition hover:bg-amber-500"
+      >
+        {{ .label }}
+      </a>
+      {{ end }}
+    </div>
+
+  </div>
+   {{/* Contenu additionnel */}}
+{{ with .Content }}
+<section class="border-t border-stone-200 py-16 mt-16">
+  <div class="mx-auto max-w-3xl px-4">
+    <div class="text-justify text-stone-700">
+      {{ . }}
     </div>
   </div>
-</div>
+</section>
+{{ end }}
+</section>
+
+{{/* Déroulement */}}
+{{ with .Params.deroulement }}
+<section class="px-4 py-16 md:px-8">
+  <div class="mx-auto max-w-5xl">
+    
+    <h2 class="flex items-center justify-center text-xs font-medium uppercase tracking-widest text-stone-600">
+      <span>{{ .title }}</span>
+      <span class="ml-4 h-0.5 w-10 bg-amber-400"></span>
+    </h2>
+
+    <div class="mt-12 grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+      {{ range .etapes }}
+      <div class="text-center">
+        <div class="mx-auto mb-4 h-24 w-24 text-amber-400">
+          {{ partial (printf "icons/%s.html" .icon) . }}
+        </div>
+        <h3 class="font-serif text-lg font-medium text-stone-800">{{ .titre }}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-stone-600">{{ .description }}</p>
+      </div>
+      {{ end }}
+    </div>
+
+  </div>
+</section>
+{{ end }}
+
+{{/* Infos pratiques */}}
+{{ with .Params.infos }}
+<section class="border-t border-stone-200 px-4 py-16 md:px-8">
+  <div class="mx-auto max-w-4xl">
+    
+    <h2 class="text-center text-xs font-medium uppercase tracking-widest text-stone-600">
+      {{ .title }}
+    </h2>
+
+    <div class="mt-10 grid grid-cols-2 gap-8 md:grid-cols-4">
+      {{ range .items }}
+      <div class="flex items-start gap-3">
+        <div class="flex-shrink-0 text-amber-500">
+          {{ partial (printf "icons/%s.html" .icon) . }}
+        </div>
+        <div>
+          <p class="font-medium text-stone-800">{{ .label }}</p>
+          <p class="text-sm text-stone-600">{{ .value }}</p>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+
+  </div>
+</section>
+{{ end }}
+
+{{/* Citation finale */}}
+{{ with .Params.citation }}
+<section class="px-4 py-20 md:px-8">
+  <div class="mx-auto max-w-3xl text-center">
+    <p class="font-serif text-2xl leading-relaxed text-stone-700 md:text-3xl">
+      {{ .text }}
+    </p>
+    {{ with .cta }}
+    <a 
+      href="{{ .url | relURL }}" 
+      class="mt-10 inline-block rounded-full bg-amber-400 px-10 py-4 text-sm font-medium uppercase tracking-widest text-stone-800 transition hover:bg-amber-500"
+    >
+      {{ .label }}
+    </a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+
 
 {{ end }}
