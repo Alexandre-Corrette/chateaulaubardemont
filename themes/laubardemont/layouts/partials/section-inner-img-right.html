@@ -1,0 +1,8 @@
+<div class="flex flex-col basis-1/2  py-2 mx-2">
+    {{ with .Resources.Get "snippets/text1.md" }}
+        {{ .Content }}
+    {{end}}
+</div>
+<div class=" flex basis-1/2 bg-stone-100 mx-2 justify-self-end">
+    <img src="{{ .RelPermalink}}" class="relative left-[30] top-30" alt="">
+</div>     

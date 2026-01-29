@@ -2,18 +2,42 @@
 <meta name="viewport" content="width=100vw, height=100vH, minimum-scale=1.0, initial-scale=1.0">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
 
-{{ $css := resources.Get "../assets/css/style.css" }}
 
-{{ if .Site.IsServer }}
-    <link rel="stylesheet" href="{{ $css.RelPermalink }}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <script src="https://kit.fontawesome.com/56d9bf9e2d.js" crossorigin="anonymous"></script>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-{{ else }}
-    {{ $styles := $css | resources.Minify }}
-    <link rel="stylesheet" href="{{ $css.RelPermalink }}">
-{{ end }}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+<link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
 
 
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const links = document.querySelectorAll('.load-section');
+      const target = document.getElementById('dynamic-content');
+    
+      links.forEach(link => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          const url = this.getAttribute('data-target');
+    
+          fetch(url)
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(html, 'text/html');
+              const content = doc.querySelector('.main-content'); // ajuste selon ton layout
+    
+              if (content) {
+                target.innerHTML = content.innerHTML;
+                window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+              }
+            })
+            .catch(err => {
+              target.innerHTML = "<p>Erreur de chargement.</p>";
+            });
+        });
+      });
+    });
+    </script>
+    
 

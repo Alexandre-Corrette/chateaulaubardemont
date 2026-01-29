@@ -1,0 +1,9 @@
+
+    {{ if hugo.IsDevelopment }}
+      <link rel="stylesheet" href="/assets/css/styles.css">
+    {{ else }}
+      {{ with . | fingerprint }}
+        <link rel="stylesheet" href="/assets/css/styles.css"integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+      {{ end }}
+    {{ end }}
+  

@@ -1,0 +1,8 @@
+<main id="dynamic-content" class="dynamic-section">
+    <h2 class="text-3xl mt-8 mb-4 font-['Roboto']">La Batisse</h2>
+    <div class="lg:w-1/3 mx-auto  min-h-full text-justify  px-4 py-2  mb-8 ">
+        
+        {{ with .Site.GetPage "description" }} {{.Content}} {{end}}
+    </div>
+  </main>
+  
