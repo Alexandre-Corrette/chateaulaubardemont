@@ -9,15 +9,13 @@
 
 <body>
   <main >
-    <div class=" w-full mx-auto lg:min-h-screen ">
+    <div class=" w-full mx-auto ">
       <header class=" h-3/4 flex flex-col w-full  relative">
-        {{ if .IsHome }}
-        {{ partial "home-header.html" . }}
-        {{ else }}
+       
         {{ partial "header.html" . }}
-        {{ end }}
+       
       </header>
-      <div class="lg:container mx-auto">
+      <div class="mx-auto">
         {{ block "main" . }}
         {{ end }}
       </div>

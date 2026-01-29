@@ -1,9 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./public/**/*.html', './content/**/*.md'],
+  content: ['../../layouts/**/*.html', "./layouts/**/*.html","../../assets/css/*.css"],
   presets: [],
   darkMode: 'media', // or 'class'
   theme: {
+    
     accentColor: ({ theme }) => ({
       ...theme('colors'),
       auto: 'auto',
@@ -51,6 +52,7 @@ module.exports = {
       'gradient-to-bl': 'linear-gradient(to bottom left, var(--tw-gradient-stops))',
       'gradient-to-l': 'linear-gradient(to left, var(--tw-gradient-stops))',
       'gradient-to-tl': 'linear-gradient(to top left, var(--tw-gradient-stops))',
+      'home': "url('images/home/vue-drone-chateau-1.jpg')",
     },
     backgroundOpacity: ({ theme }) => theme('opacity'),
     backgroundPosition: {
@@ -159,6 +161,7 @@ module.exports = {
       fuchsia: colors.fuchsia,
       pink: colors.pink,
       rose: colors.rose,
+      gold: '#B69F6D',
     }),
     columns: {
       auto: 'auto',
@@ -309,6 +312,7 @@ module.exports = {
         '"Segoe UI Emoji"',
         '"Segoe UI Symbol"',
         '"Noto Color Emoji"',
+        'Roboto',
       ],
       serif: ['ui-serif', 'Georgia', 'Cambria', '"Times New Roman"', 'Times', 'serif'],
       mono: [

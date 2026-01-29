@@ -15,6 +15,7 @@ du **patrimoine local**, la restauration du **Château de Laubardemont** est ava
 Datant du XVIe siècle, posé sur l’île de Laubardemont, le **Château de Laubardemont**
 retrouve peu à peu grâce et authenticité.
 
+  \
 La **réhabilitation soignée du château**, ses cours, ses **dépendances et salle de réception** ont transcendé  le caractère **noble et champêtre** du domaine offrant 
 un **lieu de vie unique et authentique**. 
 **Julia et Manu** ont donc à cœur de vous faire découvrir l’histoire de ce **lieu magique** 
