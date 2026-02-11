@@ -1,0 +1,18 @@
+{
+    "name": "laubardemont/website",
+    "description": "Château de Laubardemont — site Hugo + PHP contact",
+    "type": "project",
+    "require-dev": {
+        "phpunit/phpunit": "^11.0"
+    },
+    "autoload": {
+        "files": [
+            "themes/laubardemont/static/php/helpers/sanitize.php",
+            "themes/laubardemont/static/php/helpers/validate.php",
+            "themes/laubardemont/static/php/helpers/template.php",
+            "themes/laubardemont/static/php/helpers/mailer.php",
+            "themes/laubardemont/static/php/helpers/logger.php",
+            "themes/laubardemont/static/php/helpers/http.php"
+        ]
+    }
+}
