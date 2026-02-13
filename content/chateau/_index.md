@@ -16,7 +16,7 @@ layout = "sections"
   content = """
 Érigé au XVIe siècle sur une île naturelle de l'Isle, le Château de Laubardemont déploie son architecture classique dans un écrin de verdure préservé. Son corps de logis central, encadré de deux pavillons coiffés d'ardoises, compose une silhouette élégante et intemporelle.
 
-Les pierres blondes du Libournais, les hautes fenêtres ouvertes sur les jardins, les toitures à quatre pans surmontées de girouettes racontent cinq siècles d'histoire. À l'intérieur, poutres apparentes, tomettes d'origine et cheminées monumentales dialoguent avec une restauration soignée qui a su préserver l'âme des lieux tout en offrant le confort contemporain.
+Les pierres blondes du Libournais, les hautes fenêtres ouvertes sur les jardins, les toitures à quatre pans surmontées de girouettes racontent cinq siècles d'histoire. À l'intérieur, poutres apparentes et cheminées monumentales dialoguent avec une restauration soignée qui a su préserver l'âme des lieux tout en offrant le confort contemporain.
 """
 
 [[sections]]
@@ -25,16 +25,16 @@ Les pierres blondes du Libournais, les hautes fenêtres ouvertes sur les jardins
   content = """
 Le domaine vous offre une liberté rare : celle de composer votre célébration selon vos envies, dans des espaces d'exception qui s'adaptent à chaque moment de votre journée.
 
-Sous les poutres centenaires et les lustres de la grande salle, accueillez jusqu'à 100 convives pour un dîner élégant. Sous l'allée majestueuse des tilleuls, une cathédrale végétale pour vos dîners champêtres. Sur la terrasse de 200 m², un salon à ciel ouvert pour dîner sous les étoiles. Tables, chaises, vaisselle, salons de jardin : tout est mis à votre disposition pour que vous n'ayez qu'à profiter.
+Sous les arches en pierre de taille de la salle voutée, accueillez jusqu'à 120 convives pour un dîner élégant. Sous l'allée majestueuse des tilleuls, une cathédrale végétale pour vos dîners champêtres. Sur la terrasse de 200 m², un salon à ciel ouvert pour dîner sous les étoiles. Tables, chaises, vaisselle, salons de jardin : tout est mis à votre disposition pour que vous n'ayez qu'à profiter.
 """
 
 [[sections]]
   title = "L'Hébergement"
   image = "images/chateau-hebergement.jpg"
   content = """
-Soixante-cinq couchages répartis sur l'ensemble du domaine : au Château de Laubardemont, vos invités dorment sur place et la fête ne s'arrête qu'au petit matin.
+Soixante couchages répartis sur l'ensemble du domaine : au Château de Laubardemont, vos invités dorment sur place et la fête ne s'arrête qu'au petit matin.
 
-La suite nuptiale, nichée dans l'aile noble du château, vous accueille dans un cocon de raffinement pour votre première nuit d'époux. Les chambres de caractère du corps principal, les maisons de pierre indépendantes pour les familles, les appartements cosy pour les groupes d'amis : chacun trouve sa place. Et pour les plus jeunes, le dortoir des enfants transforme le week-end en aventure. Pas de départ précipité : vos proches se retrouvent le lendemain autour du brunch.
+La suite nuptiale, nichée dans l'aile noble du château, vous accueille dans un cocon de raffinement pour votre première nuit d'époux. Les chambres de caractère du corps principal, chacune avec sa salle de bain privative, les maisons de pierre indépendantes pour les familles, les appartements cosy pour les groupes d'amis : chacun trouve sa place. Et pour les plus jeunes, le dortoir des enfants transforme le week-end en aventure. Pas de départ précipité : vos proches se retrouvent le lendemain autour du brunch.
 """
 
 [[sections]]
