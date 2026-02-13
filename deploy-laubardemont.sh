@@ -237,25 +237,27 @@ fi
 log_ok "Vérifications passées (env: ${DEPLOY_ENV}, branche: ${CURRENT_BRANCH})"
 
 # ── Mode PHP-only ────────────────────────────────────────────────────────────
+PHP_SRC="themes/laubardemont/static/php"
+
 if [ "$PHP_ONLY" = true ]; then
     log_step "Déploiement PHP uniquement"
 
-    if [ ! -d "php" ]; then
-        log_err "Dossier php/ introuvable à la racine du projet"
+    if [ ! -d "$PHP_SRC" ]; then
+        log_err "Dossier ${PHP_SRC}/ introuvable"
         exit 1
     fi
 
     # Compter les fichiers PHP
-    PHP_COUNT=$(find php/ -name "*.php" | wc -l | tr -d ' ')
+    PHP_COUNT=$(find "$PHP_SRC" -name "*.php" | wc -l | tr -d ' ')
     log_info "Upload de ${PHP_COUNT} fichiers PHP..."
 
     # Upload les fichiers PHP (sans --delete pour ne pas supprimer config.php sur le serveur)
-    rsync_upload "php/" "${REMOTE_PHP}/" "--archive --compress --exclude='config.php'"
+    rsync_upload "${PHP_SRC}/" "${REMOTE_PHP}/" "--archive --compress --exclude='config.php'"
 
     log_ok "Fichiers PHP déployés"
     log_warn "config.php n'est PAS écrasé (contient la clé API BelEvent)"
     log_info "Si c'est le premier déploiement, copie config.php manuellement :"
-    log_info "  scp php/config.php ${SSH_USER}@${SSH_HOST}:${REMOTE_PHP}/config.php"
+    log_info "  scp ${PHP_SRC}/config.php ${SSH_USER}@${SSH_HOST}:${REMOTE_PHP}/config.php"
 
     echo ""
     echo -e "${GREEN}🏰 Déploiement PHP terminé !${NC}"
@@ -338,17 +340,17 @@ log_ok "Site statique uploadé"
 # ── Upload fichiers PHP ─────────────────────────────────────────────────────
 log_step "Upload des fichiers PHP"
 
-if [ -d "php" ]; then
-    PHP_COUNT=$(find php/ -name "*.php" | wc -l | tr -d ' ')
+if [ -d "${HUGO_PUBLIC_DIR}/php" ]; then
+    PHP_COUNT=$(find "${HUGO_PUBLIC_DIR}/php" -name "*.php" | wc -l | tr -d ' ')
     log_info "${PHP_COUNT} fichiers PHP à synchroniser"
 
     # Upload SANS écraser config.php (contient les secrets)
-    rsync_upload "php/" "${REMOTE_PHP}/" "--archive --compress --exclude='config.php'"
+    rsync_upload "${HUGO_PUBLIC_DIR}/php/" "${REMOTE_PHP}/" "--archive --compress --exclude='config.php'"
 
     log_ok "Fichiers PHP déployés"
     log_warn "config.php non écrasé (secrets serveur)"
 else
-    log_warn "Pas de dossier php/ — formulaire non déployé"
+    log_warn "Pas de dossier ${HUGO_PUBLIC_DIR}/php/ — formulaire non déployé"
 fi
 
 # ── Vérification ─────────────────────────────────────────────────────────────
