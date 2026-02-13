@@ -1,6 +1,7 @@
 +++
 title = "Nos Partenaires"
 subtitle = "Une sélection de professionnels de confiance pour sublimer votre événement"
+description = "Traiteurs, photographes, fleuristes, DJ : découvrez les prestataires de confiance recommandés par le Château de Laubardemont."
 layout = "partenaires"
 draft = false
 

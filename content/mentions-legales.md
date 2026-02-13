@@ -1,6 +1,7 @@
 +++
 title = "Mentions légales"
 layout = "mentions-legales"
+description = "Mentions légales du site Château de Laubardemont : éditeur, hébergeur, protection des données personnelles et politique de confidentialité."
 +++
 
 ## Éditeur du site

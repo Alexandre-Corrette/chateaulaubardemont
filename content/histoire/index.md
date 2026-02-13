@@ -1,6 +1,7 @@
 +++
 title = "Notre Histoire"
 subtitle = "Cinq siècles d'élégance au bord de l'Isle"
+description = "L'histoire du Château de Laubardemont, demeure du XVIe siècle sur une île de l'Isle, restaurée par Julia et Manu pour accueillir vos événements."
 layout = "sections"
 
 [hero]

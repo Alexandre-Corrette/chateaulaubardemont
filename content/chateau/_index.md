@@ -1,6 +1,7 @@
 +++
 title = "Le Château"
 subtitle = "Un écrin du XVIIe siècle pensé pour vos célébrations"
+description = "Découvrez le Château de Laubardemont : bâtisse du XVIe siècle, salle voutée de 120 convives, 60 couchages avec salle de bain privative et un hectare de jardins."
 layout = "sections"
 
 [hero]
