@@ -134,10 +134,10 @@
         ></textarea>
       </div>
 
-      {{/* Honeypot anti-bot */}}
+      {{/* Honeypot anti-bot — noms volontairement non-sémantiques */}}
 <div class="honey" aria-hidden="true">
-  <input type="text" name="company_fax" tabindex="-1" autocomplete="off">
-  <input type="text" name="url_callback" tabindex="-1" autocomplete="off">
+  <input type="text" name="hp_zx8" tabindex="-1" autocomplete="nope">
+  <input type="text" name="hp_qv3" tabindex="-1" autocomplete="nope">
 </div>
 
       {{/* Alerte JS */}}
@@ -187,6 +187,9 @@
 
 <script>
 (function () {
+  // 0. Sécurité honeypot — vider au cas où le navigateur auto-remplit
+  document.querySelectorAll('.honey input').forEach(function(el) { el.value = ''; });
+
   // 1. Configuration et Sélection des éléments
   const form = document.querySelector('form[method="post"]');
   const alertBox = document.getElementById('form-alert');

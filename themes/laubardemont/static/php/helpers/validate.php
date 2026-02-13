@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 function isHoneypotTriggered(array $post): bool {
-    return !empty($post['company_fax']) || !empty($post['url_callback']);
+    return !empty($post['hp_zx8']) || !empty($post['hp_qv3']);
 }
 
 function requireFields(array $post, array $fields): bool {
