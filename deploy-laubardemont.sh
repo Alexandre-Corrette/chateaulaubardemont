@@ -66,12 +66,29 @@ done
 
 # ── Charger .env.deploy ────────────────────────────────────────────────────
 if [ -f ".env.deploy" ]; then
+    # Vérifier les permissions (doit être 600 ou 640)
+    PERMS=$(stat -f "%OLp" .env.deploy 2>/dev/null || stat -c "%a" .env.deploy 2>/dev/null || echo "unknown")
+    if [ "$PERMS" != "600" ] && [ "$PERMS" != "640" ] && [ "$PERMS" != "unknown" ]; then
+        echo -e "${YELLOW}  ⚠️  .env.deploy a les permissions ${PERMS} — recommandé : chmod 600 .env.deploy${NC}"
+    fi
     # shellcheck source=/dev/null
     source .env.deploy
 fi
 
 SSH_HOST="${DEPLOY_SSH_HOST:-ssh.cluster131.hosting.ovh.net}"
 SSH_USER="${DEPLOY_SSH_USER:-}"
+
+# ── Configuration sshpass (mutualisé OVH) ─────────────────────────────────
+SSH_PASS="${DEPLOY_SSH_PASS:-}"
+SSH_PASS_CMD=""
+
+if [ -n "$SSH_PASS" ]; then
+    if ! command -v sshpass &> /dev/null; then
+        echo -e "${RED}  ❌ sshpass requis mais non installé. Installe-le : brew install esolitos/ipa/sshpass (macOS) ou apt install sshpass (Linux)${NC}"
+        exit 1
+    fi
+    SSH_PASS_CMD="sshpass -p ${SSH_PASS}"
+fi
 
 # ── Configuration environnement ────────────────────────────────────────────
 case $DEPLOY_ENV in
@@ -116,7 +133,7 @@ ssh_exec() {
     if [ "$DRY_RUN" = true ]; then
         echo -e "${YELLOW}  [DRY-RUN] ssh $SSH_USER@$SSH_HOST \"$1\"${NC}"
     else
-        ssh "$SSH_USER@$SSH_HOST" "$1"
+        $SSH_PASS_CMD ssh "$SSH_USER@$SSH_HOST" "$1"
     fi
 }
 
@@ -128,17 +145,33 @@ rsync_upload() {
     if [ "$DRY_RUN" = true ]; then
         echo -e "${YELLOW}  [DRY-RUN] rsync $flags $src $SSH_USER@$SSH_HOST:$dst${NC}"
     else
-        rsync $flags \
-            --exclude='.DS_Store' \
-            --exclude='Thumbs.db' \
-            --exclude='.git' \
-            --exclude='node_modules' \
-            "$src" "$SSH_USER@$SSH_HOST:$dst"
+        if [ -n "$SSH_PASS_CMD" ]; then
+            rsync $flags \
+                -e "$SSH_PASS_CMD ssh" \
+                --exclude='.DS_Store' \
+                --exclude='Thumbs.db' \
+                --exclude='.git' \
+                --exclude='node_modules' \
+                "$src" "$SSH_USER@$SSH_HOST:$dst"
+        else
+            rsync $flags \
+                --exclude='.DS_Store' \
+                --exclude='Thumbs.db' \
+                --exclude='.git' \
+                --exclude='node_modules' \
+                "$src" "$SSH_USER@$SSH_HOST:$dst"
+        fi
     fi
 }
 
 # ── Vérifications ────────────────────────────────────────────────────────────
 log_step "Vérifications"
+
+if [ -n "$SSH_PASS_CMD" ]; then
+    log_info "Mode sshpass activé (mutualisé OVH)"
+else
+    log_info "Mode interactif (mot de passe demandé à chaque connexion)"
+fi
 
 if [ -z "$SSH_USER" ]; then
     log_err "SSH_USER non configuré ! Définis DEPLOY_SSH_USER dans .env.deploy ou en variable d'environnement."
@@ -149,7 +182,7 @@ fi
 if [ "$ROLLBACK" = true ]; then
     log_step "Rollback vers le dernier backup"
     BACKUP_PREFIX="backup_${DEPLOY_ENV}"
-    LATEST_BACKUP=$(ssh "$SSH_USER@$SSH_HOST" "ls -t ~/backups/${BACKUP_PREFIX}_*.tar.gz 2>/dev/null | head -1")
+    LATEST_BACKUP=$($SSH_PASS_CMD ssh "$SSH_USER@$SSH_HOST" "ls -t ~/backups/${BACKUP_PREFIX}_*.tar.gz 2>/dev/null | head -1")
     if [ -z "$LATEST_BACKUP" ]; then
         log_err "Aucun backup trouvé sur le serveur"
         exit 1
