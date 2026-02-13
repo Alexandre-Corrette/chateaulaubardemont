@@ -75,7 +75,7 @@ if [ -f ".env.deploy" ]; then
     source .env.deploy
 fi
 
-SSH_HOST="${DEPLOY_SSH_HOST:-ssh.cluster131.hosting.ovh.net}"
+SSH_HOST="${DEPLOY_SSH_HOST:-ssh.cluster128.hosting.ovh.net}"
 SSH_USER="${DEPLOY_SSH_USER:-}"
 
 # ── Configuration sshpass (mutualisé OVH) ─────────────────────────────────
