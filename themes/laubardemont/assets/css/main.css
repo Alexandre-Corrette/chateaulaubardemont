@@ -1,0 +1,249 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  width: 100vw;
+}
+li ::marker{
+  content: none;
+}
+
+/* ====== Base layout ====== */
+.site-header{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: white;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding: 14px 18px;
+}
+
+.logo{
+  text-decoration: none;
+  color: #111;
+  width: 200px;
+  font: 800 18px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+}
+
+/* ====== Desktop nav ====== */
+/* Navigation desktop */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+
+.nav-list {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-list > li {
+  position: relative;
+}
+
+.nav-list > li > a {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #57534e; /* stone-600 */
+  transition: color 0.2s;
+}
+
+.nav-list > li > a:hover {
+  color: #f59e0b; /* amber-500 */
+}
+
+/* Sous-menu */
+.sub-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  padding-top: 0.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  z-index: 50;
+}
+
+.sub-menu ul {
+  background: white;
+  border: 1px solid #e7e5e4; /* stone-200 */
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  padding: 0.5rem 0;
+}
+
+.sub-menu li a {
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  color: #57534e;
+  transition: all 0.2s;
+}
+
+.sub-menu li a:hover {
+  background: #f5f5f4; /* stone-100 */
+  color: #f59e0b;
+}
+
+/* Afficher au hover */
+.has-sub:hover > .sub-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Indicateur flèche (optionnel) */
+.has-sub > a::after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 0.5rem;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid currentColor;
+  vertical-align: middle;
+}
+/* ====== Burger (mobile) hidden by default on desktop ====== */
+.burger{ display: none; }
+
+/* ====== Mobile burger styles ====== */
+.burger-toggle{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.burger-btn{
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  border-radius: 10px;
+  user-select: none;
+}
+
+.burger-line{
+  position: relative;
+  width: 24px;
+  height: 2px;
+  background: currentColor;
+  display: block;
+  transition: transform 220ms ease, background 220ms ease;
+}
+
+.burger-line::before,
+.burger-line::after{
+  content:"";
+  position:absolute;
+  left:0;
+  width:24px;
+  height:2px;
+  background: currentColor;
+  transition: transform 220ms ease, top 220ms ease, opacity 220ms ease;
+}
+
+.burger-line::before{ top:-7px; }
+.burger-line::after{ top: 7px; }
+
+.burger-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.burger-panel{
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100dvh;
+  width: min(320px, 85vw);
+  background: #fff;
+  box-shadow: -16px 0 40px rgba(0,0,0,.2);
+  transform: translateX(110%);
+  transition: transform 220ms ease;
+
+  padding: 90px 22px 22px;
+  display: grid;
+  gap: 14px;
+}
+.burger-panel ul {
+  justify-content: flex-start;
+}
+
+.burger-panel a{
+  text-decoration: none;
+  color: #111;
+  font: 600 16px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+  padding: 12px 10px;
+  border-radius: 10px;
+}
+
+.burger-panel a:hover{ background: rgba(0,0,0,.06); }
+
+/* Etat ouvert */
+.burger-toggle:checked ~ .burger-overlay{
+  opacity: 1;
+  pointer-events: auto;
+}
+.burger-toggle:checked ~ .burger-panel{
+  transform: translateX(0);
+}
+
+/* Burger -> croix */
+.burger-toggle:checked + .burger-btn .burger-line{
+  background: transparent;
+}
+.burger-toggle:checked + .burger-btn .burger-line::before{
+  top: 0;
+  transform: rotate(45deg);
+}
+.burger-toggle:checked + .burger-btn .burger-line::after{
+  top: 0;
+  transform: rotate(-45deg);
+}
+
+.burger-btn:focus-visible{
+  outline: 3px solid rgba(0,0,0,.35);
+  outline-offset: 3px;
+}
+
+/* ====== Responsive switch ======
+   En dessous de 900px: nav desktop cachée, burger affiché */
+@media (max-width: 900px){
+  .nav{ display: none; }
+  .burger{ display: block;}
+  .logo{width: 100%;}
+}
+
+/* Optionnel: réduit les animations */
+@media (prefers-reduced-motion: reduce){
+  .burger-line,
+  .burger-line::before,
+  .burger-line::after,
+  .burger-overlay,
+  .burger-panel{
+    transition: none !important;
+  }
+}
+

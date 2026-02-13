@@ -1,0 +1,6 @@
+@use "hugo:vars" as h;
+
+body {
+  font-family: h.$font-family-base;
+  font-size: h.$font-size-base;
+}

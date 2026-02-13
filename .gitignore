@@ -1,5 +1,20 @@
-node_modules
-public
-resources
-themes/laubardemont/public
+# Build
+public/
+resources/
+
+# Dépendances
+node_modules/
+vendor/
+
+# PHPUnit
+.phpunit.result.cache
+
+# CSS généré (optionnel, tu peux le versionner ou non)
+themes/laubardemont/static/css/styles.css
+
+# Système
+.DS_Store
 .hugo_build.lock
+
+# Variables d'environement
+.env

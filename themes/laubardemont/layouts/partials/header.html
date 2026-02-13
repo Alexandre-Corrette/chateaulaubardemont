@@ -1,0 +1,54 @@
+{{/* layouts/partials/header.html */}}
+
+<div class="bg-stone-100 px-4 py-6">
+  <div class="mx-auto flex max-w-5xl items-center justify-between">
+    
+    {{/* Nav gauche */}}
+    <nav class="hidden md:flex items-center gap-8">
+      {{ range first 2 .Site.Menus.main }}
+      <a 
+        href="{{ .URL }}" 
+        class="text-xs font-medium uppercase tracking-widest text-stone-600 transition hover:text-amber-500"
+      >
+        {{ .Name }}
+      </a>
+      {{ end }}
+    </nav>
+
+    {{/* Logo central */}}
+    <div class="text-center">
+      <a href="/" class="block">
+        <h1 class="font-serif text-2xl font-semibold tracking-wide text-stone-800 md:text-3xl">
+          {{ .Site.Params.propertyName }}
+        </h1>
+        <p class="mt-1 text-xs uppercase tracking-[0.3em] text-stone-500">
+          {{ .Site.Params.location }}
+        </p>
+      </a>
+    </div>
+
+    {{/* Nav droite */}}
+    <nav class="hidden md:flex items-center gap-8">
+      {{ range after 2 .Site.Menus.main }}
+      <a 
+        href="{{ .URL }}" 
+        class="text-xs font-medium uppercase tracking-widest text-stone-600 transition hover:text-amber-500"
+      >
+        {{ .Name }}
+      </a>
+      {{ end }}
+    </nav>
+
+    {{/* Burger mobile */}}
+    <div class="md:hidden">
+      {{ partial "menu-burger.html" (dict "menuID" "main" "page" .) }}
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+

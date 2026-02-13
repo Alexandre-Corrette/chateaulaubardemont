@@ -1,0 +1,116 @@
+baseURL = 'https://chateau-laubardemont.com/'
+languageCode = 'fr-fr'
+title = 'Chateau Laubardemont'
+theme = 'laubardemont'
+
+[mediaTypes]
+  [mediaTypes."application/x-php"]
+  suffixes = ["php"]
+
+[outputFormats]
+  [outputFormats.PHP]
+    mediaType = "application/x-php"
+    isPlainText = true
+    baseName = "index"
+
+
+[module]
+  [module.hugoVersion]
+    extended = false
+    min = "0.116.0"
+  [[module.mounts]]
+    source = 'assets'
+    target = 'assets'
+  [[module.mounts]]
+    disableWatch = true
+    source = 'hugo_stats.json'
+    target = 'assets/notwatching/hugo_stats.json'
+[params]
+  location = "Ile de Laubardemont"
+  ctaText = "Visiter le Chateau "
+  ctaHref = "/contact/"
+  heroVid = ""
+  logo = "/images/logo/logo.png"
+  propertyName = "Chateau de Laubardemont"
+  slogan = "Weddings, Events and Luxury Vacations"
+
+  google_rating = "4.9"
+
+[[params.avis]]
+    author = "Marie & Thomas"
+    rating = 5
+    date = "Septembre 2024"
+    text = "Un lieu magique pour notre mariage ! Julia et Manu sont aux petits soins, le cadre est somptueux et nos invités en parlent encore. La suite nuptiale était parfaite pour notre première nuit."
+
+[[params.avis]]
+  author = "Sophie L."
+  rating = 5
+  date = "Août 2024"
+  text = "Nous avons privatisé le château pour le week-end et c'était exactement ce dont nous rêvions. L'allée de tilleuls pour la cérémonie, la terrasse pour le dîner sous les étoiles... Parfait !"
+
+[[params.avis]]
+  author = "Pierre & Julien"
+  rating = 5
+  date = "Juillet 2024"
+  text = "Accueil chaleureux, domaine magnifique, flexibilité totale pour nos prestataires. Le brunch du lendemain au bord de la rivière restera un souvenir inoubliable." 
+  
+
+[params.contact]
+  address = "Laubardemont<br>33910 Sablons"
+  phone = "06 88 84 39 64"
+  email = "contact@chateau-laubardemont.com"
+
+[params.social]
+  instagram = "https://instagram.com/chateaulaubardemont"
+  facebook = "https://facebook.com/chateaulaubardemont"
+  # pinterest = ""  
+
+[params.style]
+container_max_width = '768px'
+font_family_base = 'sans-serif'
+font_size_base = '18px'
+
+[menu]
+  [[menu.main]]
+    name = "Accueil"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "Le Chateau"
+    url = "/chateau"
+    weight = 2
+  [[menu.main]]
+    name = "Notre histoire"
+    url = "/histoire"
+    weight = 3
+
+  [[menu.secondaire]]
+    name = "Historique"
+    url = "/chateau"
+    weight = 1
+  
+  [[menu.footer]]
+    name = "Le Château"
+    url = "/chateau/"
+    weight = 1
+  [[menu.footer]]
+    name = "Contact"
+    url = "/contact/"
+    weight = 2
+  [[menu.footer]]
+    name = "Mentions légales"
+    url = "/mentions-legales/"
+    weight = 3
+
+
+sectionPagesMenu = ['main','second']
+
+[build]
+  [build.buildStats]
+    enable = true
+  [[build.cachebusters]]
+    source = 'assets/notwatching/hugo_stats\.json'
+    target = 'styles\.css'
+  [[build.cachebusters]]
+    source = '(postcss|tailwind)\.config\.js'
+    target = 'css'
