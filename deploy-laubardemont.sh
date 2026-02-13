@@ -3,7 +3,8 @@
 # 🏰 Château de Laubardemont — Script de déploiement (OVH mutualisé)
 # =============================================================================
 # Usage :
-#   ./deploy.sh              → Build Hugo + déploie tout (site + PHP)
+#   ./deploy.sh              → Build Hugo + déploie tout en prod
+#   ./deploy.sh --env preprod → Déploie sur l'environnement preprod
 #   ./deploy.sh --php-only   → Déploie uniquement les fichiers PHP (formulaire)
 #   ./deploy.sh --dry-run    → Simule sans rien toucher
 #   ./deploy.sh --rollback   → Restaure le dernier backup
@@ -12,13 +13,13 @@
 set -euo pipefail
 
 # ── Configuration ────────────────────────────────────────────────────────────
-SSH_HOST="ftp.cluster128.hosting.ovh.net"
-SSH_USER="${DEPLOY_SSH_USER:-}"              # Via env ou .env.deploy
-REMOTE_DIR="~/www"                   # ⚠️ Chemin racine du site sur OVH
-REMOTE_PUBLIC="${REMOTE_DIR}"        # Hugo output va directement dans www/
-REMOTE_PHP="${REMOTE_DIR}/php"       # Fichiers PHP du formulaire
 HUGO_PUBLIC_DIR="public"             # Dossier output Hugo local
-GIT_BRANCH="main"                   # Branche de production
+
+# Valeurs par défaut (prod), surchargées par --env
+DEPLOY_ENV="prod"
+REMOTE_DIR="~/www"
+SITE_URL="https://chateau-laubardemont.com"
+GIT_BRANCH="main"
 
 # Couleurs
 RED='\033[0;31m'
@@ -34,32 +35,67 @@ DRY_RUN=false
 SKIP_BUILD=false
 ROLLBACK=false
 
-for arg in "$@"; do
-    case $arg in
+while [[ $# -gt 0 ]]; do
+    case $1 in
         --php-only)   PHP_ONLY=true ;;
         --dry-run)    DRY_RUN=true ;;
         --skip-build) SKIP_BUILD=true ;;
         --rollback)   ROLLBACK=true ;;
+        --env)
+            shift
+            if [[ $# -eq 0 ]]; then
+                echo -e "${RED}❌ --env nécessite une valeur (prod ou preprod)${NC}"; exit 1
+            fi
+            DEPLOY_ENV="$1"
+            ;;
         -h|--help)
-            echo "Usage: ./deploy.sh [--php-only] [--skip-build] [--dry-run] [--rollback]"
+            echo "Usage: ./deploy.sh [--env prod|preprod] [--php-only] [--skip-build] [--dry-run] [--rollback]"
             echo ""
             echo "Options:"
+            echo "  --env ENV     Environnement cible : prod (défaut) ou preprod"
             echo "  --php-only    Déploie uniquement les fichiers PHP (formulaire + helpers)"
             echo "  --skip-build  Skip le build Hugo (déploie le dossier public/ existant)"
             echo "  --dry-run     Simule le déploiement sans rien exécuter"
             echo "  --rollback    Restaure le dernier backup distant"
             exit 0
             ;;
-        *) echo -e "${RED}❌ Argument inconnu : $arg${NC}"; exit 1 ;;
+        *) echo -e "${RED}❌ Argument inconnu : $1${NC}"; exit 1 ;;
     esac
+    shift
 done
 
-# Charger .env.deploy si présent
+# ── Charger .env.deploy ────────────────────────────────────────────────────
 if [ -f ".env.deploy" ]; then
     # shellcheck source=/dev/null
     source .env.deploy
-    SSH_USER="${DEPLOY_SSH_USER:-$SSH_USER}"
 fi
+
+SSH_HOST="${DEPLOY_SSH_HOST:-ssh.cluster131.hosting.ovh.net}"
+SSH_USER="${DEPLOY_SSH_USER:-}"
+
+# ── Configuration environnement ────────────────────────────────────────────
+case $DEPLOY_ENV in
+    prod)
+        REMOTE_DIR="${DEPLOY_PROD_REMOTE_DIR:-}"
+        SITE_URL="${DEPLOY_PROD_SITE_URL:-}"
+        GIT_BRANCH="${DEPLOY_PROD_GIT_BRANCH:-}"
+        ;;
+    preprod)
+        REMOTE_DIR="${DEPLOY_PREPROD_REMOTE_DIR:-}"
+        SITE_URL="${DEPLOY_PREPROD_SITE_URL:-}"
+        GIT_BRANCH="${DEPLOY_PREPROD_GIT_BRANCH:-}"
+        ;;
+    *)
+        echo -e "${RED}❌ Environnement inconnu : $DEPLOY_ENV (prod ou preprod)${NC}"; exit 1
+        ;;
+esac
+
+if [ -z "$REMOTE_DIR" ] || [ -z "$SITE_URL" ] || [ -z "$GIT_BRANCH" ]; then
+    echo -e "${RED}  ❌ Configuration ${DEPLOY_ENV} incomplète dans .env.deploy${NC}"
+    exit 1
+fi
+REMOTE_PUBLIC="${REMOTE_DIR}"
+REMOTE_PHP="${REMOTE_DIR}/php"
 
 # ── Fonctions ────────────────────────────────────────────────────────────────
 log_step()  { echo -e "\n${BLUE}━━━ $1 ━━━${NC}"; }
@@ -112,7 +148,8 @@ fi
 # ── Rollback ────────────────────────────────────────────────────────────────
 if [ "$ROLLBACK" = true ]; then
     log_step "Rollback vers le dernier backup"
-    LATEST_BACKUP=$(ssh "$SSH_USER@$SSH_HOST" "ls -t ~/backups/backup_*.tar.gz 2>/dev/null | head -1")
+    BACKUP_PREFIX="backup_${DEPLOY_ENV}"
+    LATEST_BACKUP=$(ssh "$SSH_USER@$SSH_HOST" "ls -t ~/backups/${BACKUP_PREFIX}_*.tar.gz 2>/dev/null | head -1")
     if [ -z "$LATEST_BACKUP" ]; then
         log_err "Aucun backup trouvé sur le serveur"
         exit 1
@@ -127,7 +164,6 @@ if [ "$ROLLBACK" = true ]; then
     log_ok "Rollback effectué"
 
     # Vérification post-rollback
-    SITE_URL="https://chateau-laubardemont.com"
     HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$SITE_URL" 2>/dev/null || echo "000")
     if [ "$HTTP_CODE" = "200" ]; then
         log_ok "Site accessible après rollback (HTTP ${HTTP_CODE})"
@@ -165,7 +201,7 @@ if ! git diff --quiet HEAD 2>/dev/null; then
     fi
 fi
 
-log_ok "Vérifications passées (branche: ${CURRENT_BRANCH})"
+log_ok "Vérifications passées (env: ${DEPLOY_ENV}, branche: ${CURRENT_BRANCH})"
 
 # ── Mode PHP-only ────────────────────────────────────────────────────────────
 if [ "$PHP_ONLY" = true ]; then
@@ -212,10 +248,11 @@ if [ "$SKIP_BUILD" = false ]; then
         log_info "Ancien build nettoyé"
     fi
 
-    # Générer le build ID
+    # Générer le build ID (hash du commit + date)
     mkdir -p static
-    echo "$(date +%s)" > static/build.txt
-    log_info "Build ID généré : $(cat static/build.txt)"
+    BUILD_HASH="$(git rev-parse --short HEAD 2>/dev/null || echo 'unknown')-$(date +%Y%m%d%H%M%S)"
+    echo "$BUILD_HASH" > static/build.txt
+    log_info "Build ID généré : ${BUILD_HASH}"
 
     # Build
     if [ "$DRY_RUN" = false ]; then
@@ -249,10 +286,10 @@ fi
 # ── Backup distant ──────────────────────────────────────────────────────────
 log_step "Backup du site actuel"
 
-BACKUP_NAME="backup_$(date +%Y%m%d_%H%M%S)"
+BACKUP_NAME="backup_${DEPLOY_ENV}_$(date +%Y%m%d_%H%M%S)"
 ssh_exec "cd ${REMOTE_DIR} && mkdir -p ~/backups && tar czf ~/backups/${BACKUP_NAME}.tar.gz --exclude='*.tar.gz' . 2>/dev/null || true"
 log_ok "Backup créé : ~/backups/${BACKUP_NAME}.tar.gz"
-ssh_exec "ls -t ~/backups/backup_*.tar.gz 2>/dev/null | tail -n +6 | xargs rm -f 2>/dev/null || true"
+ssh_exec "ls -t ~/backups/backup_${DEPLOY_ENV}_*.tar.gz 2>/dev/null | tail -n +6 | xargs rm -f 2>/dev/null || true"
 log_info "Rotation des backups (max 5 conservés)"
 
 # ── Upload site statique ────────────────────────────────────────────────────
@@ -286,7 +323,6 @@ log_step "Vérification"
 
 if [ "$DRY_RUN" = false ]; then
     # Vérifier que le site répond
-    SITE_URL="https://chateau-laubardemont.com"
     HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$SITE_URL" 2>/dev/null || echo "000")
 
     if [ "$HTTP_CODE" = "200" ]; then
@@ -326,7 +362,7 @@ fi
 # ── Git tag ──────────────────────────────────────────────────────────────────
 log_step "Tag de déploiement"
 
-DEPLOY_TAG="deploy/$(date +%Y%m%d-%H%M%S)"
+DEPLOY_TAG="deploy/${DEPLOY_ENV}/$(date +%Y%m%d-%H%M%S)"
 if [ "$DRY_RUN" = false ]; then
     git tag "$DEPLOY_TAG" 2>/dev/null && git push origin "$DEPLOY_TAG" 2>/dev/null || true
     log_ok "Tag créé : ${DEPLOY_TAG}"
@@ -340,7 +376,8 @@ echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━
 echo -e "${GREEN}  🏰 Déploiement Laubardemont terminé !${NC}"
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
-echo -e "  Site  : https://chateau-laubardemont.com"
+echo -e "  Env   : ${DEPLOY_ENV}"
+echo -e "  Site  : ${SITE_URL}"
 echo -e "  Backup: ~/backups/${BACKUP_NAME}.tar.gz"
 echo -e "  Tag   : ${DEPLOY_TAG}"
 echo ""
