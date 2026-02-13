@@ -4,7 +4,7 @@ title = "Accueil"
 [hero]
   image = "/images/vue-piscine-nv.jpg"
   alt = "Château de Laubardemont"
-  tagline = "Château pour mariages élégants de 50 à 150 invités"
+  tagline = "Château pour mariages élégants de 50 à 120 invités"
   [hero.cta]
     label = "Visiter le château"
     url = "/contact/"
@@ -42,12 +42,12 @@ title = "Accueil"
   
   [[infos.items]]
     label = "Couchages"
-    value = "65 personnes sur place"
+    value = "60 personnes sur place"
     icon = "bed"
   
   [[infos.items]]
     label = "Horaires"
-    value = "sans limite dans la nuit"
+    value = "sans limite d'heure intérieur/extérieur"
     icon = "clock"
   
   [[infos.items]]
@@ -61,16 +61,23 @@ title = "Accueil"
     label = "Visiter le château"
     url = "/contact/"
 [partenaires]
-  title = "Vous accompagner jusqu'au bout"
-  description = "Photographes, fleuristes, traiteurs, DJ... Nous avons sélectionné pour vous les meilleurs professionnels de la région."
-  label = "Découvrir nos partenaires"
-  url = "/partenaires/"
+  title = "Nos partenaires traiteurs"
+  description = "Pour vos repas, nous travaillons en confiance avec deux partenaires qui connaissent parfaitement le domaine."
+  note = "Tous les autres prestataires (photographe, fleuriste, DJ…) sont fournis sur demande."
+
+  [[partenaires.items]]
+    name = "Les Guinguettes"
+    description = "Apéro, repas, brunch — une cuisine conviviale et généreuse, servie au cœur du domaine."
+
+  [[partenaires.items]]
+    name = "Le Prieuré"
+    description = "Apéro, repas, brunch — une cuisine raffinée pour sublimer votre événement."
 +++
 
 
 ## Le Château de Laubardemont
 
-Chargé d’**histoire** et ancré dans le **patrimoine local**, le **Château de Laubardemont**, datant du **XVIᵉ siècle**, se dresse avec élégance sur **l’île de Laubardemont**. Longtemps façonné par le temps, il retrouve aujourd’hui toute sa **grâce** grâce au rêve et à la passion de **Julia et Manu**, qui ont choisi de faire renaître ce **lieu d’exception**.
+Chargé d’**histoire** et ancré dans le **patrimoine local**, le **Château de Laubardemont**, datant du **XVIᵉ siècle**, se dresse avec élégance sur **l’île de Laubardemont**. Longtemps façonné par le temps, il retrouve aujourd'hui tout son **éclat** grâce au rêve et à la passion de **Julia et Manu**, qui ont choisi de faire renaître ce **lieu d’exception**.
 
 Entièrement restauré dans le respect de son **authenticité**, le château conjugue **noblesse patrimoniale** et **élégance champêtre**. Véritable **lieu de réception par excellence dans la région bordelaise**, il offre un cadre unique pour vivre pleinement votre **événement** et transformer chaque instant en un **souvenir inoubliable**.
 

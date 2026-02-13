@@ -6,6 +6,6 @@ menu = "main"
 
 [coordonnees]
   adresse = "Château de Laubardemont<br>33910 Sablons"
-  telephone = "06 00 00 00 00"
+  telephone = "06 88 84 39 64"
   email = "contact@chateau-laubardemont.com"
 +++
