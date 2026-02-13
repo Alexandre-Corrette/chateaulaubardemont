@@ -61,10 +61,17 @@ title = "Accueil"
     label = "Visiter le château"
     url = "/contact/"
 [partenaires]
-  title = "Vous accompagner jusqu'au bout"
-  description = "Photographes, fleuristes, traiteurs, DJ... Nous avons sélectionné pour vous les meilleurs professionnels de la région."
-  label = "Découvrir nos partenaires"
-  url = "/partenaires/"
+  title = "Nos partenaires traiteurs"
+  description = "Pour vos repas, nous travaillons en confiance avec deux partenaires qui connaissent parfaitement le domaine."
+  note = "Tous les autres prestataires (photographe, fleuriste, DJ…) sont fournis sur demande."
+
+  [[partenaires.items]]
+    name = "Les Guinguettes"
+    description = "Apéro, repas, brunch — une cuisine conviviale et généreuse, servie au cœur du domaine."
+
+  [[partenaires.items]]
+    name = "Le Prieuré"
+    description = "Apéro, repas, brunch — une cuisine raffinée pour sublimer votre événement."
 +++
 
 
