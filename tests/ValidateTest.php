@@ -10,14 +10,14 @@ class ValidateTest extends TestCase
         $this->assertFalse(isHoneypotTriggered(['name' => 'Jean']));
     }
 
-    public function testHoneypotTriggeredOnCompanyFax(): void
+    public function testHoneypotTriggeredOnHpZx8(): void
     {
-        $this->assertTrue(isHoneypotTriggered(['company_fax' => 'spam']));
+        $this->assertTrue(isHoneypotTriggered(['hp_zx8' => 'spam']));
     }
 
-    public function testHoneypotTriggeredOnUrlCallback(): void
+    public function testHoneypotTriggeredOnHpQv3(): void
     {
-        $this->assertTrue(isHoneypotTriggered(['url_callback' => 'http://spam.com']));
+        $this->assertTrue(isHoneypotTriggered(['hp_qv3' => 'http://spam.com']));
     }
 
     public function testRequireFieldsPassesWhenAllPresent(): void

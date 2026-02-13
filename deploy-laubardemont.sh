@@ -66,12 +66,29 @@ done
 
 # ── Charger .env.deploy ────────────────────────────────────────────────────
 if [ -f ".env.deploy" ]; then
+    # Vérifier les permissions (doit être 600 ou 640)
+    PERMS=$(stat -f "%OLp" .env.deploy 2>/dev/null || stat -c "%a" .env.deploy 2>/dev/null || echo "unknown")
+    if [ "$PERMS" != "600" ] && [ "$PERMS" != "640" ] && [ "$PERMS" != "unknown" ]; then
+        echo -e "${YELLOW}  ⚠️  .env.deploy a les permissions ${PERMS} — recommandé : chmod 600 .env.deploy${NC}"
+    fi
     # shellcheck source=/dev/null
     source .env.deploy
 fi
 
-SSH_HOST="${DEPLOY_SSH_HOST:-ssh.cluster131.hosting.ovh.net}"
+SSH_HOST="${DEPLOY_SSH_HOST:-ssh.cluster128.hosting.ovh.net}"
 SSH_USER="${DEPLOY_SSH_USER:-}"
+
+# ── Configuration sshpass (mutualisé OVH) ─────────────────────────────────
+SSH_PASS="${DEPLOY_SSH_PASS:-}"
+SSH_PASS_CMD=""
+
+if [ -n "$SSH_PASS" ]; then
+    if ! command -v sshpass &> /dev/null; then
+        echo -e "${RED}  ❌ sshpass requis mais non installé. Installe-le : brew install esolitos/ipa/sshpass (macOS) ou apt install sshpass (Linux)${NC}"
+        exit 1
+    fi
+    SSH_PASS_CMD="sshpass -p ${SSH_PASS}"
+fi
 
 # ── Configuration environnement ────────────────────────────────────────────
 case $DEPLOY_ENV in
@@ -116,7 +133,7 @@ ssh_exec() {
     if [ "$DRY_RUN" = true ]; then
         echo -e "${YELLOW}  [DRY-RUN] ssh $SSH_USER@$SSH_HOST \"$1\"${NC}"
     else
-        ssh "$SSH_USER@$SSH_HOST" "$1"
+        $SSH_PASS_CMD ssh "$SSH_USER@$SSH_HOST" "$1"
     fi
 }
 
@@ -128,17 +145,33 @@ rsync_upload() {
     if [ "$DRY_RUN" = true ]; then
         echo -e "${YELLOW}  [DRY-RUN] rsync $flags $src $SSH_USER@$SSH_HOST:$dst${NC}"
     else
-        rsync $flags \
-            --exclude='.DS_Store' \
-            --exclude='Thumbs.db' \
-            --exclude='.git' \
-            --exclude='node_modules' \
-            "$src" "$SSH_USER@$SSH_HOST:$dst"
+        if [ -n "$SSH_PASS_CMD" ]; then
+            rsync $flags \
+                -e "$SSH_PASS_CMD ssh" \
+                --exclude='.DS_Store' \
+                --exclude='Thumbs.db' \
+                --exclude='.git' \
+                --exclude='node_modules' \
+                "$src" "$SSH_USER@$SSH_HOST:$dst"
+        else
+            rsync $flags \
+                --exclude='.DS_Store' \
+                --exclude='Thumbs.db' \
+                --exclude='.git' \
+                --exclude='node_modules' \
+                "$src" "$SSH_USER@$SSH_HOST:$dst"
+        fi
     fi
 }
 
 # ── Vérifications ────────────────────────────────────────────────────────────
 log_step "Vérifications"
+
+if [ -n "$SSH_PASS_CMD" ]; then
+    log_info "Mode sshpass activé (mutualisé OVH)"
+else
+    log_info "Mode interactif (mot de passe demandé à chaque connexion)"
+fi
 
 if [ -z "$SSH_USER" ]; then
     log_err "SSH_USER non configuré ! Définis DEPLOY_SSH_USER dans .env.deploy ou en variable d'environnement."
@@ -149,7 +182,7 @@ fi
 if [ "$ROLLBACK" = true ]; then
     log_step "Rollback vers le dernier backup"
     BACKUP_PREFIX="backup_${DEPLOY_ENV}"
-    LATEST_BACKUP=$(ssh "$SSH_USER@$SSH_HOST" "ls -t ~/backups/${BACKUP_PREFIX}_*.tar.gz 2>/dev/null | head -1")
+    LATEST_BACKUP=$($SSH_PASS_CMD ssh "$SSH_USER@$SSH_HOST" "ls -t ~/backups/${BACKUP_PREFIX}_*.tar.gz 2>/dev/null | head -1")
     if [ -z "$LATEST_BACKUP" ]; then
         log_err "Aucun backup trouvé sur le serveur"
         exit 1
@@ -204,25 +237,27 @@ fi
 log_ok "Vérifications passées (env: ${DEPLOY_ENV}, branche: ${CURRENT_BRANCH})"
 
 # ── Mode PHP-only ────────────────────────────────────────────────────────────
+PHP_SRC="themes/laubardemont/static/php"
+
 if [ "$PHP_ONLY" = true ]; then
     log_step "Déploiement PHP uniquement"
 
-    if [ ! -d "php" ]; then
-        log_err "Dossier php/ introuvable à la racine du projet"
+    if [ ! -d "$PHP_SRC" ]; then
+        log_err "Dossier ${PHP_SRC}/ introuvable"
         exit 1
     fi
 
     # Compter les fichiers PHP
-    PHP_COUNT=$(find php/ -name "*.php" | wc -l | tr -d ' ')
+    PHP_COUNT=$(find "$PHP_SRC" -name "*.php" | wc -l | tr -d ' ')
     log_info "Upload de ${PHP_COUNT} fichiers PHP..."
 
     # Upload les fichiers PHP (sans --delete pour ne pas supprimer config.php sur le serveur)
-    rsync_upload "php/" "${REMOTE_PHP}/" "--archive --compress --exclude='config.php'"
+    rsync_upload "${PHP_SRC}/" "${REMOTE_PHP}/" "--archive --compress --exclude='config.php'"
 
     log_ok "Fichiers PHP déployés"
     log_warn "config.php n'est PAS écrasé (contient la clé API BelEvent)"
     log_info "Si c'est le premier déploiement, copie config.php manuellement :"
-    log_info "  scp php/config.php ${SSH_USER}@${SSH_HOST}:${REMOTE_PHP}/config.php"
+    log_info "  scp ${PHP_SRC}/config.php ${SSH_USER}@${SSH_HOST}:${REMOTE_PHP}/config.php"
 
     echo ""
     echo -e "${GREEN}🏰 Déploiement PHP terminé !${NC}"
@@ -305,17 +340,17 @@ log_ok "Site statique uploadé"
 # ── Upload fichiers PHP ─────────────────────────────────────────────────────
 log_step "Upload des fichiers PHP"
 
-if [ -d "php" ]; then
-    PHP_COUNT=$(find php/ -name "*.php" | wc -l | tr -d ' ')
+if [ -d "${HUGO_PUBLIC_DIR}/php" ]; then
+    PHP_COUNT=$(find "${HUGO_PUBLIC_DIR}/php" -name "*.php" | wc -l | tr -d ' ')
     log_info "${PHP_COUNT} fichiers PHP à synchroniser"
 
     # Upload SANS écraser config.php (contient les secrets)
-    rsync_upload "php/" "${REMOTE_PHP}/" "--archive --compress --exclude='config.php'"
+    rsync_upload "${HUGO_PUBLIC_DIR}/php/" "${REMOTE_PHP}/" "--archive --compress --exclude='config.php'"
 
     log_ok "Fichiers PHP déployés"
     log_warn "config.php non écrasé (secrets serveur)"
 else
-    log_warn "Pas de dossier php/ — formulaire non déployé"
+    log_warn "Pas de dossier ${HUGO_PUBLIC_DIR}/php/ — formulaire non déployé"
 fi
 
 # ── Vérification ─────────────────────────────────────────────────────────────
