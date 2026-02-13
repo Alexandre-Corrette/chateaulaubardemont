@@ -3,3 +3,22 @@
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s — %s" .Title site.Title }}{{ end }}</title>
 {{ with .Params.description }}<meta name="description" content="{{ . }}">{{ end }}
 <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
+
+{{/* Open Graph */}}
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
+{{ with .Params.description }}<meta property="og:description" content="{{ . }}">{{ end }}
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+{{ $ogImage := .Params.og_image | default "images/chateau-facade.jpg" }}
+{{ with resources.Get $ogImage }}
+<meta property="og:image" content="{{ .Permalink }}">
+{{ end }}
+
+{{/* Twitter Cards */}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
+{{ with .Params.description }}<meta name="twitter:description" content="{{ . }}">{{ end }}
+{{ with resources.Get $ogImage }}
+<meta name="twitter:image" content="{{ .Permalink }}">
+{{ end }}
