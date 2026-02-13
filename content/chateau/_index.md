@@ -41,9 +41,9 @@ La suite nuptiale, nichée dans l'aile noble du château, vous accueille dans un
   title = "Les Jardins"
   image = "images/chateau-jardins.jpg"
   content = """
-Cinq hectares de nature où chaque pas révèle un nouveau tableau. Devant la façade noble, les parterres ordonnés du parc à la française dessinent une géométrie apaisante. Buis taillés, allées de gravier blanc, rosiers anciens composent un décor intemporel pour vos photos de couple.
+Un hectare de nature où chaque pas révèle un nouveau tableau. Devant la façade noble, les jardins anglais dessinent un paysage apaisant. Sublime allée de tilleuls, fontaine, rosiers anciens composent un décor intemporel pour vos photos de couple.
 
-L'allée des tilleuls centenaires forme une nef végétale de cinquante mètres, lieu rêvé pour une cérémonie laïque. La cour paysagée, avec ses glycines et ses hortensias, offre un refuge de quiétude. Et les berges ombragées de l'Isle invitent à la promenade, là où les saules pleureurs se reflètent dans les eaux calmes de la rivière.
+L'allée des tilleuls centenaires forme une nef végétale de cent mètres, lieu rêvé pour une cérémonie laïque. La cour paysagée et ses palmiers offre un refuge de quiétude. Et les berges ombragées de l'Isle invitent à la promenade, là où les platanes se reflètent dans les eaux calmes de la rivière.
 """
 
 [citation]
