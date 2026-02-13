@@ -1,5 +1,6 @@
 +++
 title = "Accueil"
+description = "Château de Laubardemont — lieu de réception pour mariages de 50 à 120 invités près de Bordeaux. Domaine privatisé, 60 couchages, sans limite d'heure."
 
 [hero]
   image = "/images/vue-piscine-nv.jpg"

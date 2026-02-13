@@ -7,12 +7,7 @@
     {{ $hero := resources.Get .Params.hero.image }}
     {{ with $hero }}
     <div class="overflow-hidden rounded shadow-md">
-      <img 
-        class="h-auto w-full object-cover" 
-        src="{{ .RelPermalink }}" 
-        alt="{{ $.Params.hero.alt | default $.Title }}"
-        loading="eager"
-      >
+      {{ partial "responsive-image.html" (dict "image" . "alt" ($.Params.hero.alt | default $.Title) "loading" "eager") }}
     </div>
     {{ end }}
 
@@ -50,11 +45,7 @@
       {{ with $image }}
       <div class="{{ if (mod $index 2) }}md:order-2{{ end }}">
         <div class="overflow-hidden rounded-lg shadow-md">
-          <img 
-            src="{{ .RelPermalink }}" 
-            alt="{{ $section.title }}"
-            class="h-auto w-full object-cover"
-          >
+          {{ partial "responsive-image.html" (dict "image" . "alt" $section.title "sizes" "(min-width: 768px) 50vw, 100vw") }}
         </div>
       </div>
       {{ end }}

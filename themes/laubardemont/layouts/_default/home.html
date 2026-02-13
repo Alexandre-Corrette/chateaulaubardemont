@@ -7,12 +7,7 @@
     {{ $hero := resources.Get .Params.hero.image | default "images/vue-piscine-nv.jpg" }}
     {{ with $hero }}
     <div class="overflow-hidden rounded shadow-md">
-      <img 
-        class="h-auto w-full object-cover" 
-        src="{{ .RelPermalink }}" 
-        alt="{{ $.Params.hero.alt | default "Château de Laubardemont" }}"
-        loading="eager"
-      >
+      {{ partial "responsive-image.html" (dict "image" . "alt" ($.Params.hero.alt | default "Château de Laubardemont") "loading" "eager") }}
     </div>
     {{ end }}
    
