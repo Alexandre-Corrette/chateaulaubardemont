@@ -1,0 +1,149 @@
+{{ define "main" }}
+
+{{/* Hero */}}
+<section class="px-4 py-8 md:px-8">
+  <div class="mx-auto max-w-4xl text-center">
+    <h1 class="font-serif text-4xl font-medium text-stone-800 md:text-5xl">
+      {{ .Title }}
+    </h1>
+    {{ with .Params.subtitle }}
+    <p class="mt-4 text-lg text-stone-600">{{ . }}</p>
+    {{ end }}
+  </div>
+</section>
+
+{{/* Filtres par catégorie */}}
+{{ with .Params.categories }}
+<section class="px-4 md:px-8">
+  <div class="mx-auto flex max-w-5xl flex-wrap justify-center gap-3">
+    <button
+      class="galerie-filter rounded-full border-2 border-amber-400 bg-amber-400 px-6 py-2 text-sm font-medium uppercase tracking-widest text-stone-800 transition hover:bg-amber-500"
+      data-category="all"
+      aria-pressed="true"
+    >
+      Tout
+    </button>
+    {{ range . }}
+    <button
+      class="galerie-filter rounded-full border-2 border-amber-400 px-6 py-2 text-sm font-medium uppercase tracking-widest text-stone-800 transition hover:bg-amber-400"
+      data-category="{{ .id }}"
+      aria-pressed="false"
+    >
+      {{ .label }}
+    </button>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
+
+{{/* Grille de photos */}}
+<section class="px-4 py-12 md:px-8">
+  <div class="mx-auto max-w-6xl">
+    <div id="galerie-grid" class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+      {{ range .Params.photos }}
+      <a
+        href="{{ .src | relURL }}"
+        class="galerie-item group overflow-hidden rounded-lg"
+        data-category="{{ .category }}"
+        data-alt="{{ .alt }}"
+      >
+        <img
+          src="{{ .src | relURL }}"
+          alt="{{ .alt }}"
+          class="aspect-square w-full object-cover transition duration-300 group-hover:scale-105"
+          loading="lazy"
+        >
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+{{/* Lightbox */}}
+<div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90" role="dialog" aria-modal="true">
+  <button id="lightbox-close" class="absolute right-4 top-4 text-3xl text-white transition hover:text-amber-400" aria-label="Fermer">&times;</button>
+  <button id="lightbox-prev" class="absolute left-4 top-1/2 -translate-y-1/2 text-4xl text-white transition hover:text-amber-400" aria-label="Précédent">&#8249;</button>
+  <button id="lightbox-next" class="absolute right-4 top-1/2 -translate-y-1/2 text-4xl text-white transition hover:text-amber-400" aria-label="Suivant">&#8250;</button>
+  <img id="lightbox-img" class="max-h-[85vh] max-w-[90vw] rounded" src="" alt="">
+  <p id="lightbox-caption" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-sm text-stone-300"></p>
+</div>
+
+<script>
+(function () {
+  // Filtrage
+  const filters = document.querySelectorAll('.galerie-filter');
+  const items = document.querySelectorAll('.galerie-item');
+
+  filters.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const cat = this.dataset.category;
+      filters.forEach(function (b) {
+        b.classList.remove('bg-amber-400');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      this.classList.add('bg-amber-400');
+      this.setAttribute('aria-pressed', 'true');
+      items.forEach(function (item) {
+        item.style.display = (cat === 'all' || item.dataset.category === cat) ? '' : 'none';
+      });
+    });
+  });
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbCaption = document.getElementById('lightbox-caption');
+  var visibleItems = [];
+  var currentIndex = 0;
+
+  function getVisible() {
+    return Array.from(items).filter(function (i) { return i.style.display !== 'none'; });
+  }
+
+  function openLightbox(index) {
+    visibleItems = getVisible();
+    currentIndex = index;
+    var item = visibleItems[currentIndex];
+    lbImg.src = item.href;
+    lbImg.alt = item.dataset.alt;
+    lbCaption.textContent = item.dataset.alt;
+    lightbox.classList.remove('hidden');
+    lightbox.classList.add('flex');
+  }
+
+  function closeLightbox() {
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+    lbImg.src = '';
+  }
+
+  items.forEach(function (item) {
+    item.addEventListener('click', function (e) {
+      e.preventDefault();
+      var vis = getVisible();
+      openLightbox(vis.indexOf(this));
+    });
+  });
+
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-prev').addEventListener('click', function () {
+    openLightbox((currentIndex - 1 + visibleItems.length) % visibleItems.length);
+  });
+  document.getElementById('lightbox-next').addEventListener('click', function () {
+    openLightbox((currentIndex + 1) % visibleItems.length);
+  });
+
+  lightbox.addEventListener('click', function (e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (lightbox.classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') document.getElementById('lightbox-prev').click();
+    if (e.key === 'ArrowRight') document.getElementById('lightbox-next').click();
+  });
+})();
+</script>
+
+{{ end }}

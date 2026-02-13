@@ -1,0 +1,36 @@
+{{/*
+  Partial: responsive-image.html
+  Params:
+    .image    — Hugo image resource
+    .alt      — alt text
+    .class    — CSS classes
+    .loading  — "eager" or "lazy" (default: "lazy")
+    .sizes    — sizes attribute (default: "100vw")
+*/}}
+{{ $img := .image }}
+{{ $alt := .alt | default "" }}
+{{ $class := .class | default "h-auto w-full object-cover" }}
+{{ $loading := .loading | default "lazy" }}
+{{ $sizes := .sizes | default "100vw" }}
+
+{{ with $img }}
+  {{ $webp := .Resize "1200x webp q85" }}
+  {{ $small := .Resize "640x webp q85" }}
+  {{ $medium := .Resize "960x webp q85" }}
+  {{ $large := .Resize "1200x webp q85" }}
+  <picture>
+    <source
+      type="image/webp"
+      srcset="{{ $small.RelPermalink }} 640w, {{ $medium.RelPermalink }} 960w, {{ $large.RelPermalink }} 1200w"
+      sizes="{{ $sizes }}"
+    >
+    <img
+      src="{{ .RelPermalink }}"
+      alt="{{ $alt }}"
+      class="{{ $class }}"
+      loading="{{ $loading }}"
+      width="{{ $large.Width }}"
+      height="{{ $large.Height }}"
+    >
+  </picture>
+{{ end }}

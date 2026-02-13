@@ -7,12 +7,7 @@
     {{ $hero := resources.Get .Params.hero.image }}
     {{ with $hero }}
     <div class="overflow-hidden rounded shadow-md">
-      <img 
-        class="h-auto w-full object-cover" 
-        src="{{ .RelPermalink }}" 
-        alt="{{ $.Params.hero.alt | default $.Title }}"
-        loading="eager"
-      >
+      {{ partial "responsive-image.html" (dict "image" . "alt" ($.Params.hero.alt | default $.Title) "loading" "eager") }}
     </div>
     {{ end }}
 
@@ -50,11 +45,7 @@
       {{ with $image }}
       <div class="{{ if (mod $index 2) }}md:order-2{{ end }}">
         <div class="overflow-hidden rounded-lg shadow-md">
-          <img 
-            src="{{ .RelPermalink }}" 
-            alt="{{ $section.title }}"
-            class="h-auto w-full object-cover"
-          >
+          {{ partial "responsive-image.html" (dict "image" . "alt" $section.title "sizes" "(min-width: 768px) 50vw, 100vw") }}
         </div>
       </div>
       {{ end }}
@@ -89,12 +80,17 @@
     <p class="mt-6 text-sm uppercase tracking-widest text-stone-500">— {{ . }}</p>
     {{ end }}
     {{ with .cta }}
-    <a 
-      href="{{ .url | relURL }}" 
+    <a
+      href="{{ .url | relURL }}"
       class="mt-10 inline-block rounded-full bg-amber-400 px-10 py-4 text-sm font-medium uppercase tracking-widest text-stone-800 transition hover:bg-amber-500"
     >
       {{ .label }}
     </a>
+    {{ end }}
+    {{ with site.Params.contact.phone }}
+    <p class="mt-6 text-sm text-stone-500">
+      ou appelez-nous au <a href="tel:{{ . | replaceRE " " "" }}" class="text-stone-700 underline transition hover:text-amber-500">{{ . }}</a>
+    </p>
     {{ end }}
   </div>
 </section>

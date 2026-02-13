@@ -1,43 +1,27 @@
 <meta charset="utf-8">
-<meta name="viewport" content="width=100vw, height=100vH, minimum-scale=1.0, initial-scale=1.0">
-<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
-
-
-<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s — %s" .Title site.Title }}{{ end }}</title>
+{{ with .Params.description }}<meta name="description" content="{{ . }}">{{ end }}
 <link rel="stylesheet" href="{{ "css/styles.css" | relURL }}">
 
+{{/* Open Graph */}}
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
+{{ with .Params.description }}<meta property="og:description" content="{{ . }}">{{ end }}
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+{{ $ogImage := .Params.og_image | default "images/chateau-facade.jpg" }}
+{{ with resources.Get $ogImage }}
+<meta property="og:image" content="{{ .Permalink }}">
+{{ end }}
 
+{{/* Twitter Cards */}}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
+{{ with .Params.description }}<meta name="twitter:description" content="{{ . }}">{{ end }}
+{{ with resources.Get $ogImage }}
+<meta name="twitter:image" content="{{ .Permalink }}">
+{{ end }}
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const links = document.querySelectorAll('.load-section');
-      const target = document.getElementById('dynamic-content');
-    
-      links.forEach(link => {
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-          const url = this.getAttribute('data-target');
-    
-          fetch(url)
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const doc = parser.parseFromString(html, 'text/html');
-              const content = doc.querySelector('.main-content'); // ajuste selon ton layout
-    
-              if (content) {
-                target.innerHTML = content.innerHTML;
-                window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
-              }
-            })
-            .catch(err => {
-              target.innerHTML = "<p>Erreur de chargement.</p>";
-            });
-        });
-      });
-    });
-    </script>
-    
-
+{{/* Schema.org JSON-LD */}}
+{{ partial "schema-org.html" . }}
