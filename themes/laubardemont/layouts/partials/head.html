@@ -22,3 +22,6 @@
 {{ with resources.Get $ogImage }}
 <meta name="twitter:image" content="{{ .Permalink }}">
 {{ end }}
+
+{{/* Schema.org JSON-LD */}}
+{{ partial "schema-org.html" . }}

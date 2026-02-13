@@ -1,0 +1,61 @@
+{{/* Schema.org JSON-LD — affiché uniquement sur la homepage */}}
+{{ if .IsHome }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "{{ site.Title }}",
+      "url": "{{ site.BaseURL }}"
+    },
+    {
+      "@type": ["LocalBusiness", "EventVenue"],
+      "name": "Château de Laubardemont",
+      "description": "{{ .Params.description }}",
+      "url": "{{ site.BaseURL }}",
+      "telephone": "+33{{ site.Params.contact.phone | replaceRE `^0` `` | replaceRE ` ` `` }}",
+      "email": "{{ site.Params.contact.email }}",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Laubardemont",
+        "addressLocality": "Sablons",
+        "postalCode": "33910",
+        "addressCountry": "FR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 44.9833,
+        "longitude": -0.1833
+      },
+      "image": "{{ (resources.Get "images/chateau-facade.jpg").Permalink }}",
+      "sameAs": [
+        {{ with site.Params.social.instagram }}"{{ . }}"{{ end }}{{ with site.Params.social.facebook }},
+        "{{ . }}"{{ end }}
+      ],
+      "priceRange": "€€€"
+      {{ with site.Params.google_rating }},
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "{{ . }}",
+        "bestRating": "5",
+        "ratingCount": "{{ len site.Params.avis }}"
+      }
+      {{ end }}
+      {{ with site.Params.avis }},
+      "review": [
+        {{ range $i, $r := . }}{{ if $i }},{{ end }}
+        {
+          "@type": "Review",
+          "author": { "@type": "Person", "name": "{{ $r.author }}" },
+          "reviewRating": { "@type": "Rating", "ratingValue": "{{ $r.rating }}", "bestRating": "5" },
+          "reviewBody": "{{ $r.text }}"
+        }
+        {{ end }}
+      ]
+      {{ end }}
+    }
+  ]
+}
+</script>
+{{ end }}
