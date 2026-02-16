@@ -116,3 +116,25 @@ function isDisposableEmail(string $email): bool {
 
     return in_array($domain, $disposableDomains, true);
 }
+
+/**
+ * Challenge timing anti-bot.
+ * Vérifie que le formulaire a mis au moins $minSeconds à être soumis.
+ * Le champ _timing contient le timestamp Unix (secondes) injecté par JS au chargement.
+ * Retourne true si le challenge échoue (soumission trop rapide ou champ absent/invalide).
+ */
+function isTimingChallengeFailed(array $post, int $minSeconds = 3): bool {
+    if (empty($post['_timing'])) {
+        return true; // Champ absent → probablement un bot sans JS
+    }
+
+    $loadTime = filter_var($post['_timing'], FILTER_VALIDATE_INT);
+    if ($loadTime === false) {
+        return true; // Valeur non numérique
+    }
+
+    $elapsed = time() - $loadTime;
+
+    // Trop rapide ou timestamp dans le futur (manipulation)
+    return $elapsed < $minSeconds || $elapsed < 0;
+}

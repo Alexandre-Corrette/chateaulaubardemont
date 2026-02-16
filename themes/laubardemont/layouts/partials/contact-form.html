@@ -134,6 +134,9 @@
         ></textarea>
       </div>
 
+      {{/* Timing anti-bot — rempli par JS au chargement */}}
+      <input type="hidden" name="_timing" value="">
+
       {{/* Honeypot anti-bot — noms volontairement non-sémantiques */}}
 <div class="honey" aria-hidden="true">
   <input type="text" name="hp_zx8" tabindex="-1" autocomplete="nope">
@@ -187,7 +190,11 @@
 
 <script>
 (function () {
-  // 0. Sécurité honeypot — vider au cas où le navigateur auto-remplit
+  // 0. Anti-bot timing — enregistrer le timestamp de chargement
+  var timingField = document.querySelector('input[name="_timing"]');
+  if (timingField) timingField.value = String(Math.floor(Date.now() / 1000));
+
+  // 0b. Sécurité honeypot — vider au cas où le navigateur auto-remplit
   document.querySelectorAll('.honey input').forEach(function(el) { el.value = ''; });
 
   // 1. Configuration et Sélection des éléments
