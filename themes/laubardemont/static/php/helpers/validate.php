@@ -54,39 +54,6 @@ function isValidEventDate(string $date): bool {
 }
 
 /**
- * Valide un numéro de téléphone français.
- * Accepte les formats courants : 06 07 08 09, +33, 0033, avec ou sans
- * espaces/points/tirets. Champ optionnel : retourne true si vide.
- */
-function isValidPhone(string $phone): bool {
-    $phone = trim($phone);
-
-    // Champ optionnel — vide = valide
-    if ($phone === '') {
-        return true;
-    }
-
-    // Supprimer espaces, points, tirets pour normaliser
-    $normalized = preg_replace('/[\s.\-]/', '', $phone);
-
-    // Formats acceptés :
-    // 0X XX XX XX XX  → 10 chiffres commençant par 0
-    // +33X XX XX XX XX → +33 suivi de 9 chiffres
-    // 0033X XX XX XX XX → 0033 suivi de 9 chiffres
-    if (preg_match('/^0[1-9]\d{8}$/', $normalized)) {
-        return true;
-    }
-    if (preg_match('/^\+33[1-9]\d{8}$/', $normalized)) {
-        return true;
-    }
-    if (preg_match('/^0033[1-9]\d{8}$/', $normalized)) {
-        return true;
-    }
-
-    return false;
-}
-
-/**
  * Valide la longueur du message (20-5000 caractères).
  * Compte sur le texte brut avant sanitization HTML.
  */
