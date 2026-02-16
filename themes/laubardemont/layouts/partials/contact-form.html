@@ -134,6 +134,9 @@
         ></textarea>
       </div>
 
+      {{/* CSRF token — récupéré via JS au chargement */}}
+      <input type="hidden" name="_csrf_token" value="">
+
       {{/* Timing anti-bot — rempli par JS au chargement */}}
       <input type="hidden" name="_timing" value="">
 
@@ -197,11 +200,24 @@
   // 0b. Sécurité honeypot — vider au cas où le navigateur auto-remplit
   document.querySelectorAll('.honey input').forEach(function(el) { el.value = ''; });
 
+  // 0c. CSRF — récupérer le token via le endpoint PHP
+  var csrfReady = false;
+  var csrfField = document.querySelector('input[name="_csrf_token"]');
+  fetch('/php/csrf-token.php', { credentials: 'same-origin' })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.token && csrfField) {
+        csrfField.value = data.token;
+        csrfReady = true;
+      }
+    })
+    .catch(function() { /* silencieux — le PHP rejettera sans token */ });
+
   // 1. Configuration et Sélection des éléments
   const form = document.querySelector('form[method="post"]');
   const alertBox = document.getElementById('form-alert');
   const statusBox = document.getElementById('status-message');
-  
+
   if (!form) return;
 
   const requiredFields = [
@@ -274,6 +290,12 @@
     if (!validateForm()) {
       e.preventDefault();
       e.stopPropagation();
+      return;
+    }
+    // Bloquer si le token CSRF n'est pas encore chargé
+    if (!csrfReady) {
+      e.preventDefault();
+      showError('<strong>Veuillez patienter</strong> quelques secondes puis réessayer.');
     }
   });
 
