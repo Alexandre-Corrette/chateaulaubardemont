@@ -52,3 +52,100 @@ function isValidEventDate(string $date): bool {
     // Doit être dans le futur (aujourd'hui exclu) et max 3 ans
     return $eventDate > $today && $eventDate <= $maxDate;
 }
+
+/**
+ * Valide un numéro de téléphone français.
+ * Accepte les formats courants : 06 07 08 09, +33, 0033, avec ou sans
+ * espaces/points/tirets. Champ optionnel : retourne true si vide.
+ */
+function isValidPhone(string $phone): bool {
+    $phone = trim($phone);
+
+    // Champ optionnel — vide = valide
+    if ($phone === '') {
+        return true;
+    }
+
+    // Supprimer espaces, points, tirets pour normaliser
+    $normalized = preg_replace('/[\s.\-]/', '', $phone);
+
+    // Formats acceptés :
+    // 0X XX XX XX XX  → 10 chiffres commençant par 0
+    // +33X XX XX XX XX → +33 suivi de 9 chiffres
+    // 0033X XX XX XX XX → 0033 suivi de 9 chiffres
+    if (preg_match('/^0[1-9]\d{8}$/', $normalized)) {
+        return true;
+    }
+    if (preg_match('/^\+33[1-9]\d{8}$/', $normalized)) {
+        return true;
+    }
+    if (preg_match('/^0033[1-9]\d{8}$/', $normalized)) {
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * Valide la longueur du message (20-5000 caractères).
+ * Compte sur le texte brut avant sanitization HTML.
+ */
+function isValidMessage(string $message): bool {
+    $message = trim($message);
+    $length = mb_strlen($message, 'UTF-8');
+
+    return $length >= 20 && $length <= 5000;
+}
+
+/**
+ * Détecte un nombre excessif d'URLs dans un texte.
+ * Retourne true si le nombre d'URLs dépasse $max (défaut 2).
+ */
+function hasExcessiveUrls(string $text, int $max = 2): bool {
+    // Compter les occurrences de patterns URL
+    $count = preg_match_all(
+        '#https?://[^\s<>\'"]+|www\.[^\s<>\'"]+#i',
+        $text
+    );
+
+    return $count > $max;
+}
+
+/**
+ * Vérifie si l'email utilise un domaine jetable connu.
+ * Retourne true si le domaine est dans la blacklist.
+ */
+function isDisposableEmail(string $email): bool {
+    $disposableDomains = [
+        'mailinator.com',
+        'guerrillamail.com',
+        'guerrillamail.net',
+        'tempmail.com',
+        'throwaway.email',
+        'yopmail.com',
+        'yopmail.fr',
+        'trashmail.com',
+        'trashmail.net',
+        'sharklasers.com',
+        'guerrillamailblock.com',
+        'grr.la',
+        'dispostable.com',
+        'mailnesia.com',
+        'maildrop.cc',
+        'temp-mail.org',
+        'fakeinbox.com',
+        'tempail.com',
+        'mohmal.com',
+        'getnada.com',
+        'emailondeck.com',
+    ];
+
+    $parts = explode('@', $email);
+    if (count($parts) !== 2) {
+        return false;
+    }
+
+    $domain = strtolower(trim($parts[1]));
+
+    return in_array($domain, $disposableDomains, true);
+}
