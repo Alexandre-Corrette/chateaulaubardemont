@@ -1,0 +1,169 @@
+{{/*
+  Partial: hero-slider.html
+  Displays a hero slider with images, text and navigation.
+  Data: .Params.hero_slides (array of slides from TOML front matter)
+  Each slide: image, alt, title, subtitle, cta_text, cta_url
+*/}}
+{{ $slides := .Params.hero_slides }}
+{{ if $slides }}
+<section class="hero-slider" role="region" aria-label="Galerie du château" aria-roledescription="carrousel">
+  <div class="slider-track">
+    {{ range $index, $slide := $slides }}
+      {{ $img := resources.Get $slide.image }}
+      <article class="slide{{ if eq $index 0 }} active{{ end }}" aria-hidden="{{ if eq $index 0 }}false{{ else }}true{{ end }}">
+        {{ with $img }}
+          {{ $large := .Resize "1920x webp q85" }}
+          {{ $medium := .Resize "1024x webp q85" }}
+          {{ $small := .Resize "640x webp q85" }}
+          <picture>
+            <source
+              type="image/webp"
+              srcset="{{ $small.RelPermalink }} 640w, {{ $medium.RelPermalink }} 1024w, {{ $large.RelPermalink }} 1920w"
+              sizes="100vw"
+            >
+            <img
+              src="{{ .RelPermalink }}"
+              alt="{{ $slide.alt }}"
+              class="slide-img"
+              {{ if eq $index 0 }}loading="eager" fetchpriority="high"{{ else }}loading="lazy"{{ end }}
+              width="{{ $large.Width }}"
+              height="{{ $large.Height }}"
+            >
+          </picture>
+        {{ end }}
+        <div class="slide-content">
+          {{ if eq $index 0 }}
+            <h1 class="slide-title">{{ $slide.title }}</h1>
+          {{ else }}
+            <p class="slide-title" aria-hidden="true">{{ $slide.title }}</p>
+          {{ end }}
+          <p class="slide-subtitle">{{ $slide.subtitle }}</p>
+          <a href="{{ $slide.cta_url | relURL }}" class="slide-cta" tabindex="{{ if eq $index 0 }}0{{ else }}-1{{ end }}">
+            {{ $slide.cta_text }}
+          </a>
+        </div>
+      </article>
+    {{ end }}
+  </div>
+
+  <!-- Navigation buttons -->
+  <button class="slider-nav slider-nav--prev" aria-label="Slide précédent" type="button">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="slider-nav slider-nav--next" aria-label="Slide suivant" type="button">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>
+  </button>
+
+  <!-- Dot indicators -->
+  <div class="slider-dots" role="tablist" aria-label="Sélection du slide">
+    {{ range $index, $slide := $slides }}
+      <button
+        class="slider-dot{{ if eq $index 0 }} active{{ end }}"
+        role="tab"
+        aria-selected="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
+        aria-label="Aller au slide {{ add $index 1 }}"
+        data-slide="{{ $index }}"
+        type="button"
+      ></button>
+    {{ end }}
+  </div>
+</section>
+
+<script>
+(function() {
+  "use strict";
+
+  var container = document.querySelector(".hero-slider");
+  if (!container) return;
+
+  var slides = container.querySelectorAll(".slide");
+  var dots = container.querySelectorAll(".slider-dot");
+  var prevBtn = container.querySelector(".slider-nav--prev");
+  var nextBtn = container.querySelector(".slider-nav--next");
+  var total = slides.length;
+  var current = 0;
+  var animating = false;
+
+  function goToSlide(index) {
+    if (animating || index === current) return;
+    animating = true;
+
+    var next = ((index % total) + total) % total;
+    var direction = next > current ? 1 : -1;
+
+    // Handle circular edge cases
+    if (current === 0 && next === total - 1) direction = -1;
+    if (current === total - 1 && next === 0) direction = 1;
+
+    var currentSlide = slides[current];
+    var nextSlide = slides[next];
+
+    // Position the incoming slide off-screen
+    nextSlide.style.transition = "none";
+    nextSlide.style.transform = "translateX(" + (direction * 100) + "%)";
+    nextSlide.style.opacity = "1";
+    nextSlide.classList.add("active");
+
+    // Force reflow
+    void nextSlide.offsetWidth;
+
+    // Animate both slides
+    nextSlide.style.transition = "";
+    currentSlide.style.transition = "";
+
+    currentSlide.style.transform = "translateX(" + (-direction * 100) + "%)";
+    currentSlide.style.opacity = "0";
+    nextSlide.style.transform = "translateX(0)";
+
+    setTimeout(function() {
+      currentSlide.classList.remove("active");
+      currentSlide.style.transform = "";
+      currentSlide.style.opacity = "";
+      currentSlide.style.transition = "";
+      nextSlide.style.transition = "";
+
+      // Update ARIA
+      currentSlide.setAttribute("aria-hidden", "true");
+      nextSlide.setAttribute("aria-hidden", "false");
+
+      // Update tabindex on CTAs
+      var oldCta = currentSlide.querySelector(".slide-cta");
+      var newCta = nextSlide.querySelector(".slide-cta");
+      if (oldCta) oldCta.setAttribute("tabindex", "-1");
+      if (newCta) newCta.setAttribute("tabindex", "0");
+
+      // Update dots
+      dots[current].classList.remove("active");
+      dots[current].setAttribute("aria-selected", "false");
+      dots[next].classList.add("active");
+      dots[next].setAttribute("aria-selected", "true");
+
+      current = next;
+      animating = false;
+    }, 600);
+  }
+
+  prevBtn.addEventListener("click", function() {
+    goToSlide(current - 1);
+  });
+
+  nextBtn.addEventListener("click", function() {
+    goToSlide(current + 1);
+  });
+
+  dots.forEach(function(dot) {
+    dot.addEventListener("click", function() {
+      var index = parseInt(this.getAttribute("data-slide"), 10);
+      goToSlide(index);
+    });
+  });
+
+  document.addEventListener("keydown", function(e) {
+    if (!container.contains(document.activeElement) &&
+        document.activeElement !== document.body) return;
+    if (e.key === "ArrowLeft") { e.preventDefault(); goToSlide(current - 1); }
+    if (e.key === "ArrowRight") { e.preventDefault(); goToSlide(current + 1); }
+  });
+})();
+</script>
+{{ end }}
