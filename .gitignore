@@ -19,3 +19,4 @@ themes/laubardemont/static/css/styles.css
 # Variables d'environement
 .env
 .env.deploy
+.hugo_stats.json
