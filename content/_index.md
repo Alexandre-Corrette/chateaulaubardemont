@@ -2,13 +2,37 @@
 title = "Accueil"
 description = "Château de Laubardemont — lieu de réception pour mariages de 50 à 120 invités près de Bordeaux. Domaine privatisé, 60 couchages, sans limite d'heure."
 
-[hero]
+[[hero_slides]]
   image = "/images/vue-piscine-nv.jpg"
-  alt = "Château de Laubardemont"
-  tagline = "Château pour mariages élégants de 50 à 120 invités"
-  [hero.cta]
-    label = "Visiter le château"
-    url = "/contact/"
+  alt = "Vue d'ensemble du Château de Laubardemont et de sa piscine"
+  title = "Le Château de Laubardemont"
+  subtitle = "Élégance et prestige en Gironde"
+  cta_text = "Découvrir le château"
+  cta_url = "/chateau/"
+
+[[hero_slides]]
+  image = "/images/chateau-reception.jpg"
+  alt = "Salle de réception aux murs de pierre et lustres"
+  title = "Réception pour 50 à 120 invités"
+  subtitle = "Espaces modulables et prestigieux"
+  cta_text = "Voir les espaces"
+  cta_url = "/chateau/"
+
+[[hero_slides]]
+  image = "/images/chateau-jardins.jpg"
+  alt = "Jardins et allée de tilleuls du parc du château"
+  title = "Un parc d'1 hectare"
+  subtitle = "Allée de tilleuls, fontaine, rosiers anciens"
+  cta_text = "Explorer les jardins"
+  cta_url = "/chateau/"
+
+[[hero_slides]]
+  image = "/images/chateau-hebergement.jpg"
+  alt = "Chambre d'hébergement du château"
+  title = "60 couchages"
+  subtitle = "Nuits mémorables en famille"
+  cta_text = "Voir l'hébergement"
+  cta_url = "/chateau/"
 
 [deroulement]
   title = "Comment se déroule un mariage au château"

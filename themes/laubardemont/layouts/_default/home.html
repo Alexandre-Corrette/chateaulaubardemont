@@ -1,44 +1,18 @@
 {{ define "main" }}
 
-{{/* Hero */}}
-<section class="px-4 py-8 md:px-8">
-  <div class="mx-auto max-w-4xl">
-    
-    {{ $hero := resources.Get .Params.hero.image | default "images/vue-piscine-nv.jpg" }}
-    {{ with $hero }}
-    <div class="overflow-hidden rounded shadow-md">
-      {{ partial "responsive-image.html" (dict "image" . "alt" ($.Params.hero.alt | default "Château de Laubardemont") "loading" "eager") }}
-    </div>
-    {{ end }}
-   
+{{/* Hero Slider */}}
+{{ partial "hero-slider.html" . }}
 
-    <div class="mt-10 text-center">
-      <p class="font-serif text-xl leading-relaxed text-stone-700 md:text-2xl">
-        {{ .Params.hero.tagline }}
-      </p>
-      
-      {{ with .Params.hero.cta }}
-      <a 
-        href="{{ .url | relURL }}" 
-        class="mt-8 inline-block rounded-full bg-amber-400 px-10 py-4 text-sm font-medium uppercase tracking-widest text-stone-800 transition hover:bg-amber-500"
-      >
-        {{ .label }}
-      </a>
-      {{ end }}
-    </div>
-
-  </div>
-   {{/* Contenu additionnel */}}
+{{/* Contenu additionnel */}}
 {{ with .Content }}
-<section class="border-t border-stone-200 py-16 mt-16">
-  <div class="mx-auto max-w-3xl px-4">
+<section class="px-4 py-8 md:px-8">
+  <div class="mx-auto max-w-3xl">
     <div class="text-justify text-stone-700">
       {{ . }}
     </div>
   </div>
 </section>
 {{ end }}
-</section>
 
 {{/* Déroulement */}}
 {{ with .Params.deroulement }}
