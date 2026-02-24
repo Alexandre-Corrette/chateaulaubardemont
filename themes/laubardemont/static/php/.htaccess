@@ -1,0 +1,7 @@
+Satisfy any
+Allow from all
+
+# Bloquer l'accès HTTP aux fichiers de log et données sensibles
+<FilesMatch "\.(log|txt)$">
+    Require all denied
+</FilesMatch>

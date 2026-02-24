@@ -1,0 +1,14 @@
+{{ define "main" }}
+
+<section class="px-4 py-12 md:px-8">
+  <div class="mx-auto max-w-3xl">
+    <h1 class="font-serif text-3xl font-medium text-stone-800 md:text-4xl">
+      {{ .Title }}
+    </h1>
+    <div class="prose prose-stone mt-10 max-w-none prose-headings:font-serif prose-h2:text-xl prose-h2:mt-10 prose-h3:text-lg prose-a:text-amber-600 prose-a:underline hover:prose-a:text-amber-500">
+      {{ .Content }}
+    </div>
+  </div>
+</section>
+
+{{ end }}

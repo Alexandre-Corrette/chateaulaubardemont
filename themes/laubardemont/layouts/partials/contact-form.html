@@ -134,11 +134,17 @@
         ></textarea>
       </div>
 
-      {{/* Honeypot anti-bot */}}
-      <div class="honey" aria-hidden="true">
-        <input type="text" name="name" tabindex="-1" autocomplete="off">
-        <input type="text" name="website" tabindex="-1" autocomplete="off">
-      </div>
+      {{/* CSRF token — récupéré via JS au chargement */}}
+      <input type="hidden" name="_csrf_token" value="">
+
+      {{/* Timing anti-bot — rempli par JS au chargement */}}
+      <input type="hidden" name="_timing" value="">
+
+      {{/* Honeypot anti-bot — noms volontairement non-sémantiques */}}
+<div class="honey" aria-hidden="true">
+  <input type="text" name="hp_zx8" tabindex="-1" autocomplete="nope">
+  <input type="text" name="hp_qv3" tabindex="-1" autocomplete="nope">
+</div>
 
       {{/* Alerte JS */}}
       <div id="form-alert" class="hidden rounded-lg border p-4 text-sm"></div>
@@ -187,11 +193,31 @@
 
 <script>
 (function () {
+  // 0. Anti-bot timing — enregistrer le timestamp de chargement
+  var timingField = document.querySelector('input[name="_timing"]');
+  if (timingField) timingField.value = String(Math.floor(Date.now() / 1000));
+
+  // 0b. Sécurité honeypot — vider au cas où le navigateur auto-remplit
+  document.querySelectorAll('.honey input').forEach(function(el) { el.value = ''; });
+
+  // 0c. CSRF — récupérer le token via le endpoint PHP
+  var csrfReady = false;
+  var csrfField = document.querySelector('input[name="_csrf_token"]');
+  fetch('/php/csrf-token.php', { credentials: 'same-origin' })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.token && csrfField) {
+        csrfField.value = data.token;
+        csrfReady = true;
+      }
+    })
+    .catch(function() { /* silencieux — le PHP rejettera sans token */ });
+
   // 1. Configuration et Sélection des éléments
   const form = document.querySelector('form[method="post"]');
   const alertBox = document.getElementById('form-alert');
   const statusBox = document.getElementById('status-message');
-  
+
   if (!form) return;
 
   const requiredFields = [
@@ -264,6 +290,12 @@
     if (!validateForm()) {
       e.preventDefault();
       e.stopPropagation();
+      return;
+    }
+    // Bloquer si le token CSRF n'est pas encore chargé
+    if (!csrfReady) {
+      e.preventDefault();
+      showError('<strong>Veuillez patienter</strong> quelques secondes puis réessayer.');
     }
   });
 

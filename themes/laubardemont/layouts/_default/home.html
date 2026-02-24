@@ -4,15 +4,10 @@
 <section class="px-4 py-8 md:px-8">
   <div class="mx-auto max-w-4xl">
     
-    {{ $hero := resources.Get .Params.hero.image | default "images/vue-piscine.jpg" }}
+    {{ $hero := resources.Get .Params.hero.image | default "images/vue-piscine-nv.jpg" }}
     {{ with $hero }}
     <div class="overflow-hidden rounded shadow-md">
-      <img 
-        class="h-auto w-full object-cover" 
-        src="{{ .RelPermalink }}" 
-        alt="{{ $.Params.hero.alt | default "Château de Laubardemont" }}"
-        loading="eager"
-      >
+      {{ partial "responsive-image.html" (dict "image" . "alt" ($.Params.hero.alt | default "Château de Laubardemont") "loading" "eager") }}
     </div>
     {{ end }}
    
@@ -97,6 +92,34 @@
   </div>
 </section>
 {{ end }}
+{{/* Partenaires traiteurs */}}
+{{ with .Params.partenaires }}
+<section class="px-4 py-16 md:px-8">
+  <div class="mx-auto max-w-3xl text-center">
+    <h2 class="font-serif text-2xl font-medium text-stone-800 md:text-3xl">
+      {{ .title }}
+    </h2>
+    <p class="mt-4 text-stone-600">
+      {{ .description }}
+    </p>
+    {{ with .items }}
+    <div class="mt-10 grid gap-8 md:grid-cols-2">
+      {{ range . }}
+      <div class="rounded-lg border border-stone-200 p-6">
+        <h3 class="font-serif text-xl font-medium text-stone-800">{{ .name }}</h3>
+        <p class="mt-2 text-stone-600">{{ .description }}</p>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+    {{ with .note }}
+    <p class="mt-8 text-sm text-stone-500 italic">
+      {{ . }}
+    </p>
+    {{ end }}
+  </div>
+</section>
+{{ end }}
 
 {{/* Citation finale */}}
 {{ with .Params.citation }}
@@ -106,17 +129,23 @@
       {{ .text }}
     </p>
     {{ with .cta }}
-    <a 
-      href="{{ .url | relURL }}" 
+    <a
+      href="{{ .url | relURL }}"
       class="mt-10 inline-block rounded-full bg-amber-400 px-10 py-4 text-sm font-medium uppercase tracking-widest text-stone-800 transition hover:bg-amber-500"
     >
       {{ .label }}
     </a>
     {{ end }}
+    {{ with site.Params.contact.phone }}
+    <p class="mt-6 text-sm text-stone-500">
+      ou appelez-nous au <a href="tel:{{ . | replaceRE " " "" }}" class="text-stone-700 underline transition hover:text-amber-500">{{ . }}</a>
+    </p>
+    {{ end }}
   </div>
 </section>
 {{ end }}
-
+{{/* Avis Google */}}
+{{ partial "avis-google.html" . }}
 
 
 {{ end }}
