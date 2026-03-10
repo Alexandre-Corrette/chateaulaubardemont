@@ -20,3 +20,4 @@ themes/laubardemont/static/css/styles.css
 .env
 .env.deploy
 .hugo_stats.json
+themes/laubardemont/assets/images/.DS_Store

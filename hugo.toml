@@ -1,6 +1,8 @@
 baseURL = 'https://chateau-laubardemont.com/'
 languageCode = 'fr-fr'
-title = 'Chateau Laubardemont'
+title = 'Château de Laubardemont — Lieu de réception mariage en Gironde'
+disableKinds = ['taxonomy', 'term']
+ignoreFiles = ['content/posts/']
 theme = 'laubardemont'
 
 [mediaTypes]
@@ -31,7 +33,7 @@ theme = 'laubardemont'
   ctaHref = "/contact/"
   heroVid = ""
   logo = "/images/logo/logo.png"
-  propertyName = "Chateau de Laubardemont"
+  propertyName = "Château de Laubardemont"
   slogan = "Weddings, Events and Luxury Vacations"
 
   google_rating = "4.9"
@@ -72,17 +74,21 @@ font_size_base = '18px'
 
 [menu]
   [[menu.main]]
-    name = "Accueil"
-    url = "/"
+    name = "Le Château"
+    url = "/chateau/"
     weight = 1
   [[menu.main]]
-    name = "Le Chateau"
-    url = "/chateau"
+    name = "Mariage"
+    url = "/mariage/"
     weight = 2
   [[menu.main]]
-    name = "Notre histoire"
-    url = "/histoire"
+    name = "Galerie"
+    url = "/galerie/"
     weight = 3
+  [[menu.main]]
+    name = "Contact"
+    url = "/contact/"
+    weight = 4
 
   [[menu.secondaire]]
     name = "Historique"
@@ -94,13 +100,25 @@ font_size_base = '18px'
     url = "/chateau/"
     weight = 1
   [[menu.footer]]
+    name = "Mariage"
+    url = "/mariage/"
+    weight = 2
+  [[menu.footer]]
+    name = "Notre histoire"
+    url = "/histoire/"
+    weight = 3
+  [[menu.footer]]
+    name = "FAQ"
+    url = "/faq/"
+    weight = 4
+  [[menu.footer]]
     name = "Contact"
     url = "/contact/"
-    weight = 2
+    weight = 5
   [[menu.footer]]
     name = "Mentions légales"
     url = "/mentions-legales/"
-    weight = 3
+    weight = 6
 
 
 sectionPagesMenu = ['main','second']
