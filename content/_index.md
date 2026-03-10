@@ -8,7 +8,7 @@ description = "Château de Laubardemont — lieu de réception pour mariages de 
   title = "Le Château de Laubardemont"
   subtitle = "Élégance et prestige en Gironde"
   cta_text = "Découvrir le château"
-  cta_url = "/chateau/"
+  cta_url = "/chateau/#la-batisse"
 
 [[hero_slides]]
   image = "/images/chateau-reception.jpg"
@@ -16,7 +16,7 @@ description = "Château de Laubardemont — lieu de réception pour mariages de 
   title = "Réception pour 50 à 120 invités"
   subtitle = "Espaces modulables et prestigieux"
   cta_text = "Voir les espaces"
-  cta_url = "/chateau/"
+  cta_url = "/chateau/#la-reception"
 
 [[hero_slides]]
   image = "/images/chateau-jardins.jpg"
@@ -24,7 +24,7 @@ description = "Château de Laubardemont — lieu de réception pour mariages de 
   title = "Un parc d'1 hectare"
   subtitle = "Allée de tilleuls, fontaine, rosiers anciens"
   cta_text = "Explorer les jardins"
-  cta_url = "/chateau/"
+  cta_url = "/chateau/#les-jardins"
 
 [[hero_slides]]
   image = "/images/chateau-hebergement.jpg"
@@ -32,7 +32,7 @@ description = "Château de Laubardemont — lieu de réception pour mariages de 
   title = "60 couchages"
   subtitle = "Nuits mémorables en famille"
   cta_text = "Voir l'hébergement"
-  cta_url = "/chateau/"
+  cta_url = "/chateau/#hebergement"
 
 [deroulement]
   title = "Comment se déroule un mariage au château"

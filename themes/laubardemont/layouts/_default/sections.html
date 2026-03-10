@@ -38,7 +38,7 @@
   <div class="mx-auto max-w-5xl space-y-24">
     
     {{ range $index, $section := . }}
-    <article class="grid items-center gap-8 md:grid-cols-2">
+    <article id="{{ with $section.anchor }}{{ . }}{{ else }}{{ $section.title | anchorize }}{{ end }}" class="grid items-center gap-8 md:grid-cols-2">
       
       {{/* Image */}}
       {{ $image := resources.Get $section.image }}
@@ -63,6 +63,14 @@
       </div>
 
     </article>
+
+    {{/* Instagram gallery — below the section */}}
+    {{ with $section.gallery }}
+    <div class="mt-8">
+      {{ partial "gallery-instagram.html" (dict "images" . "alt" $section.title) }}
+    </div>
+    {{ end }}
+
     {{ end }}
 
   </div>
@@ -104,5 +112,68 @@
   </div>
 </section>
 {{ end }}
+
+{{/* Lightbox for section galleries */}}
+<div class="section-lightbox" id="section-lightbox" role="dialog" aria-modal="true">
+  <button class="section-lightbox__close" id="slb-close" aria-label="Fermer">&times;</button>
+  <button class="section-lightbox__nav section-lightbox__nav--prev" id="slb-prev" aria-label="Précédent">&#8249;</button>
+  <button class="section-lightbox__nav section-lightbox__nav--next" id="slb-next" aria-label="Suivant">&#8250;</button>
+  <img class="section-lightbox__img" id="slb-img" src="" alt="">
+  <p class="section-lightbox__caption sr-only" id="slb-caption"></p>
+</div>
+
+<script>
+(function () {
+  var lightbox = document.getElementById('section-lightbox');
+  if (!lightbox) return;
+
+  var lbImg = document.getElementById('slb-img');
+  var lbCaption = document.getElementById('slb-caption');
+  var items = Array.from(document.querySelectorAll('[data-gallery-item]'));
+  var currentIndex = 0;
+
+  function open(index) {
+    currentIndex = index;
+    var item = items[currentIndex];
+    lbImg.src = item.href;
+    lbImg.alt = item.dataset.alt || '';
+    lbCaption.textContent = item.dataset.alt || '';
+    lightbox.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    lightbox.classList.remove('is-open');
+    lbImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  items.forEach(function (item, i) {
+    item.addEventListener('click', function (e) {
+      e.preventDefault();
+      open(i);
+    });
+  });
+
+  document.getElementById('slb-close').addEventListener('click', close);
+  document.getElementById('slb-prev').addEventListener('click', function () {
+    open((currentIndex - 1 + items.length) % items.length);
+  });
+  document.getElementById('slb-next').addEventListener('click', function () {
+    open((currentIndex + 1) % items.length);
+  });
+
+  lightbox.addEventListener('click', function (e) {
+    if (e.target === lightbox) close();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (!lightbox.classList.contains('is-open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') document.getElementById('slb-prev').click();
+    if (e.key === 'ArrowRight') document.getElementById('slb-next').click();
+  });
+})();
+</script>
 
 {{ end }}
