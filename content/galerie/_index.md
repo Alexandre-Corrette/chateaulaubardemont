@@ -1,6 +1,7 @@
 +++
 title = "Galerie"
 subtitle = "Découvrez le château en images"
+description = "Galerie photos du Château de Laubardemont : salons, salle de réception, chambres, appartements, jardins et extérieurs du domaine."
 layout = "galerie"
 
 [[categories]]

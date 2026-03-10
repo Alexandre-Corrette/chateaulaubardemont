@@ -62,6 +62,36 @@
 {{ end }}
 
 {{/* BreadcrumbList — on all pages except homepage */}}
+{{/* LocalBusiness on /contact/ page */}}
+{{ if eq .RelPermalink "/contact/" }}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Château de Laubardemont",
+  "description": "{{ .Params.description }}",
+  "url": "{{ site.BaseURL }}",
+  "telephone": "+33{{ site.Params.contact.phone | replaceRE `^0` `` | replaceRE ` ` `` }}",
+  "email": "{{ site.Params.contact.email }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Laubardemont",
+    "addressLocality": "Sablons",
+    "postalCode": "33910",
+    "addressRegion": "Nouvelle-Aquitaine",
+    "addressCountry": "FR"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+33{{ site.Params.contact.phone | replaceRE `^0` `` | replaceRE ` ` `` }}",
+    "email": "{{ site.Params.contact.email }}",
+    "contactType": "reservations",
+    "availableLanguage": ["French", "English"]
+  }
+}
+</script>
+{{ end }}
+
 {{ if not .IsHome }}
 <script type="application/ld+json">
 {

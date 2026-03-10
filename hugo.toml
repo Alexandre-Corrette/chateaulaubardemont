@@ -74,17 +74,21 @@ font_size_base = '18px'
 
 [menu]
   [[menu.main]]
-    name = "Accueil"
-    url = "/"
+    name = "Le Château"
+    url = "/chateau/"
     weight = 1
   [[menu.main]]
-    name = "Le Chateau"
-    url = "/chateau"
+    name = "Galerie"
+    url = "/galerie/"
     weight = 2
   [[menu.main]]
     name = "Notre histoire"
-    url = "/histoire"
+    url = "/histoire/"
     weight = 3
+  [[menu.main]]
+    name = "Contact"
+    url = "/contact/"
+    weight = 4
 
   [[menu.secondaire]]
     name = "Historique"
