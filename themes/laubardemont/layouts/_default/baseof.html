@@ -9,6 +9,17 @@
     {{ partial "header.html" . }}
   </header>
 
+  {{ if not .IsHome }}
+  <nav aria-label="Fil d'Ariane" class="px-4 py-3 md:px-8">
+    <ol class="mx-auto flex max-w-5xl items-center gap-2 text-xs text-stone-500">
+      <li><a href="/" class="transition hover:text-amber-500">Accueil</a></li>
+      <li class="before:mr-2 before:content-['›']">
+        <span class="text-stone-700" aria-current="page">{{ .Title }}</span>
+      </li>
+    </ol>
+  </nav>
+  {{ end }}
+
   <main class="w-full mx-auto">
     {{ block "main" . }}
     {{ end }}

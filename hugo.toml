@@ -1,6 +1,8 @@
 baseURL = 'https://chateau-laubardemont.com/'
 languageCode = 'fr-fr'
-title = 'Chateau Laubardemont'
+title = 'Château de Laubardemont — Lieu de réception mariage en Gironde'
+disableKinds = ['taxonomy', 'term']
+ignoreFiles = ['content/posts/']
 theme = 'laubardemont'
 
 [mediaTypes]
