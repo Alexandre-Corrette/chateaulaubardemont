@@ -437,3 +437,127 @@ li ::marker{
   }
 }
 
+/* ====== Instagram Gallery ====== */
+.ig-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin-top: 1.5rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.ig-gallery__item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+}
+
+.ig-gallery__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.ig-gallery__item:hover img {
+  transform: scale(1.08);
+  filter: brightness(0.85);
+}
+
+/* First image spans 2 cols + 2 rows for visual interest */
+.ig-gallery__item:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+@media (max-width: 640px) {
+  .ig-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+  }
+
+  .ig-gallery__item:first-child {
+    grid-column: span 2;
+    grid-row: span 1;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* ====== Section Gallery Lightbox ====== */
+.section-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.92);
+}
+
+.section-lightbox.is-open {
+  display: flex;
+}
+
+.section-lightbox__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  z-index: 101;
+}
+
+.section-lightbox__close:hover {
+  color: #E8B84A;
+}
+
+.section-lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  z-index: 101;
+  padding: 0.5rem;
+}
+
+.section-lightbox__nav:hover {
+  color: #E8B84A;
+}
+
+.section-lightbox__nav--prev { left: 1rem; }
+.section-lightbox__nav--next { right: 1rem; }
+
+.section-lightbox__img {
+  max-height: 85vh;
+  max-width: 90vw;
+  border-radius: 0.25rem;
+}
+
+.section-lightbox__caption {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.875rem;
+  color: #d6d3d1;
+}
+
+@media (max-width: 768px) {
+  .section-lightbox__nav {
+    font-size: 2rem;
+  }
+  .section-lightbox__nav--prev { left: 0.25rem; }
+  .section-lightbox__nav--next { right: 0.25rem; }
+}
+

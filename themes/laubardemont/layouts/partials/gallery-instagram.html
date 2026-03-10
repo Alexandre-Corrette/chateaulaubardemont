@@ -1,0 +1,48 @@
+{{/*
+  Partial: gallery-instagram.html
+  Instagram-style photo grid with lightbox for section pages.
+
+  Params:
+    .images  — list of objects with .src and .alt (or plain strings for backward compat)
+    .alt     — fallback alt text (section title)
+*/}}
+{{ $images := .images }}
+{{ $fallbackAlt := .alt | default "Photo" }}
+{{ $count := len $images }}
+
+{{ if gt $count 0 }}
+<div class="ig-gallery" data-gallery>
+  {{ range $i, $item := $images }}
+    {{/* Support both object {src, alt} and plain string */}}
+    {{ $src := "" }}
+    {{ $alt := "" }}
+    {{ if reflect.IsMap $item }}
+      {{ $src = $item.src }}
+      {{ $alt = $item.alt | default (printf "%s — %d" $fallbackAlt (add $i 1)) }}
+    {{ else }}
+      {{ $src = $item }}
+      {{ $alt = printf "%s — %d" $fallbackAlt (add $i 1) }}
+    {{ end }}
+
+    {{ $img := resources.Get $src }}
+    {{ with $img }}
+      {{ $thumb := .Resize "600x webp q85" }}
+      {{ $full := .Resize "1400x webp q85" }}
+      <a
+        href="{{ $full.RelPermalink }}"
+        class="ig-gallery__item"
+        data-gallery-item
+        data-alt="{{ $alt }}"
+      >
+        <img
+          src="{{ $thumb.RelPermalink }}"
+          alt="{{ $alt }}"
+          loading="lazy"
+          width="{{ $thumb.Width }}"
+          height="{{ $thumb.Height }}"
+        >
+      </a>
+    {{ end }}
+  {{ end }}
+</div>
+{{ end }}
