@@ -41,19 +41,27 @@
   <div class="mx-auto max-w-6xl">
     <div id="galerie-grid" class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
       {{ range .Params.photos }}
+      {{ $photo := . }}
+      {{ $img := resources.Get .src }}
+      {{ with $img }}
+        {{ $thumb := .Resize "600x600 webp q80" }}
+        {{ $large := .Resize "1920x webp q85" }}
       <a
-        href="{{ .src | relURL }}"
+        href="{{ $large.RelPermalink }}"
         class="galerie-item group overflow-hidden rounded-lg"
-        data-category="{{ .category }}"
-        data-alt="{{ .alt }}"
+        data-category="{{ $photo.category }}"
+        data-alt="{{ $photo.alt }}"
       >
         <img
-          src="{{ .src | relURL }}"
-          alt="{{ .alt }}"
+          src="{{ $thumb.RelPermalink }}"
+          alt="{{ $photo.alt }}"
           class="aspect-square w-full object-cover transition duration-300 group-hover:scale-105"
           loading="lazy"
+          width="{{ $thumb.Width }}"
+          height="{{ $thumb.Height }}"
         >
       </a>
+      {{ end }}
       {{ end }}
     </div>
   </div>
@@ -65,7 +73,7 @@
   <button id="lightbox-prev" class="absolute left-4 top-1/2 -translate-y-1/2 text-4xl text-white transition hover:text-amber-400" aria-label="Précédent">&#8249;</button>
   <button id="lightbox-next" class="absolute right-4 top-1/2 -translate-y-1/2 text-4xl text-white transition hover:text-amber-400" aria-label="Suivant">&#8250;</button>
   <img id="lightbox-img" class="max-h-[85vh] max-w-[90vw] rounded" src="" alt="">
-  <p id="lightbox-caption" class="absolute bottom-6 left-1/2 -translate-x-1/2 text-sm text-stone-300"></p>
+  <p id="lightbox-caption" class="sr-only"></p>
 </div>
 
 <script>

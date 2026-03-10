@@ -1,0 +1,70 @@
+{{ define "main" }}
+
+<section class="px-4 py-8 md:px-8">
+  <div class="mx-auto max-w-3xl text-center">
+    <h1 class="font-serif text-4xl font-medium text-stone-800 md:text-5xl">
+      {{ .Title }}
+    </h1>
+    {{ with .Params.subtitle }}
+    <p class="mt-4 text-lg text-stone-600">{{ . }}</p>
+    {{ end }}
+  </div>
+</section>
+
+{{ with .Params.faq }}
+<section class="px-4 pb-20 md:px-8">
+  <div class="mx-auto max-w-3xl divide-y divide-stone-200">
+    {{ range . }}
+    <details class="group py-6">
+      <summary class="flex cursor-pointer items-center justify-between font-serif text-lg font-medium text-stone-800 transition hover:text-amber-600 md:text-xl">
+        {{ .question }}
+        <span class="ml-4 shrink-0 text-2xl text-stone-400 transition group-open:rotate-45">+</span>
+      </summary>
+      <p class="mt-4 leading-relaxed text-stone-600">
+        {{ .answer }}
+      </p>
+    </details>
+    {{ end }}
+  </div>
+</section>
+
+{{/* FAQPage JSON-LD */}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{ range $i, $q := . }}{{ if $i }},{{ end }}
+    {
+      "@type": "Question",
+      "name": "{{ $q.question }}",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "{{ $q.answer }}"
+      }
+    }
+    {{ end }}
+  ]
+}
+</script>
+{{ end }}
+
+{{/* CTA */}}
+<section class="px-4 py-16 md:px-8">
+  <div class="mx-auto max-w-3xl text-center">
+    <p class="font-serif text-2xl leading-relaxed text-stone-700">Vous avez d'autres questions ?</p>
+    <a
+      href="/contact/"
+      class="mt-8 inline-block rounded-full bg-amber-400 px-10 py-4 text-sm font-medium uppercase tracking-widest text-stone-800 transition hover:bg-amber-500"
+    >
+      Nous contacter
+    </a>
+    {{ with site.Params.contact.phone }}
+    <p class="mt-6 text-sm text-stone-500">
+      ou appelez-nous au <a href="tel:{{ . | replaceRE " " "" }}" class="text-stone-700 underline transition hover:text-amber-500">{{ . }}</a>
+    </p>
+    {{ end }}
+  </div>
+</section>
+
+{{ end }}
