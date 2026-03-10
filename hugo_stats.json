@@ -171,6 +171,7 @@
       "md:text-5xl",
       "md:text-left",
       "menu",
+      "min-w-0",
       "ml-4",
       "mt-0.5",
       "mt-1",
