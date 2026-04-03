@@ -95,6 +95,7 @@ Color palette: `stone-*` (base), `amber-*` (accents/interactions).
 
 - `main` — production
 - `develop` — active development branch
+- All `fix/*` and `feat/*` branches must be created from `develop` and merged back into `develop`
 
 ## Key Config
 
