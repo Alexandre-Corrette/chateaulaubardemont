@@ -1,31 +1,14 @@
-name = 'Theme name'
+name = 'Hugo Starter Venue'
 license = 'MIT'
-licenselink = 'https://github.com/owner/repo/LICENSE'
-description = 'Theme description'
+licenselink = 'https://github.com/Alexandre-Corrette/hugo-starter-venue/blob/main/LICENSE'
+description = 'A Hugo theme for wedding venues and event spaces. Features contact form with PHP backend, Google reviews, hero sliders, photo galleries, and structured data (Schema.org).'
+min_version = '0.116.0'
 
-# The home page of the theme, where the source can be found
-homepage = 'https://github.com/owner/repo'
+homepage = 'https://github.com/Alexandre-Corrette/hugo-starter-venue'
 
-# If you have a running demo of the theme
-demosite = 'https://owner.github.io/repo'
+tags = ['wedding', 'venue', 'events', 'contact-form', 'tailwind', 'responsive']
+features = ['contact-form', 'google-reviews', 'hero-slider', 'photo-gallery', 'schema-org', 'tailwind-css']
 
-# Taxonomy terms
-tags = ['blog', 'company']
-features = ['some', 'awesome', 'features']
-
-# If the theme has multiple authors
-authors = [
-  {name = 'Name of author', homepage = 'Website of author'},
-  {name = 'Name of author', homepage = 'Website of author'}
-]
-
-# If the theme has a single author
 [author]
-  name = 'Your name'
-  homepage = 'Your website'
-
-# If porting an existing theme
-[original]
-  author = 'Name of original author'
-  homepage = 'Website of original author'
-  repo = 'https://github.com/owner/repo'
+  name = 'Alexandre Corrette'
+  homepage = 'https://github.com/Alexandre-Corrette'

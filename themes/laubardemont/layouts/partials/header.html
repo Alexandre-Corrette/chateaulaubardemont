@@ -4,7 +4,7 @@
   <div class="mx-auto max-w-5xl">
 
     {{/* Navigation — full width on top */}}
-    <nav class="hidden md:flex items-center justify-evenly mb-12">
+    <nav class="hidden min-[900px]:flex items-center justify-evenly mb-12">
       {{ range .Site.Menus.main }}
       <a
         href="{{ .URL }}"
@@ -27,7 +27,7 @@
       </a>
 
       {{/* Burger mobile — absolute right */}}
-      <div class="absolute right-0 top-1/2 -translate-y-1/2 md:hidden">
+      <div class="absolute right-0 top-1/2 -translate-y-1/2 min-[900px]:hidden">
         {{ partial "menu-burger.html" (dict "menuID" "main" "page" .) }}
       </div>
     </div>

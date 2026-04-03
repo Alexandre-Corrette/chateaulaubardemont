@@ -1,0 +1,13 @@
+node_modules/
+.DS_Store
+.hugo_build.lock
+resources/_gen/
+dist/
+static/css/styles.css
+static/tags/
+static/contact/
+static/assets/
+static/src/
+static/css/style.css
+assets/video/
+static/php/test-*.php
