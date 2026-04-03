@@ -170,6 +170,7 @@ li ::marker{
   opacity: 0;
   pointer-events: none;
   transition: opacity 220ms ease;
+  z-index: 90;
 }
 
 .burger-panel{
@@ -182,6 +183,7 @@ li ::marker{
   box-shadow: -16px 0 40px rgba(0,0,0,.2);
   transform: translateX(110%);
   transition: transform 220ms ease;
+  z-index: 91;
 
   padding: 90px 22px 22px;
   display: grid;
