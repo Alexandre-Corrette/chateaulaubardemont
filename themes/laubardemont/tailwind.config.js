@@ -5,8 +5,11 @@ module.exports = {
     "./assets/**/*.js",
   ],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'desktop': '900px',
+      },
+    },
   },
   plugins: [],
 }
-
