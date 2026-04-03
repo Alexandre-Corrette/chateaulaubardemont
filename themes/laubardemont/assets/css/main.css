@@ -257,16 +257,17 @@ body:has(.burger-toggle:checked) .burger-line::after{
 
 .slide-cta {
   display: inline-block;
-  padding: 0.75rem 1.75rem;
+  padding: 0.5rem 1.25rem;
   background: #E8B84A;
   color: #292524; /* stone-800 */
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   text-decoration: none;
   border-radius: 9999px;
   transition: background 0.3s ease;
+  margin-bottom: 1.5rem;
 }
 
 .slide-cta:hover {
@@ -349,7 +350,13 @@ body:has(.burger-toggle:checked) .burger-line::after{
   }
 
   .slide-content {
-    padding: 2rem 1.25rem;
+    padding: 2rem 1.25rem 3.5rem;
+  }
+
+  .slide-cta {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.75rem;
+    margin-bottom: 0.75rem;
   }
 
   .slider-nav {
