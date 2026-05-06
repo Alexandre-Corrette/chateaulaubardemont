@@ -1,12 +1,37 @@
 <?php
 declare(strict_types=1);
 
-function buildHeaders(string $from, string $replyTo): string {
+function buildHeaders(string $from, string $replyTo, ?string $multipartBoundary = null): string {
     $headers  = "MIME-Version: 1.0\r\n";
-    $headers .= "Content-Type: text/html; charset=utf-8\r\n";
+    if ($multipartBoundary !== null) {
+        $headers .= "Content-Type: multipart/mixed; boundary=\"{$multipartBoundary}\"\r\n";
+    } else {
+        $headers .= "Content-Type: text/html; charset=utf-8\r\n";
+    }
     $headers .= "From: {$from}\r\n";
     $headers .= "Reply-To: {$replyTo}\r\n";
     return $headers;
+}
+
+/**
+ * Compose un body multipart/mixed avec une partie HTML et un .ics attaché en pièce jointe.
+ * Le boundary doit être identique à celui passé à buildHeaders().
+ */
+function buildMultipartBodyWithIcal(string $html, string $ical, string $boundary, string $filename = 'visite.ics'): string {
+    $eol = "\r\n";
+    $body  = "--{$boundary}{$eol}";
+    $body .= "Content-Type: text/html; charset=utf-8{$eol}";
+    $body .= "Content-Transfer-Encoding: 8bit{$eol}{$eol}";
+    $body .= $html . $eol;
+
+    $body .= "--{$boundary}{$eol}";
+    $body .= "Content-Type: text/calendar; charset=utf-8; method=REQUEST; name=\"{$filename}\"{$eol}";
+    $body .= "Content-Disposition: attachment; filename=\"{$filename}\"{$eol}";
+    $body .= "Content-Transfer-Encoding: 7bit{$eol}{$eol}";
+    $body .= $ical . $eol;
+
+    $body .= "--{$boundary}--{$eol}";
+    return $body;
 }
 
 /**

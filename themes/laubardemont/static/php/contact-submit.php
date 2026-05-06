@@ -10,6 +10,7 @@ require_once $base . '/helpers/validate.php';
 require_once $base . '/helpers/csrf.php';
 require_once $base . '/helpers/template.php';
 require_once $base . '/helpers/mailer.php';
+require_once $base . '/helpers/ical.php';
 require_once $base . '/helpers/belevent.php';
 require_once $base . '/helpers/zapier.php';
 
@@ -99,10 +100,13 @@ $data = [
     'message'    => cleanMessage((string)$_POST['message']),
 ];
 
-// Envoi mail (prioritaire)
-$subject = "Contact – {$data['first_name']} {$data['last_name']}";
-$body    = buildContactBody($data);
-$headers = buildHeaders(MAIL_FROM, $data['email']);
+// Envoi mail (prioritaire) avec invitation calendrier (.ics) en pièce jointe
+$subject  = "Contact – {$data['first_name']} {$data['last_name']}";
+$html     = buildContactBody($data);
+$ical     = buildIcalEvent($data);
+$boundary = '_b_' . bin2hex(random_bytes(8));
+$body     = buildMultipartBodyWithIcal($html, $ical, $boundary);
+$headers  = buildHeaders(MAIL_FROM, $data['email'], $boundary);
 
 $sent = sendContactMail(CONTACT_TO, $subject, $body, $headers);
 
