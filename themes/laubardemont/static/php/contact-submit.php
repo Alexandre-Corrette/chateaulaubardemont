@@ -11,6 +11,7 @@ require_once $base . '/helpers/csrf.php';
 require_once $base . '/helpers/template.php';
 require_once $base . '/helpers/mailer.php';
 require_once $base . '/helpers/belevent.php';
+require_once $base . '/helpers/zapier.php';
 
 // ── 1. Vérifications HTTP ──────────────────────────────────────
 requirePost();
@@ -129,6 +130,26 @@ if (DEBUG_LOG) {
         $beleventResult['success'] ? 'OK' : 'FAILED: ' . $beleventResult['error'],
         $beleventResult['requestId'] ?? 'n/a'
     ));
+}
+
+// Fallback Zapier — déclenché uniquement si BelEvent a échoué (inclut "API not configured")
+if (!$beleventResult['success']) {
+    $zapierResult = sendToZapier([
+        'first_name'  => $data['first_name'],
+        'last_name'   => $data['last_name'],
+        'email'       => $data['email'],
+        'phone'       => $data['phone'],
+        'date'        => $data['date'],
+        'reason'      => $data['reason'],
+        'message'     => strip_tags((string)$_POST['message']),
+    ]);
+
+    if (DEBUG_LOG) {
+        writeDebug(sprintf(
+            '[Zapier] Fallback %s',
+            $zapierResult['success'] ? 'OK' : 'FAILED: ' . $zapierResult['error']
+        ));
+    }
 }
 
 // Succès (quoi qu'il arrive avec l'API)
