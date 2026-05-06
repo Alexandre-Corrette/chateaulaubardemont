@@ -21,3 +21,6 @@ themes/laubardemont/static/css/styles.css
 .env.deploy
 .hugo_stats.json
 themes/laubardemont/assets/images/.DS_Store
+
+# Configuration PHP — secrets (BelEvent, Zapier, etc.). Voir config.example.php.
+themes/laubardemont/static/php/config.php
