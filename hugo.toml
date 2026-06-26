@@ -39,7 +39,7 @@ theme = 'laubardemont'
   heroImage = "images/chateau-facade.jpg"
   googleMapsUrl = "https://www.google.com/maps/place/Ch%C3%A2teau+de+Laubardemont"
   priceRange = "€€€"
-  maximumAttendeeCapacity = 120
+  maximumAttendeeCapacity = 100
 
   google_rating = "4.9"
 
@@ -74,7 +74,7 @@ theme = 'laubardemont'
   
 
 [params.contact]
-  address = "Laubardemont<br>33910 Sablons"
+  address = "Laubardemont<br>537 Route de Laubardemont<br>33910 Sablons"
   phone = "06 88 84 39 64"
   email = "contact@chateau-laubardemont.com"
 
