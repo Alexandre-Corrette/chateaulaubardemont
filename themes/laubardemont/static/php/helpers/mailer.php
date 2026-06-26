@@ -36,7 +36,9 @@ function parseMailerDsn(string $dsn): ?array {
  * Compatible MailCatcher, MailHog, ou tout SMTP sans TLS.
  */
 function sendSmtp(array $smtp, string $to, string $subject, string $body, string $from, string $replyTo): bool {
-    $sock = @fsockopen($smtp['host'], $smtp['port'], $errno, $errstr, 5);
+    // Port 465 = SMTPS (SSL on connect) — préfixer ssl:// pour fsockopen TLS
+    $sockHost = $smtp['port'] === 465 ? 'ssl://' . $smtp['host'] : $smtp['host'];
+    $sock = @fsockopen($sockHost, $smtp['port'], $errno, $errstr, 5);
     if (!$sock) {
         error_log("[Mailer] SMTP connect failed: {$errstr} ({$errno})");
         return false;
@@ -63,6 +65,31 @@ function sendSmtp(array $smtp, string $to, string $subject, string $body, string
         $line = $read();
         if ($line === '' || strpos($line, '250 ') === 0) {
             break;
+        }
+    }
+
+    // AUTH LOGIN si credentials fournis dans le DSN
+    if (!empty($smtp['user']) && !empty($smtp['pass'])) {
+        $authResp = $send("AUTH LOGIN");
+        if (strpos($authResp, '334') !== 0) {
+            error_log("[Mailer] AUTH LOGIN rejected: " . trim($authResp));
+            $send("QUIT");
+            fclose($sock);
+            return false;
+        }
+        $userResp = $send(base64_encode($smtp['user']));
+        if (strpos($userResp, '334') !== 0) {
+            error_log("[Mailer] AUTH user rejected: " . trim($userResp));
+            $send("QUIT");
+            fclose($sock);
+            return false;
+        }
+        $passResp = $send(base64_encode($smtp['pass']));
+        if (strpos($passResp, '235') !== 0) {
+            error_log("[Mailer] AUTH pass rejected: " . trim($passResp));
+            $send("QUIT");
+            fclose($sock);
+            return false;
         }
     }
 
