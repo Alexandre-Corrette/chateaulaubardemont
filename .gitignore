@@ -1,6 +1,7 @@
 # Build
 public/
 resources/
+static/build.txt
 
 # Dépendances
 node_modules/
