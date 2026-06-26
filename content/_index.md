@@ -1,6 +1,6 @@
 +++
 title = "Accueil"
-description = "Château de Laubardemont — lieu de réception pour mariages de 50 à 120 invités près de Bordeaux. Domaine privatisé, 60 couchages, sans limite d'heure."
+description = "Château de Laubardemont — lieu de réception pour mariages de 50 à 100 invités près de Bordeaux. Domaine privatisé, 60 couchages, sans limite d'heure."
 
 [[hero_slides]]
   image = "/images/vue-piscine-nv.jpg"
@@ -13,7 +13,7 @@ description = "Château de Laubardemont — lieu de réception pour mariages de 
 [[hero_slides]]
   image = "/images/chateau-reception.jpg"
   alt = "Salle de réception aux murs de pierre et lustres"
-  title = "Réception pour 50 à 120 invités"
+  title = "Réception pour 50 à 100 invités"
   subtitle = "Espaces modulables et prestigieux"
   cta_text = "Voir les espaces"
   cta_url = "/chateau/#la-reception"
@@ -62,7 +62,7 @@ description = "Château de Laubardemont — lieu de réception pour mariages de 
   
   [[infos.items]]
     label = "Invités"
-    value = "50 à 120 invités"
+    value = "50 à 100 invités"
     icon = "users"
   
   [[infos.items]]
@@ -77,7 +77,7 @@ description = "Château de Laubardemont — lieu de réception pour mariages de 
   
   [[infos.items]]
     label = "Prestataires"
-    value = "Libres, pas d'obligation"
+    value = "Libres"
     icon = "check"
 
 [citation]

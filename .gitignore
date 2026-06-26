@@ -1,6 +1,7 @@
 # Build
 public/
 resources/
+static/build.txt
 
 # Dépendances
 node_modules/
@@ -15,6 +16,9 @@ themes/laubardemont/static/css/styles.css
 # Système
 .DS_Store
 .hugo_build.lock
+
+# Claude Code (worktrees locaux, contient des secrets de déploiement)
+.claude/
 
 # Variables d'environement
 .env

@@ -6,7 +6,7 @@ layout = "faq"
 
 [[faq]]
   question = "Combien d'invités peut accueillir le château ?"
-  answer = "Le Château de Laubardemont accueille de 50 à 120 invités pour un dîner assis, en salle voutée ou en extérieur sous l'allée des tilleuls. Pour un cocktail, la capacité peut aller jusqu'à 150 personnes."
+  answer = "Le Château de Laubardemont accueille de 50 à 100 invités pour un dîner assis, en salle voutée ou en extérieur sous l'allée des tilleuls. Pour un cocktail, la capacité peut aller jusqu'à 150 personnes."
 
 [[faq]]
   question = "Combien de couchages sont disponibles sur place ?"

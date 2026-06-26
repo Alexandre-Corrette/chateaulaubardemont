@@ -1,7 +1,7 @@
 +++
 title = "Mariage au Château de Laubardemont"
-subtitle = "Votre réception de rêve en Gironde, de 50 à 120 invités"
-description = "Organisez votre mariage au Château de Laubardemont près de Bordeaux : domaine privatisé, 60 couchages, salle voutée 120 convives, parc d'1 hectare, sans limite d'heure."
+subtitle = "Votre réception de rêve en Gironde, de 50 à 100 invités"
+description = "Organisez votre mariage au Château de Laubardemont près de Bordeaux : domaine privatisé, 60 couchages, salle voutée 100 convives, parc d'1 hectare, sans limite d'heure."
 layout = "sections"
 
 [hero]
@@ -22,11 +22,11 @@ Vous disposez de la **totalité du château**, des jardins, de la terrasse et de
 """
 
 [[sections]]
-  title = "Réception de 50 à 120 invités"
+  title = "Réception de 50 à 100 invités"
   anchor = "reception"
   image = "images/chateau-reception.jpg"
   content = """
-La **salle de réception voutée** en pierre de taille accueille jusqu'à **120 convives** pour un dîner élégant. Pour les beaux jours, l'**allée des tilleuls centenaires** se transforme en cathédrale végétale pour vos dîners champêtres.
+La **salle de réception voutée** en pierre de taille accueille jusqu'à **100 convives** pour un dîner élégant. Pour les beaux jours, l'**allée des tilleuls centenaires** se transforme en cathédrale végétale pour vos dîners champêtres.
 
 La **terrasse de 200 m²** offre un salon à ciel ouvert pour dîner sous les étoiles. Tables, chaises, vaisselle, salons de jardin : tout est mis à votre disposition. **Aucune limite d'heure** en intérieur comme en extérieur — la fête s'arrête quand vous le décidez.
 """

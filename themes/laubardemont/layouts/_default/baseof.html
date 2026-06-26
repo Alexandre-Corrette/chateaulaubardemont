@@ -5,7 +5,19 @@
 </head>
 <body class="bg-stone-100">
 
-  <header>
+  {{/* Burger toggle — au top level du body */}}
+  <input id="burger-toggle" class="burger-toggle" type="checkbox" />
+  <label class="burger-overlay" for="burger-toggle" aria-hidden="true"></label>
+  <nav class="burger-panel" aria-label="Navigation mobile">
+    <label class="burger-close" for="burger-toggle" aria-label="Fermer le menu">×</label>
+    <ul>
+      {{ range .Site.Menus.main }}
+      <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+      {{ end }}
+    </ul>
+  </nav>
+
+  <header class="relative z-50">
     {{ partial "header.html" . }}
   </header>
 

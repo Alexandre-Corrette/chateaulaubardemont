@@ -35,8 +35,24 @@ theme = 'laubardemont'
   logo = "/images/logo/logo.png"
   propertyName = "Château de Laubardemont"
   slogan = "Weddings, Events and Luxury Vacations"
+  footerDescription = "Un écrin du XVIIe siècle pour vos réceptions d'exception. Mariages, séminaires et événements privés au cœur de la Gironde."
+  heroImage = "images/chateau-facade.jpg"
+  googleMapsUrl = "https://www.google.com/maps/place/Ch%C3%A2teau+de+Laubardemont"
+  priceRange = "€€€"
+  maximumAttendeeCapacity = 100
 
   google_rating = "4.9"
+
+[params.address]
+  street = "537 Route de Laubardemont"
+  city = "Sablons"
+  postalCode = "33910"
+  region = "Nouvelle-Aquitaine"
+  country = "FR"
+
+[params.geo]
+  latitude = 44.9833
+  longitude = -0.1833
 
 [[params.avis]]
     author = "Marie & Thomas"
@@ -58,7 +74,7 @@ theme = 'laubardemont'
   
 
 [params.contact]
-  address = "Laubardemont<br>33910 Sablons"
+  address = "Laubardemont<br>537 Route de Laubardemont<br>33910 Sablons"
   phone = "06 88 84 39 64"
   email = "contact@chateau-laubardemont.com"
 

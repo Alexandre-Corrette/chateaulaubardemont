@@ -11,30 +11,32 @@
     },
     {
       "@type": ["LocalBusiness", "EventVenue"],
-      "name": "Château de Laubardemont",
+      "name": "{{ site.Params.propertyName }}",
       "description": "{{ .Params.description }}",
       "url": "{{ site.BaseURL }}",
       "telephone": "+33{{ site.Params.contact.phone | replaceRE `^0` `` | replaceRE ` ` `` }}",
       "email": "{{ site.Params.contact.email }}",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Laubardemont",
-        "addressLocality": "Sablons",
-        "postalCode": "33910",
-        "addressCountry": "FR"
+        "streetAddress": "{{ site.Params.address.street | default "" }}",
+        "addressLocality": "{{ site.Params.address.city | default "" }}",
+        "postalCode": "{{ site.Params.address.postalCode | default "" }}",
+        "addressCountry": "{{ site.Params.address.country | default "FR" }}"
       },
+      {{ with site.Params.geo }}
       "geo": {
         "@type": "GeoCoordinates",
-        "latitude": 44.9833,
-        "longitude": -0.1833
+        "latitude": {{ .latitude }},
+        "longitude": {{ .longitude }}
       },
-      "image": "{{ (resources.Get "images/chateau-facade.jpg").Permalink }}",
+      {{ end }}
+      {{ with site.Params.heroImage }}"image": "{{ (resources.Get .).Permalink }}",{{ end }}
       "sameAs": [
         {{ with site.Params.social.instagram }}"{{ . }}"{{ end }}{{ with site.Params.social.facebook }},
         "{{ . }}"{{ end }}
       ],
-      "priceRange": "€€€",
-      "maximumAttendeeCapacity": 120
+      "priceRange": "{{ site.Params.priceRange | default "€€€" }}"
+      {{ with site.Params.maximumAttendeeCapacity }},"maximumAttendeeCapacity": {{ . }}{{ end }}
       {{ with site.Params.google_rating }},
       "aggregateRating": {
         "@type": "AggregateRating",
@@ -68,18 +70,18 @@
 {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "name": "Château de Laubardemont",
+  "name": "{{ site.Params.propertyName }}",
   "description": "{{ .Params.description }}",
   "url": "{{ site.BaseURL }}",
   "telephone": "+33{{ site.Params.contact.phone | replaceRE `^0` `` | replaceRE ` ` `` }}",
   "email": "{{ site.Params.contact.email }}",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "Laubardemont",
-    "addressLocality": "Sablons",
-    "postalCode": "33910",
-    "addressRegion": "Nouvelle-Aquitaine",
-    "addressCountry": "FR"
+    "streetAddress": "{{ site.Params.address.street | default "" }}",
+    "addressLocality": "{{ site.Params.address.city | default "" }}",
+    "postalCode": "{{ site.Params.address.postalCode | default "" }}",
+    "addressRegion": "{{ site.Params.address.region | default "" }}",
+    "addressCountry": "{{ site.Params.address.country | default "FR" }}"
   },
   "contactPoint": {
     "@type": "ContactPoint",
