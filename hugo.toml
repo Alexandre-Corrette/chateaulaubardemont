@@ -44,7 +44,7 @@ theme = 'laubardemont'
   google_rating = "4.9"
 
 [params.address]
-  street = "Laubardemont"
+  street = "537 Route de Laubardemont"
   city = "Sablons"
   postalCode = "33910"
   region = "Nouvelle-Aquitaine"

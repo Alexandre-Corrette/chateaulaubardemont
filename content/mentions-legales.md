@@ -7,7 +7,7 @@ description = "Mentions légales du site Château de Laubardemont : éditeur, h�
 ## Éditeur du site
 
 **Château de Laubardemont**
-Laubardemont, 33910 Sablons
+537 Route de Laubardemont, 33910 Sablons
 Téléphone : 06 88 84 39 64
 Email : contact@chateau-laubardemont.com
 
@@ -50,4 +50,4 @@ Pour toute question concernant ces mentions légales, vous pouvez nous contacter
 
 - **Email** : contact@chateau-laubardemont.com
 - **Téléphone** : 06 88 84 39 64
-- **Adresse** : Laubardemont, 33910 Sablons
+- **Adresse** : 537 Route de Laubardemont, 33910 Sablons

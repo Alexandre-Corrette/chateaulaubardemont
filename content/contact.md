@@ -5,7 +5,7 @@ description = "Contactez le Château de Laubardemont pour organiser votre mariag
 layout = "contact"
 
 [coordonnees]
-  adresse = "Château de Laubardemont<br>33910 Sablons"
+  adresse = "Château de Laubardemont<br>537 Route de Laubardemont<br>33910 Sablons"
   telephone = "06 88 84 39 64"
   email = "contact@chateau-laubardemont.com"
 +++

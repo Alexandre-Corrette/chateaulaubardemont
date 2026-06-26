@@ -1,7 +1,7 @@
 +++
 title = "Le Château"
 subtitle = "Un écrin du XVIIe siècle pensé pour vos célébrations"
-description = "Découvrez le Château de Laubardemont : bâtisse du XVIe siècle, salle voutée de 120 convives, 60 couchages avec salle de bain privative et un hectare de jardins."
+description = "Découvrez le Château de Laubardemont : bâtisse du XVIe siècle, salle voutée de 100 convives, 60 couchages avec salle de bain privative et un hectare de jardins."
 layout = "sections"
 
 [hero]
@@ -98,7 +98,7 @@ Les pierres blondes du Libournais, les hautes fenêtres ouvertes sur les jardins
   content = """
 Le domaine vous offre une liberté rare : celle de composer votre célébration selon vos envies, dans des espaces d'exception qui s'adaptent à chaque moment de votre journée.
 
-Sous les arches en pierre de taille de la salle voutée, accueillez jusqu'à 120 convives pour un dîner élégant. Sous l'allée majestueuse des tilleuls, une cathédrale végétale pour vos dîners champêtres. Sur la terrasse de 200 m², un salon à ciel ouvert pour dîner sous les étoiles. Tables, chaises, vaisselle, salons de jardin : tout est mis à votre disposition pour que vous n'ayez qu'à profiter.
+Sous les arches en pierre de taille de la salle voutée, accueillez jusqu'à 100 convives pour un dîner élégant. Sous l'allée majestueuse des tilleuls, une cathédrale végétale pour vos dîners champêtres. Sur la terrasse de 200 m², un salon à ciel ouvert pour dîner sous les étoiles. Tables, chaises, vaisselle, salons de jardin : tout est mis à votre disposition pour que vous n'ayez qu'à profiter.
 """
 
   [[sections.gallery]]
