@@ -95,8 +95,9 @@ description = "Château de Laubardemont — lieu de réception pour mariages de 
     description = "Apéro, repas, brunch — une cuisine conviviale et généreuse, servie au cœur du domaine."
 
   [[partenaires.items]]
-    name = "Le Prieuré"
-    description = "Apéro, repas, brunch — une cuisine raffinée pour sublimer votre événement."
+    name = "Nonna"
+    logo = "images/partenaires/nonna-trattoria.png"
+    description = "Trattoria italienne — aperitivo, antipasti, pâtes, pizzas et dolci, une cuisine généreuse pour régaler vos invités."
 +++
 
 

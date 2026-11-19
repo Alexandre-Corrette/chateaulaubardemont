@@ -46,6 +46,15 @@
           </a>
           {{ end }}
         </div>
+
+        {{/* Badge Lieux de retraites — lien référent (UTM) vers notre fiche.
+             rel="noopener" : empêche la page ouverte de manipuler window.opener
+             (reverse tabnabbing). Styles dans main.css (.ldr-badge). */}}
+        <div class="mt-8">
+          <a href="https://lieuxderetraites.fr/?utm_source=badge&amp;utm_medium=referral" title="Voir ce lieu sur Lieux de retraites" target="_blank" rel="noopener" class="inline-block">
+            <img src="https://lieuxderetraites.fr/badges/ldr-transparent.webp" alt="À retrouver sur lieuxderetraites.fr" width="300" loading="lazy" decoding="async" referrerpolicy="strict-origin-when-cross-origin" class="ldr-badge" />
+          </a>
+        </div>
       </div>
 
       {{/* Navigation */}}

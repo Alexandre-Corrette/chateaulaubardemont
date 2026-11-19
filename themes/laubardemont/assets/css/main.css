@@ -512,3 +512,16 @@ body:has(.burger-toggle:checked) .burger-line::after{
   .section-lightbox__nav--next { right: 0.25rem; }
 }
 
+
+/* ==========================================================================
+   Badge « Lieux de retraites » (footer)
+   Styles sortis du HTML (pas de style inline) : bordure nulle, largeur
+   300px max, et réduction automatique sur petits écrans.
+   ========================================================================== */
+.ldr-badge {
+  display: block;
+  border: 0;
+  width: 300px;
+  max-width: 100%;
+  height: auto;
+}
